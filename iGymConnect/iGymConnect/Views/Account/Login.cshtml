@@ -1,8 +1,81 @@
-﻿
+﻿@model BusinessLogic.ObjectModel.OMUser
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Login</h2>
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetUser</title>
+    <link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet" />
+
+
+</head>
+<body>
+
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form Horizontal" }))
+    {
+        <div align="center">
+            <div style="shape-margin:initial ; border:thick; background-color:darkgrey">
+                <div align="center" style="width:530px;height:250px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-bottom:0px;float:center; background-color:lightgrey">
+                    <img src="~/Images/login12.png" height="200" width="370" />
+                    <!-- <h2 align="center" style="border:thick; font-family:'Times New Roman'"> USER LOGIN  </h2>
+                    -->
+                    <div class="col-sm-10">
+                        <div class="form-group" style="font-family:'Times New Roman'">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+                                @*<input type="email" class="form-control" id="inputEmail3" placeholder="Email">*@
+                                @Html.TextBoxFor(x => x.username, new { @class = "form-control", @placeholder = "Email" })
+
+                            </div>
+                        </div>
+                        <div class="form-group" style="font-family:'Times New Roman'">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                                @*<input type="password" class="form-control" id="inputPassword3" placeholder="Password">*@
+                                @Html.PasswordFor(x => x.pwd, new { @class = "form-control", @placeholder = "Password" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox" style="font-family:'Times New Roman'">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="font-family:'Times New Roman'">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Sign in</button>
+                                <button type="reset" class="btn btn-default"> Clear </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width:1345px;height:400px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-bottom:15px;float:center;background-color:lightgrey">
+                </div>
+            </div>
+
+        </div>
+
+           
+
+
+    }
+
+
+
+
+
+</body>
+</html>
+
+<script src="@Url.Content("~/scripts/jquery-1.8.2.min.js")"></script>
+
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>

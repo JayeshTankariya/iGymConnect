@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessLogic.ObjectModel;
+using BusinessLogic.UserMag;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +14,19 @@ namespace iGymConnect.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Login(OMUser model)
+        {
+            if (BUser.GetByUserNameAndPassword(model).Count > 0)
+            {
+                return RedirectToAction("MembershipView", "MamberShip");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            //  return View();
         }
     }
 }

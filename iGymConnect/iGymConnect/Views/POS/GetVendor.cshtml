@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "GetVendor";
+}
+<link href="@Url.Content("~/Content/bootstrap-theme.min.css")" rel="stylesheet" />
+
+<h2>GetVendor</h2>
+
+@using (Html.BeginForm("GetVendor", "POS", FormMethod.Post))
+{
+
+@* New Section // *** vendor ***// *@
+<div id="myVendor">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        VENDORS
+    </button>
+
+    <!-- Modal -->
+    
+</div>
+}
+
+<script src="@Url.Content("~/Content/js/jquery-1.8.2.min.js")"></script>
+
+@*<script src="@Url.Content("~/Content/")"></script>*@
+
+<script src="@Url.Content("~/Content/js/bootstrap.min.js")"></script>
+

@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "GetCategory";
+}
+
+<link href="@Url.Content("~/Content/bootstrap-theme.min.css")" rel="stylesheet" />
+
+
+@using (Html.BeginForm("GetCategory", "POS", FormMethod.Post))
+{
+    <div>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            CATEGORY
+        </button>
+@******************INVENTORY************************@
+        <div>
+            <div class="row col-lg-2">
+                <div style="width:200px;height:550px;overflow-x:scroll;">
+                    <table class="table table-bordered table-striped nav navbar">
+                        <thead>
+                            <tr align="center">
+                                <th>ITEMS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td></tr>
+                            <tr><td>2</td></tr>
+                            <tr><td>3</td></tr>
+                            <tr><td>4</td></tr>
+                            <tr><td>5</td></tr>
+                            <tr><td>6</td></tr>
+                            <tr><td>7</td></tr>
+                            <tr><td>8</td></tr>
+                            <tr><td>9</td></tr>
+                            <tr><td>10</td></tr>
+                            <tr><td>11</td></tr>
+                            <tr><td>12</td></tr>
+                            <tr><td>13</td></tr>
+                            <tr><td>14</td></tr>
+                            <tr><td>15</td></tr>
+                            <tr><td>16</td></tr>
+                            <tr><td>17</td></tr>
+                            <tr><td>18</td></tr>
+                            <tr><td>19</td></tr>
+                            <tr><td>20</td></tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row col-lg-10" >
+                <div>
+                    <div >
+                        <form>
+                            <div class="form-group">
+                                <ul >
+                                    <li class="nav navbar"><a href="#"><label for="exampleInputEmail1">Item</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Item"></a></li>
+                                
+                                    <li class="nav navbar"><a href="#"><label for="exampleInputEmail2">Vendor</label>
+                                    <div class="dropdown">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    Select Vendor
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                    <li><a href="#">Medicines</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">Clothes</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">Equipments</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">Footwear</a></li>
+
+                                                </ul>
+                                            </div></a></li>
+                                </ul>
+                                
+                                @*<input type="text" class="form-control" id="exampleInputEmail2">*@
+                            </div>
+
+                            <div class="form-group">
+                              <ul>  <li class="nav navbar">
+                                    <a href="#">
+                                        <label for="exampleInputEmail2">Decription</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Description of the Item">
+                                    </a></li></ul>
+                            </div>
+
+                            <div class="form-group">
+                                <ul>
+                                    <li class="nav navbar">
+                                        <a href="#">
+                                            <label for="exampleInputEmail2">Category</label>
+                                            <input type="number" class="form-control" id="exampleInputEmail2" placeholder="Select Date">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="form-group">
+                                <ul>
+                                    <li class="nav navbar">
+                                        <a href="#">
+                                            <label for="exampleInputEmail2">Cost</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Select Date">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="form-group">
+                                <ul>
+                                    <li class="nav navbar">
+                                        <a href="#">
+                                            <label for="exampleInputEmail2">Bracode</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Select Date">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"> Add New </button>
+                            <button type="button" class="btn btn-primary"> Update </button>
+                            <button type="button" class="btn btn-primary"> Delete </button>
+                            <button type="button" class="btn btn-primary"> View </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+   
+}
+
+<script src="@Url.Content("~/Content/js/jquery-1.8.2.min.js")"></script>
+
+@*<script src="@Url.Content("~/Content/")"></script>*@
+
+<script src="@Url.Content("~/Content/js/bootstrap.min.js")"></script>
+

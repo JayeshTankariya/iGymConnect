@@ -1,0 +1,109 @@
+﻿@model List<BusinessLogic.ObjectModel.OMCategory>
+<div class="modal fade" id="myCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> CATEGORIES </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Name
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var cat in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @cat.CategoryName
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="exampleInputName2">Category Name</label>
+                                <input type="text" class="form-control" id="txtName" placeholder="Enter Category">
+                                <span style="display:none" id="lblName">Please enter Name</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail2">Description</label>
+                                <input type="text" class="form-control" id="txtDesc" placeholder="Describe">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail2">Browse From</label>
+                                <input type="file" class="form-control" id="fImage">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2">Parent Category List</label>
+                                <div class="dropdown">
+                                    <select class="form-control">
+                                        @foreach (var cat in Model)
+                                        {
+                                            <option value="@cat.Id">
+                                                @cat.CategoryName
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Add New</button>
+                    <button type="button" id="btnCatSave" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-primary">Delete</button>
+                    <button type="button" class="btn btn-primary">View</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function CatValidation() {
+        var isSuccess = true;
+        if ($('#txtName').val().length == 0) {
+            $('#lblName').show();
+            isSuccess = false;
+        }
+        else {
+            $('#lblName').hide();
+        }
+        return isSuccess;
+    }
+    $(document).ready(function () {
+        $('#btnCatSave').on('click', function () {
+            if (CatValidation()) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveCategory","POS")',
+                    data: { CategoryName: $('#txtName').val(), Description: $('#txtDesc').val() },
+                    success: function (data) {
+                        if (data == "Success") {
+                            alert("Category Saved Successfully.");
+                        }
+                    }
+                });
+                //alert("After Ajax");
+            }
+        });
+    });
+</script>

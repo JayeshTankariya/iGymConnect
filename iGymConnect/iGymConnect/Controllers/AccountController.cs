@@ -18,11 +18,12 @@ namespace iGymConnect.Controllers
         [HttpPost]
         public ActionResult Login(OMUser model)
         {
-            if (BUser.GetByUserNameAndPassword(model).Count > 0)
+            var user = (BUser.GetByUserNameAndPassword(model).FirstOrDefault());
+            if(user != null)
             {
-               // Session["User"] = user;
-                // return RedirectToAction("Index", "Dashboard");
-               return RedirectToAction("MembershipView", "MamberShip");
+                Session["user_login"] = user;
+                 return RedirectToAction("Index", "Dashboard");
+               
             }
             else
             {

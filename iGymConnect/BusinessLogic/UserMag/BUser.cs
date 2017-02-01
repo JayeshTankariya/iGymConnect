@@ -10,18 +10,19 @@ namespace BusinessLogic.UserMag
 {
    public class BUser
     {
-        public static List<OMUser> GetByUserNameAndPassword(OMUser user)
+        public static List<OMUser> GetByUserNameAndPassword(OMUser user_login)
         {
             var userList = new List<OMUser>();
             using (var context = new UserLoginEntities1())
             {
                 userList = context.user_login
-                .Where(x => x.username == user.username && x.pwd == user.pwd)
                  .Select(x => new OMUser
                  {
-                     email = x.email,
+                     fname=x.fname,
+                     lname=x.lname,
                      username = x.username,
-                     pwd = x.pwd
+                     pwd = x.pwd,
+                     email = x.email
                  }).ToList();
             }
             return userList;

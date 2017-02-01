@@ -1,7 +1,7 @@
 ﻿@model BusinessLogic.ObjectModel.OMUser
 @{
     Layout = null;
-   // var user = (BusinessLogic.ObjectModel.OMUser)Session["User"];
+   var user = (BusinessLogic.ObjectModel.OMUser)Session["user_login"];
 }
 
 <!DOCTYPE html>
@@ -18,31 +18,20 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">IGym Connect</a>
             </div>
-
-
-
-
-
-
-
-
-
-
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">POS</a></li>
-                    <li><a href="#">Membership</a></li>
-                    <li><a href="#">CheckIn</a></li>
-                    <li><a href="#">Report</a></li>
+                    <li><a href="#">@Html.ActionLink("POS", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
+                    <li><a href="#">@Html.ActionLink("MEMBESHIP","MembershipView","MamberShip",null,new { @class = "btn" })</a></li>
+                    <li><a href="#">@Html.ActionLink("CHECK-IN", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
+                    <li><a href="#">@Html.ActionLink("REPORT", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                      @* @("Welcome"+ user.fname) *@ Welcome
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Update Profile</a></li>
-                            <li><a href="#">Change Password</a></li>
-                            <li><a href="#">Logout</a></li>
-                            
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@("Welcome "  + user.fname) 
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Update Profile</a></li>
+                                <li><a href="#">Change Password</a></li>
+                                <li><a href="#">Logout</a></li>   
                         </ul>
+                            
                     </li>
                 </ul>
             </div>

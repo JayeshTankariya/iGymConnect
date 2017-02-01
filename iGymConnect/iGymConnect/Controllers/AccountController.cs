@@ -20,7 +20,9 @@ namespace iGymConnect.Controllers
         {
             if (BUser.GetByUserNameAndPassword(model).Count > 0)
             {
-                return RedirectToAction("MembershipView", "MamberShip");
+               // Session["User"] = user;
+                // return RedirectToAction("Index", "Dashboard");
+               return RedirectToAction("MembershipView", "MamberShip");
             }
             else
             {

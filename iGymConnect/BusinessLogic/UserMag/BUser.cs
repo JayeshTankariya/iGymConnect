@@ -13,7 +13,7 @@ namespace BusinessLogic.UserMag
         public static List<OMUser> GetByUserNameAndPassword(OMUser user)
         {
             var userList = new List<OMUser>();
-            using (var context = new UserLoginEntities())
+            using (var context = new UserLoginEntities1())
             {
                 userList = context.user_login
                 .Where(x => x.username == user.username && x.pwd == user.pwd)

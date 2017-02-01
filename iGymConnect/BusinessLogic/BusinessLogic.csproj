@@ -39,6 +39,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.registration" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity.Design" />
@@ -52,8 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="ObjectModel\OMEmployee.cs" />
+    <Compile Include="ObjectModel\OMMember.cs" />
+    <Compile Include="ObjectModel\OMMembership.cs" />
     <Compile Include="ObjectModel\OMUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserMag\BEmployee.cs" />
+    <Compile Include="UserMag\BMember.cs" />
+    <Compile Include="UserMag\BMembership.cs" />
     <Compile Include="UserMag\BUser.cs" />
   </ItemGroup>
   <ItemGroup>

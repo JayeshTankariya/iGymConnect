@@ -1,0 +1,242 @@
+﻿
+@model List<BusinessLogic.ObjectModel.OMMember>
+
+
+<div class="modal fade" id="member" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Member Information</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table id="tblMember" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Name
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var mem in Model)
+                                    {
+                                        <tr data-memberid="@mem.MemberId">
+                                            <td>
+                                                @mem.MemberName
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <form id="frmmember" class="form-horizontal">
+                            <input type="hidden" class="form-control" id="memid" placeholder="Plz Enter The Name">
+                            <span style="display:none" id="lblmemName">Please enter Name</span>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"for="exampleInputFile">Member Image:</label>
+                                    <div class="col-xs-6">
+                                        <input type="file" id="txtmemimg">
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Member Name:</label>
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control" id="txtMembername">
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Gender:</label>
+                                <div class="col-sm-2">
+                                    <label class="radio-inline">
+                                        <input name="Gender" id="Gender"  type="radio" />Male
+                                    </label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="radio-inline">
+                                        <input name="gender"   type="radio" />Female
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Address:</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" id="txtAddress">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Line 2:</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" id="txtAddress2">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">City:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="txtCity">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">State:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="txtState">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Zip:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="Zip">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Phone #1:</label>
+                                <div class="col-xs-4">
+                                    <input class="form-control" placeholder="HOME" id="PhoneHome1">
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Phone #2:</label>
+                                <div class="col-xs-4">
+                                    <input class="form-control" placeholder="WORK" id="PhoneWork1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Email:</label>
+                                <div class="col-sm-8">
+                                    
+                                    <input type="text" class="form-control" id="txtEmail" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Note:</label>
+                                <div class="col-xs-3">
+                                    <textarea class="form-control" rows="3" id="txtNote"></textarea>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btnmemsave">Save</button>
+                        <button type="button" class="btn btn-primary" id="btnmemdelete">Delete</button>
+                        <button type="reset" class="btn btn-primary" id="btnmemreset">Clear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
+
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+
+
+<!--Validation Of Member-->
+
+<script>
+    function MemberValidation() {
+        var isSuccess = true;
+        if ($('#txtMembername').val().length == 0) {
+            $('#lblmemName').show();
+            isSuccess = false;
+        }
+        else {
+            $('#lblmemName').hide();
+        }
+        return isSuccess;
+    }
+
+    $(document).ready(function () {
+        $('#btnmemsave').on('click', function () {
+            if (MemberValidation()) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Save", "MamberShip")',
+                    data: {
+                        MemberId: $('#memid').val(),
+                        MemberImage: $('#txtmemimg').val(),
+                        MemberName: $('#txtMembername').val(),
+                        Gender: $('#Gender').is(':checked'),
+                        Address: $('#txtAddress').val(),
+                        Address2: $('#txtAddress2').val(),
+                        City: $('#txtCity').val(),
+                        State: $('#txtState').val(),
+                        Zip: $('#Zip').val(),
+                        PhoneHome1: $('#PhoneHome1').val(),
+                        PhoneWork1: $('#PhoneWork1').val(),
+                        Email: $('#txtEmail').val(),
+                        Note: $('#txtNote').val()
+                    },
+                    success: function (data) {
+                        $.each(data, function (index, element) {
+                            alert(element.MemberName);
+                        });
+                    }
+                });
+            }
+        });
+
+        $('#tblMember tbody tr').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ShowMemberDetails", "MamberShip")',
+                data: { MemberId: $(this).data('memberid') },
+                success: function (data) {
+                    if (data != null) {
+                        $('#memid').val(data.MemberId);
+                        $('#txtmemimg').val(data.MemberImage);
+                        $('#txtMembername').val(data.MemberName);
+                        $('#Gender').val(data.Gender);
+                        $('#txtAddress').val(data.Address);
+                        $('#txtAddress2').val(data.Address2);
+                        $('#txtCity').val(data.City);
+                        $('#txtState').val(data.State);
+                        $('#Zip').val(data.Zip);
+                        $('#PhoneHome1').val(data.PhoneHome1);
+                        $('#PhoneWork1').val(data.PhoneWork1);
+                        $('#txtEmail').val(data.Email);
+                        $('#txtNote').val(data.Note);
+
+                    }
+                }
+            });
+        });
+    
+    $('#btnmemreset').on('click', function () {
+        document.getElementById("frmmemship").reset();
+    });
+    $('#btnmemdelete').on('click', function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteMember", "MamberShip")',
+            data: {MemberId: $('#memid').val()},
+            success: function (data) {
+                var a = confirm("Are You Sure ?");
+                if (a == true)
+                {
+                    alert("Your Record Deleted Successfully");
+                }
+                else {
+                    alert("Record Not Deleted");
+                }
+
+            }
+        });
+    });
+ });
+
+</script>
+
+

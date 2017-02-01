@@ -1,0 +1,213 @@
+﻿@model List<BusinessLogic.ObjectModel.OMEmployee>
+
+<div class="modal fade" id="employee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><b>Employee Detail</b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table id="tblEmployee" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Name
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var emp in Model)
+                                    {
+                                        <tr data-employeeid="@emp.EmployeeId">
+                                            <td>
+                                                @emp.FullName
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <form id="frmemp" class="form-horizontal">
+                            <input type="hidden" class="form-control" id="txtEmployeeId">
+                            <span style="display:none" id="lblempName">Please enter Name</span>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">AdharCard Id:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="txtempAdharcardId">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Member Id:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="txtempMemberId">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Full Name:</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="txtFullname">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Address:</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="txtempAddress">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">City:</label>
+                                <div class="col-sm-5">
+                                    <input class="form-control" id="txtempCity">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">State:</label>
+                                <div class="col-sm-5">
+                                    <input class="form-control" id="txtempState">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Zip:</label>
+                                <div class="col-sm-5">
+                                    <input class="form-control" id="txtempZip">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Position:</label>
+                                <div class="col-sm-5">
+                                    <select id="txtPosition" class="form-control">
+                                        <option value="0">-- Select --</option>
+                                        <option value="1">Personal Trainer</option>
+                                        <option value="2">Daily Care</option>
+                                        <option value="3">Sales Person</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Hire Date:</label>
+                                <div class="col-sm-6">
+                                    <input type="datetime-local" class="form-control" id="txtHireDate">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Note:</label>
+                                <div class="col-xs-3">
+                                    <textarea id="txtempNote" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-primary" id="btnempsave">Save</button>
+                        <button type="button" class="btn btn-primary" id="btnempdelete">Delete</button>
+                        <button type="reset" class="btn btn-primary" value="Reset" id="btnempreset">Clear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+
+<!--Validation Of Employee-->
+
+<script>
+    function empValidation() {
+        var isSuccess = true;
+        if ($('#txtFullname').val().length == 0) {
+            $('#lblempName').show();
+            isSuccess = false;
+        }
+        else {
+            $('#lblempName').hide();
+        }
+        return isSuccess;
+    }
+
+    $(document).ready(function () {
+        $('#btnempsave').on('click', function () {
+            if (empValidation()) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveEmployee", "MamberShip")',
+                    data: {
+                        EmployeeId: $('#txtEmployeeId').val(),
+                        AdharcardId: $('#txtempAdharcardId').val(),
+                        MemberId: $('#txtempMemberId').val(),
+                        FullName: $('#txtFullname').val(),
+                        Address: $('#txtempAddress').val(),
+                        City: $('#txtempCity').val(),
+                        State: $('#txtempState').val(),
+                        Zip: $('#txtempZip').val(),
+                        Position: $('#txtPosition').val(),
+                        HireDate: $('#txtHireDate').val(),
+                        Note: $('#txtempNote').val()
+                    },
+                    success: function (data) {
+                        $.each(data, function (index, element) {
+                            alert(element.FullName);
+                        });
+                    }
+                });
+            }
+        });
+
+        $('#tblEmployee tbody tr').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ShowEmployeeDetails", "MamberShip")',
+                data: { EmployeeId: $(this).data('employeeid') },
+                success: function (data) {
+                    if (data != null) {
+                        $('#txtEmployeeId').val(data.EmployeeId);
+                        $('#txtempAdharcardId').val(data.AdharcardId);
+                        $('#txtempMemberId').val(data.MemberId);
+                        $('#txtFullname').val(data.FullName);
+                        $('#txtempAddress').val(data.Address);
+                        $('#txtempCity').val(data.City);
+                        $('#txtempState').val(data.State);
+                        $('#txtempZip').val(data.Zip);
+                        $('#txtPosition').val(data.Position);
+                        var myDate2 = new Date(data.HireDate.match(/\d+/)[0] * 1);
+                        $('#txtHireDate').val(myDate2.toISOString().replace('Z', ''));
+                        $('#txtempNote').val(data.Note);
+                    }
+                }
+            });
+        });
+        $('#btnempreset').on('click', function () {
+            document.getElementById("frmemp").reset();
+        });
+        $('#btnempdelete').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteEmployee", "MamberShip")',
+                data: { EmployeeId: $('#txtEmployeeId').val() },
+                success: function (data) {
+                    var a = confirm("Are You Sure ?");
+                    if (a == true) {
+                        alert("Your Record Deleted Successfully");
+                    }
+                    else {
+                        alert("Record Not Deleted");
+                    }
+
+                }
+            });
+        });
+    });
+</script>
+

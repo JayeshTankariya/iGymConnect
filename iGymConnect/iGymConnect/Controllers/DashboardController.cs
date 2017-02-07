@@ -27,5 +27,24 @@ namespace iGymConnect.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
+        //****************UserDetails**************//
+
+        public ActionResult GetUserDetail(OMUser usr)
+        {
+            var user = BUser.GetByUserNameAndPassword(usr);
+            return View("_UpdateProfile", user);
+        }
+        public ActionResult UpdateUser(OMUser usr)
+        {
+            var user = BUser.UpdateUser(usr);
+            return Json(user);
+        }
+
+        //***********Change Password***********//
+        public ActionResult Changepwd()
+        {
+            return View("_Changepassword");
+        }
     }
 }

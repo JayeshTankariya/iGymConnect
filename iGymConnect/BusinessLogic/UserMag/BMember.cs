@@ -32,6 +32,7 @@ namespace BusinessLogic.UserMag
                         PhoneWork1 = x.PhoneWork1.HasValue ? x.PhoneWork1.Value : 0,
                         Email = x.Email,
                         Note = x.Note,
+                        Membershiptypeid = x.Membershiptypeid.HasValue ? x.Membershiptypeid.Value:0,
                     }).ToList();
             }
             return MemberList;
@@ -41,28 +42,56 @@ namespace BusinessLogic.UserMag
         {
             var memberlist = new List<OMMember>();
             MemberMaster member = new MemberMaster();
-            member.MemberId = mem.MemberId;
-            member.MemberName = mem.MemberName;
-            member.MemberImage = mem.MemberImage;
-            member.Gender = mem.Gender;
-            member.Address = mem.Address;
-            member.Address2 = mem.Address2;
-            member.City = mem.City;
-            member.State = mem.State;
-            member.PhoneHome1 = mem.PhoneHome1;
-            member.PhoneWork1 = mem.PhoneWork1;
-            member.Email = mem.Email;
-            member.Note = mem.Note;
-            member.MemberId = mem.MemberId;
-            member.CreatedBy = 1;
-            member.Deleted = false;
-            member.DateCreated = DateTime.Now;
-
-            using (var m = new UserLoginEntities1())
+            if (mem.MemberId > 0)
             {
-                m.MemberMasters.Add(member);
-                m.SaveChanges();
-                memberlist = GetAllByMember();
+                using (var m = new UserLoginEntities1())
+                {
+                    member = m.MemberMasters.FirstOrDefault(x => x.MemberId == mem.MemberId);
+                    member.MemberName = mem.MemberName;
+                    member.MemberImage = mem.MemberImage;
+                    member.Gender = mem.Gender;
+                    member.Address = mem.Address;
+                    member.Address2 = mem.Address2;
+                    member.City = mem.City;
+                    member.State = mem.State;
+                    member.Zip = mem.Zip;
+                    member.PhoneHome1 = mem.PhoneHome1;
+                    member.PhoneWork1 = mem.PhoneWork1;
+                    member.Email = mem.Email;
+                    member.Note = mem.Note;
+                    member.Membershiptypeid = mem.Membershiptypeid;
+                    member.MemberId = mem.MemberId;
+                    member.CreatedBy = 1;
+                    member.Deleted = false;
+                    member.DateCreated = DateTime.Now;
+                    m.SaveChanges();
+                }
+            }
+            else
+            {
+                member.MemberName = mem.MemberName;
+                member.MemberImage = mem.MemberImage;
+                member.Gender = mem.Gender;
+                member.Address = mem.Address;
+                member.Address2 = mem.Address2;
+                member.City = mem.City;
+                member.State = mem.State;
+                member.Zip = mem.Zip;
+                member.PhoneHome1 = mem.PhoneHome1;
+                member.PhoneWork1 = mem.PhoneWork1;
+                member.Email = mem.Email;
+                member.Note = mem.Note;
+                member.Membershiptypeid = mem.Membershiptypeid;
+                member.MemberId = mem.MemberId;
+                member.CreatedBy = 1;
+                member.Deleted = false;
+                member.DateCreated = DateTime.Now;
+                using (var m = new UserLoginEntities1())
+                {
+                    m.MemberMasters.Add(member);
+                    m.SaveChanges();
+                    memberlist = GetAllByMember();
+                }
             }
             return memberlist;
         }
@@ -72,7 +101,7 @@ namespace BusinessLogic.UserMag
             using (var m = new UserLoginEntities1())
             {
                 var dlMember = m.MemberMasters.FirstOrDefault(x => x.MemberId == MemberId);
-                m.MemberMasters.Remove(dlMember);
+                dlMember.Deleted = true;
                 m.SaveChanges();
                 memberlist = GetAllByMember();
             }

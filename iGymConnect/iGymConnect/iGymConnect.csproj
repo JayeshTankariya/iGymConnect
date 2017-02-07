@@ -121,7 +121,22 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\MemberImg\1.png" />
+    <Content Include="Content\MemberImg\10.jpg" />
+    <Content Include="Content\MemberImg\11.jpg" />
+    <Content Include="Content\MemberImg\123.jpg" />
+    <Content Include="Content\MemberImg\2.jpg" />
+    <Content Include="Content\MemberImg\3.jpg" />
+    <Content Include="Content\MemberImg\345.jpg" />
+    <Content Include="Content\MemberImg\4.jpg" />
+    <Content Include="Content\MemberImg\5.jpg" />
+    <Content Include="Content\MemberImg\6jpg.jpg" />
+    <Content Include="Content\MemberImg\7.jpg" />
+    <Content Include="Content\MemberImg\8.jpg" />
+    <Content Include="Content\MemberImg\9.jpg" />
+    <Content Include="Content\MemberImg\abc.jpg" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\url.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -176,6 +191,8 @@
     <Content Include="Views\Shared\_Membership.cshtml" />
     <Content Include="Views\Shared\_Employee.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Shared\_UpdateProfile.cshtml" />
+    <Content Include="Views\Shared\_Changepassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

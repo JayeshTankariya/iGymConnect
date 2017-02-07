@@ -1,5 +1,7 @@
 ﻿@model List<BusinessLogic.ObjectModel.OMEmployee>
 
+
+
 <div class="modal fade" id="employee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -39,15 +41,21 @@
                             <input type="hidden" class="form-control" id="txtEmployeeId">
                             <span style="display:none" id="lblempName">Please enter Name</span>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">AdharCard Id:</label>
+                                <label class="col-sm-4 control-label"> Employee User Name:</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" id="txtempAdharcardId">
+                                    <input  class="form-control" id="txtEmpUserName">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">Member Id:</label>
+                                <label class="col-sm-4 control-label">Employee Password:</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" id="txtempMemberId">
+                                    <input type="password" class="form-control" id="txtEmpPassword">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">AdharCard Id:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="txtempAdharcardId">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -95,7 +103,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Hire Date:</label>
                                 <div class="col-sm-6">
-                                    <input type="datetime-local" class="form-control" id="txtHireDate">
+                                    <input type="datetime-local" class="form-control" id="txtEmpHireDate">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -145,21 +153,24 @@
                     url: '@Url.Action("SaveEmployee", "MamberShip")',
                     data: {
                         EmployeeId: $('#txtEmployeeId').val(),
+                        EmplUserName: $('#txtEmpUserName').val(),
+                        EmpPassword: $('#txtEmpPassword').val(),
                         AdharcardId: $('#txtempAdharcardId').val(),
-                        MemberId: $('#txtempMemberId').val(),
                         FullName: $('#txtFullname').val(),
                         Address: $('#txtempAddress').val(),
                         City: $('#txtempCity').val(),
                         State: $('#txtempState').val(),
                         Zip: $('#txtempZip').val(),
                         Position: $('#txtPosition').val(),
-                        HireDate: $('#txtHireDate').val(),
+                        HireDate: $('#txtEmpHireDate').val(),
                         Note: $('#txtempNote').val()
+                       
                     },
                     success: function (data) {
-                        $.each(data, function (index, element) {
-                            alert(element.FullName);
+                        $.each(data, function (index, element) {   
                         });
+                        
+                        document.getElementById("frmemp").reset();
                     }
                 });
             }
@@ -173,8 +184,9 @@
                 success: function (data) {
                     if (data != null) {
                         $('#txtEmployeeId').val(data.EmployeeId);
+                        $('#txtEmpUserName').val(data.EmplUserName);
+                        $('#txtEmpPassword').val(data.EmpPassword);
                         $('#txtempAdharcardId').val(data.AdharcardId);
-                        $('#txtempMemberId').val(data.MemberId);
                         $('#txtFullname').val(data.FullName);
                         $('#txtempAddress').val(data.Address);
                         $('#txtempCity').val(data.City);
@@ -182,7 +194,7 @@
                         $('#txtempZip').val(data.Zip);
                         $('#txtPosition').val(data.Position);
                         var myDate2 = new Date(data.HireDate.match(/\d+/)[0] * 1);
-                        $('#txtHireDate').val(myDate2.toISOString().replace('Z', ''));
+                        $('#txtEmpHireDate').val(myDate2.toISOString().replace('Z', ''));
                         $('#txtempNote').val(data.Note);
                     }
                 }
@@ -197,14 +209,17 @@
                 url: '@Url.Action("DeleteEmployee", "MamberShip")',
                 data: { EmployeeId: $('#txtEmployeeId').val() },
                 success: function (data) {
-                    var a = confirm("Are You Sure ?");
-                    if (a == true) {
+                    var a = confirm("Are You Sure ?????");
+                    if (a == true)
+                    {
                         alert("Your Record Deleted Successfully");
                     }
-                    else {
+                    else
+                    {
                         alert("Record Not Deleted");
                     }
-
+                    document.getElementById("frmemp").reset();
+                    
                 }
             });
         });

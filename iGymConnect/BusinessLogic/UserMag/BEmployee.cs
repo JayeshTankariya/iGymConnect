@@ -21,15 +21,14 @@ namespace BusinessLogic.UserMag
                     {
                         EmployeeId = x.EmployeeId,
                         AdharcardId = x.AdharcardId.HasValue ? x.AdharcardId.Value : 0,
-                        MemberId = x.MemberId.HasValue ? x.MemberId.Value : 0,
                         FullName = x.FullName,
                         Address = x.Address,
                         City = x.City,
                         State = x.State,
                         Zip = x.Zip.HasValue ? x.Zip.Value : 0,
                         Position = x.Position,
-                        HireDate=x.HireDate ?? DateTime.Now,
-                        Note=x.Note,
+                        HireDate = x.HireDate ?? DateTime.Now,
+                        Note = x.Note,
                     }).ToList();
             }
             return EmployeeList;
@@ -38,27 +37,58 @@ namespace BusinessLogic.UserMag
         {
             var employeelist = new List<OMEmployee>();
             EmployeeMaster employee = new EmployeeMaster();
-
-            employee.EmployeeId = emp.EmployeeId;
-            employee.AdharcardId = emp.AdharcardId;
-            employee.MemberId = emp.MemberId;
-            employee.FullName = emp.FullName;
-            employee.Address = emp.Address;
-            employee.City = emp.City;
-            employee.State = emp.State;
-            employee.Zip = emp.Zip;
-            employee.Position = emp.Position;
-            employee.HireDate = emp.HireDate;
-            employee.Note = emp.Note;
-            employee.CreatedBy = 1;
-            employee.Deleted = false;
-            employee.DateCreated = DateTime.Now;
-
-            using (var e = new UserLoginEntities1())
+            if (emp.EmployeeId > 0)
             {
-                e.EmployeeMasters.Add(employee);
-                e.SaveChanges();
-                employeelist = GetAllByEmployee();
+                using (var e = new UserLoginEntities1())
+                {
+
+                    employee.EmployeeId = emp.EmployeeId;
+                    employee.AdharcardId = emp.AdharcardId;
+                    employee.FullName = emp.FullName;
+                    employee.Address = emp.Address;
+                    employee.City = emp.City;
+                    employee.State = emp.State;
+                    employee.Zip = emp.Zip;
+                    employee.Position = emp.Position;
+                    employee.HireDate = emp.HireDate;
+                    employee.Note = emp.Note;
+                    employee.CreatedBy = 1;
+                    employee.Deleted = false;
+                    employee.DateCreated = DateTime.Now;
+                    e.SaveChanges();
+                }
+            }
+            else
+            {
+
+                employee.EmployeeId = emp.EmployeeId;
+                employee.AdharcardId = emp.AdharcardId;
+                employee.FullName = emp.FullName;
+                employee.Address = emp.Address;
+                employee.City = emp.City;
+                employee.State = emp.State;
+                employee.Zip = emp.Zip;
+                employee.Position = emp.Position;
+                employee.HireDate = emp.HireDate;
+                employee.Note = emp.Note;
+                employee.CreatedBy = 1;
+                employee.Deleted = false;
+                employee.DateCreated = DateTime.Now;
+                using (var e = new UserLoginEntities1())
+                {
+                    e.EmployeeMasters.Add(employee);
+                    e.SaveChanges();
+                    var curEmp = GetAllByEmployee().FirstOrDefault(x => x.FullName == emp.FullName);
+                    if (curEmp != null)
+                    {
+                        OMUser user = new OMUser();
+                        user.Employeeid = curEmp.EmployeeId;
+                        user.username = emp.EmplUserName;
+                        user.pwd = emp.EmpPassword;
+                        BUser.UpdateUser(user);
+                    }
+                    employeelist = GetAllByEmployee();
+                }
             }
             return employeelist;
         }
@@ -68,7 +98,7 @@ namespace BusinessLogic.UserMag
             using (var e = new UserLoginEntities1())
             {
                 var delemp = e.EmployeeMasters.FirstOrDefault(x => x.EmployeeId == EmployeeId);
-                e.EmployeeMasters.Remove(delemp);
+                delemp.Deleted = true;
                 e.SaveChanges();
                 employeelist = GetAllByEmployee();
             }

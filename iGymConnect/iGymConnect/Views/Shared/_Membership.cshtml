@@ -101,8 +101,10 @@
                     },
                     success: function (data) {
                         $.each(data, function (index, element) {
-                            alert(element.Description);
+                            
                         });
+                        
+                        document.getElementById("frmmemship").reset();
                     }
                 });
             }
@@ -147,6 +149,7 @@
                         else {
                             alert("Record Not Deleted");
                         }
+                        document.getElementById("frmmemship").reset();
 
                     }
                 });

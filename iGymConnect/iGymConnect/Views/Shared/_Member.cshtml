@@ -42,16 +42,19 @@
                             <span style="display:none" id="lblmemName">Please enter Name</span>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label"for="exampleInputFile">Member Image:</label>
-                                    <div class="col-xs-6">
-                                        <input type="file" class="form-control" id="txtmemimg">
+                                    <div class="col-sm-3">
+                                        <input type="file" class="form-control" id="txtbrwz">
                                     </div>
+                                <div class="col-xs-3">
+                                    <img id="img" style="width:150px; height:150px;" /><br />
+                                    <br />
+                                </div>
                                 </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Member Name:</label>
                                 <div class="col-xs-6">
                                     <input type="text" class="form-control" id="txtMembername">
                                 </div>
-
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Gender:</label>
@@ -121,8 +124,13 @@
                                     <textarea class="form-control" rows="3" id="txtNote"></textarea>
                                 </div>
                             </div>
-
-                        </form>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Description:</label>
+                                <div class="col-xs-3">
+                                    @Html.DropDownList("ddlmemship", new SelectList(ViewBag.membershiplist, "MembershipTypeId", "Description"), "-- Select --", new { @class = "form-control" })
+                                </div>
+                                </div>
+                              </form>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" id="btnmemsave">Save</button>
@@ -156,32 +164,58 @@
         }
         return isSuccess;
     }
-
     $(document).ready(function () {
+        $('#txtbrwz').change(function () {
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (this.files && this.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+            else {
+                $('#img').attr('src', '~/Content/MemberImg');
+            }
+        });
+
         $('#btnmemsave').on('click', function () {
-            if (MemberValidation()) {
+            var $file = document.getElementById('txtbrwz'),
+            $formData = new FormData();
+            
+            $formData.append('MemberName', $('#txtMembername').val());
+           //    $formData.append('MemberImage', $('#img'))
+            $formData.append('Gender', $('#Gender').is(':checked'));
+            $formData.append('Address', $('#txtAddress').val());
+            $formData.append('Address2', $('#txtAddress2').val());
+            $formData.append('City', $('#txtCity').val());
+            $formData.append('State', $('#txtState').val());
+            $formData.append('Zip', $('#Zip').val());
+            $formData.append('PhoneHome1', $('#PhoneHome1').val());
+            $formData.append('PhoneWork1', $('#PhoneWork1').val());
+            $formData.append('Email', $('#txtEmail').val());
+            $formData.append('Note', $('#txtNote').val());
+            $formData.append('Membershiptypeid', $('#ddlmemship').val());
+            if ($file.files.length > 0) {
+                $formData.append('file', $file.files[0]);
+            }
+
+           if (MemberValidation()) {
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("Save", "MamberShip")',
-                    data: {
-                        MemberId: $('#memid').val(),
-                        MemberImage: $('#txtmemimg').val(),
-                        MemberName: $('#txtMembername').val(),
-                        Gender: $('#Gender').is(':checked'),
-                        Address: $('#txtAddress').val(),
-                        Address2: $('#txtAddress2').val(),
-                        City: $('#txtCity').val(),
-                        State: $('#txtState').val(),
-                        Zip: $('#Zip').val(),
-                        PhoneHome1: $('#PhoneHome1').val(),
-                        PhoneWork1: $('#PhoneWork1').val(),
-                        Email: $('#txtEmail').val(),
-                        Note: $('#txtNote').val()
-                    },
+                    data: $formData, 
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
                     success: function (data) {
-                        $.each(data, function (index, element) {
-                            alert(element.MemberName);
-                        });
+                            $.each(data, function (index, element) {
+                            
+                            });
+                            
+                            document.getElementById("frmmember").reset();
                     }
                 });
             }
@@ -195,7 +229,8 @@
                 success: function (data) {
                     if (data != null) {
                         $('#memid').val(data.MemberId);
-                        $('#txtmemimg').val(data.MemberImage);
+                        var src1 = '@Url.Content("~/Content/MemberImg/")' + data.MemberImage;
+                        $('#img').attr('src', src1);
                         $('#txtMembername').val(data.MemberName);
                         $('#Gender').val(data.Gender);
                         $('#txtAddress').val(data.Address);
@@ -207,6 +242,7 @@
                         $('#PhoneWork1').val(data.PhoneWork1);
                         $('#txtEmail').val(data.Email);
                         $('#txtNote').val(data.Note);
+                        $('#ddlmemship').val(data.Membershiptypeid)
 
                     }
                 }
@@ -214,7 +250,7 @@
         });
     
     $('#btnmemreset').on('click', function () {
-        document.getElementById("frmmemship").reset();
+        document.getElementById("frmmember").reset();
     });
     $('#btnmemdelete').on('click', function () {
         $.ajax({
@@ -230,6 +266,7 @@
                 else {
                     alert("Record Not Deleted");
                 }
+                document.getElementById("frmmember").reset();
 
             }
         });

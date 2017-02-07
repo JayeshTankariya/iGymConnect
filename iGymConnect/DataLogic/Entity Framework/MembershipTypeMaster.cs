@@ -16,7 +16,7 @@ namespace DataLogic.Entity_Framework
     {
         public int MembershipTypeId { get; set; }
         public string Description { get; set; }
-        public System.DateTime ActiveDate { get; set; }
+        public Nullable<System.DateTime> ActiveDate { get; set; }
         public Nullable<System.DateTime> InActiveDate { get; set; }
         public bool Deleted { get; set; }
         public System.DateTime DateCreated { get; set; }

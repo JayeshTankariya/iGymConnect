@@ -18,6 +18,7 @@ namespace BusinessLogic.ObjectModel
 
         [Required(ErrorMessage = "Please enter username")]
         public string email { get; set; }
+        public int Employeeid { get; set; }
     }
 
 }

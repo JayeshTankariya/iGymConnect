@@ -19,7 +19,7 @@ namespace iGymConnect.Controllers
         public ActionResult Login(OMUser model)
         {
             var user = (BUser.GetByUserNameAndPassword(model).FirstOrDefault());
-            if(user != null)
+            if (user != null)
             {
                 Session["user_login"] = user;
                  return RedirectToAction("Index", "Dashboard");
@@ -29,7 +29,9 @@ namespace iGymConnect.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            //  return View();
+
+           
         }
+       
     }
 }

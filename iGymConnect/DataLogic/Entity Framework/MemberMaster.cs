@@ -26,6 +26,7 @@ namespace DataLogic.Entity_Framework
         public Nullable<int> PhoneHome1 { get; set; }
         public Nullable<int> PhoneWork1 { get; set; }
         public string Email { get; set; }
+        public Nullable<int> Membershiptypeid { get; set; }
         public string Note { get; set; }
         public bool Deleted { get; set; }
         public System.DateTime DateCreated { get; set; }

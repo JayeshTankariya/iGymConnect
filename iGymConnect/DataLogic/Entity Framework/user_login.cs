@@ -20,5 +20,6 @@ namespace DataLogic.Entity_Framework
         public string username { get; set; }
         public string pwd { get; set; }
         public string email { get; set; }
+        public Nullable<int> Employeeid { get; set; }
     }
 }

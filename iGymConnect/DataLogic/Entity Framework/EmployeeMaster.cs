@@ -16,7 +16,6 @@ namespace DataLogic.Entity_Framework
     {
         public int EmployeeId { get; set; }
         public Nullable<int> AdharcardId { get; set; }
-        public Nullable<int> MemberId { get; set; }
         public string FullName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }

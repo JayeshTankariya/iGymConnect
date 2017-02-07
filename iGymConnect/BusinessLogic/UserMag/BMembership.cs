@@ -21,7 +21,7 @@ namespace BusinessLogic.UserMag
                     {
                         MembershipTypeId=x.MembershipTypeId,
                         Description = x.Description,
-                        ActiveDate = x.ActiveDate,
+                        ActiveDate = x.ActiveDate ?? DateTime.Now,
                         InActiveDate = x.InActiveDate ?? DateTime.Now,
 
                     }).ToList();
@@ -30,37 +30,54 @@ namespace BusinessLogic.UserMag
         }
         public static List<OMMembership> SaveMemship(OMMembership memship)
         {
+
             var membershiplist = new List<OMMembership>();
             MembershipTypeMaster membership = new MembershipTypeMaster();
-            membership.MembershipTypeId = membership.MembershipTypeId;
-            membership.Description = memship.Description;
-            membership.ActiveDate = memship.ActiveDate;
-            membership.InActiveDate = memship.InActiveDate;
-            membership.CreatedBy = 1;
-            membership.Deleted = false;
-            membership.DateCreated = DateTime.Now;
-
-            using (var m = new UserLoginEntities1())
+            if (memship.MembershipTypeId > 0)
             {
-                m.MembershipTypeMasters.Add(membership);
-                m.SaveChanges();
-                membershiplist = GetAllByMembership();
+                using (var ms = new UserLoginEntities1())
+                {
+                    
+                    membership = ms.MembershipTypeMasters.FirstOrDefault(x => x.MembershipTypeId == memship.MembershipTypeId);
+                    membership.Description = memship.Description;
+                    membership.MembershipTypeId = memship.MembershipTypeId;
+                    membership.ActiveDate = memship.ActiveDate;
+                    membership.InActiveDate = memship.InActiveDate;
+                    membership.CreatedBy = 1;
+                    membership.Deleted = false;
+                    membership.DateCreated = DateTime.Now;
+                    ms.SaveChanges();
+                }
             }
-            return membershiplist;
+            else
+            {
+                membership.MembershipTypeId = memship.MembershipTypeId;
+                membership.Description = memship.Description;
+                membership.ActiveDate = memship.ActiveDate;
+                membership.InActiveDate = memship.InActiveDate;
+                membership.CreatedBy = 1;
+                membership.Deleted = false;
+                membership.DateCreated = DateTime.Now;
+                using (var ms = new UserLoginEntities1())
+                {
+                    ms.MembershipTypeMasters.Add(membership);
+                    ms.SaveChanges();
+                    membershiplist = GetAllByMembership();
+                }
+            }
+            return membershiplist;   
         }
         public static List<OMMembership> Deletememship(int MembershipTypeId)
         {
             var membershiplist = new List<OMMembership>();
 
-            using (var v = new UserLoginEntities1())
+            using (var ms = new UserLoginEntities1())
             {
-                var dlmemship = v.MembershipTypeMasters.FirstOrDefault(x => x.MembershipTypeId == MembershipTypeId);
-                v.MembershipTypeMasters.Remove(dlmemship);
-                v.SaveChanges();
+                var dlmemship = ms.MembershipTypeMasters.FirstOrDefault(x => x.MembershipTypeId == MembershipTypeId);
+                dlmemship.Deleted = true;
+                ms.SaveChanges();
                 membershiplist = GetAllByMembership();
             }
-
-
             return membershiplist;
         }
     }

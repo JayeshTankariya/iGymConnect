@@ -16,17 +16,34 @@ namespace iGymConnect.Controllers
             return View();
         }
 
+
+
         //************Member****************
 
         public ActionResult GetMember()
         {
+
             var members = BMember.GetAllByMember();
+            var abc = BMembership.GetAllByMembership().ToList();
+            ViewBag.membershiplist = abc;
             return View("_Member", members);
+
         }
-        public ActionResult Save(OMMember member)
+
+        [HttpPost]
+        public ActionResult Save(OMMember mem, HttpPostedFileBase file)
         {
-            var mem = BMember.Save(member);
-            return Json(mem);
+
+            if (file.ContentLength > 0)
+            {
+                var fileName = file.FileName;
+                var path = Server.MapPath("~/Content/MemberImg") + fileName;
+                file.SaveAs(path);
+
+            }
+            mem.MemberImage = file.FileName;
+            var member = BMember.Save(mem);
+            return Json(member);
         }
         public ActionResult ShowMemberDetails(int MemberId)
         {
@@ -40,7 +57,10 @@ namespace iGymConnect.Controllers
         }
 
 
-        //**********MemberShip**************
+
+
+
+        //**********MemberShip**************//
 
         public ActionResult GetMembership()
         {
@@ -64,6 +84,9 @@ namespace iGymConnect.Controllers
             return Json(memship);
         }
 
+
+
+
         //***************Employee***************
 
         public ActionResult GetEmployee()
@@ -71,13 +94,13 @@ namespace iGymConnect.Controllers
             var emp = BEmployee.GetAllByEmployee();
             return View("_Employee", emp);
         }
-
-       public ActionResult SaveEmployee(OMEmployee emp)
+       [HttpPost]
+        public ActionResult SaveEmployee(OMEmployee emp)
         {
             var employee = BEmployee.SaveEmployee(emp);
             return Json(employee);
         }
-        public ActionResult ShowEmployeeDetails(int EmployeeId)                                                                                   
+        public ActionResult ShowEmployeeDetails(int EmployeeId)
         {
             var emp = BEmployee.GetAllByEmployee().FirstOrDefault(x => x.EmployeeId == EmployeeId);
             return Json(emp, JsonRequestBehavior.AllowGet);
@@ -87,5 +110,9 @@ namespace iGymConnect.Controllers
             var emp = BEmployee.Deleteemp(EmployeeId);
             return Json(emp);
         }
+
+
+
+
     }
 }

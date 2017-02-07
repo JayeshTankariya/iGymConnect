@@ -10,7 +10,6 @@ namespace BusinessLogic.ObjectModel
     {
         public int EmployeeId { get; set; }
         public int AdharcardId { get; set; }
-        public int MemberId { get; set; }
         public string FullName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
@@ -25,5 +24,7 @@ namespace BusinessLogic.ObjectModel
         public DateTime DateUpdated { get; set; }
         public int Updated { get; set; }
 
+        public string EmplUserName { get; set; }
+        public string EmpPassword { get; set; }
     }
 }

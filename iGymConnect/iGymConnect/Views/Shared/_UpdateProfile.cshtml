@@ -1,0 +1,69 @@
+﻿@model List<BusinessLogic.ObjectModel.OMUser>
+
+@{
+    var user = (BusinessLogic.ObjectModel.OMUser)Session["user_login"];
+}
+
+<div id="Updateprofile" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h1 class="modal-title" id="myModalLabel">Update Profile</h1>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="frmUser">
+                        <input type="hidden" class="form-control" id="userid" placeholder="Plz Enter The Name" value="@(""+ user.id) ">
+                        <span style="display:none" id="lblFName">Please enter Name</span>
+                    <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label">First Name:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control " id="txtFName" value="@(""+ user.fname) " placeholder="Enter The First Name">
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input" class="col-sm-4 control-label">Last Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" width="100" class="form-control" id="txtLName" value="@(""+ user.lname )" placeholder="Enter The Last Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input" class="col-sm-4 control-label">User Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="txtUName" value="@(""+ user.username )" placeholder="Enter User Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input" class="col-sm-4 control-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control " id="txtEmailId" value="@(""+user.email )" placeholder="Enter Email Id">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnEdit">Edit</button>
+                <button type="button" class="btn btn-primary " data-dismiss="modal" id="btnClr">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function UserValidation() {
+        var isSuccess = true;
+        if ($('#txtFName').val().length == 0) {
+            $('#lblFName').show();
+            isSuccess = false;
+        }
+        else {
+            $('#lblFName').hide();
+        }
+        return isSuccess;
+    }
+
+</script>
+<script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
+
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>

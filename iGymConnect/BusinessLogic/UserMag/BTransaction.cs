@@ -13,7 +13,7 @@ namespace BusinessLogic.UserMag
         public static List<OMTransaction> GetAllTransaction()
         {
             var TranList = new List<OMTransaction>();
-            using (var context = new UserLoginEntities2())
+            using (var context = new iGymConnectEntities())
             {
                 TranList = context.TransactionMasters
                     .Select(x => new OMTransaction
@@ -32,7 +32,7 @@ namespace BusinessLogic.UserMag
         public static List<OMTransactionChild> GetTrasactionChild(int parentId)
         {
             var TranList = new List<OMTransactionChild>();
-            using (var context = new UserLoginEntities2())
+            using (var context = new iGymConnectEntities())
             {
                 TranList = context.TransactionChilds.Where(x => x.TransactionMasterId == parentId)
                     .Select(x => new OMTransactionChild
@@ -52,7 +52,7 @@ namespace BusinessLogic.UserMag
             TransactionMaster tranMas = new TransactionMaster();
             if (tran.Id > 0)
             {
-                using (var t = new UserLoginEntities2())
+                using (var t = new iGymConnectEntities())
                 {
                     tranMas = t.TransactionMasters.FirstOrDefault(x => x.Id == tranMas.Id);
                     //tranMas.Id = tran.Id;
@@ -83,7 +83,7 @@ namespace BusinessLogic.UserMag
                 tranMas.TransactionDateTime = DateTime.Now;
                 tranMas.TransactionMode = tran.TransactionMode;
                 tranMas.Remarks = tran.Remarks;
-                using (var t = new UserLoginEntities2())
+                using (var t = new iGymConnectEntities())
                 {
                     t.TransactionMasters.Add(tranMas);
                     t.SaveChanges();
@@ -91,7 +91,7 @@ namespace BusinessLogic.UserMag
             }
             tranlist = GetAllTransaction();
             var lastInserted = tranlist.OrderByDescending(x => x.Id).FirstOrDefault();
-            using (var t = new UserLoginEntities2())
+            using (var t = new iGymConnectEntities())
             {
                 for (var _items = 0; _items < tran.Items.Count; _items++)
                 {

@@ -19,12 +19,12 @@
                 <a class="navbar-brand" href="#"><h4></h4>IGym Connect</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">@Html.ActionLink("POS", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
+                <li><a href="#">@Html.ActionLink("POS", "GetInventory", "POS", null, new { @class = "btn" })</a></li>
                 <li><a href="#">@Html.ActionLink("MEMBESHIP", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
                 <li><a href="#">@Html.ActionLink("CHECK-IN", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
                 <li><a href="#">@Html.ActionLink("REPORT", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
                 <li class="dropdown">
-                    <a href="#" class="nav-navbar dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@("Welcome " + user.fname) </a>
+                    <a href="#" class="nav-navbar dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@("Welcome " + user.FirstName) </a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#" class="col-xs-2" data-toggle="modal" data-target="#Updateprofile">Update Profile</a>

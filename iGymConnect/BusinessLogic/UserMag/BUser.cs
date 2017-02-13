@@ -18,7 +18,7 @@ namespace BusinessLogic.UserMag
                 userList = context.UserLogins
                  .Select(x => new OMUser
                  {
-                     FirstName = x.fname,
+                     FirstName = x.FirstName,
                      LastName = x.LastName,
                      Username = x.Username,
                      Password = x.Password,
@@ -58,24 +58,24 @@ namespace BusinessLogic.UserMag
                 using (var u = new iGymConnectEntities())
                 {
                     usr.Id = user.Id;
-                    usr.fname = user.fname;
-                    usr.lname = user.lname;
-                    usr.username = user.username;
-                    usr.email = user.email;
-                    usr.pwd = user.pwd;
+                    usr.FirstName = user.FirstName;
+                    usr.LastName = user.LastName;
+                    usr.Username = user.Username;
+                    usr.EmailId = user.EmailId;
+                    usr.Password = user.Password;
                     usr.Employeeid = user.Employeeid;
                     u.SaveChanges();
                 }
             }
             else
             {
-                usr.id = user.id;
-                usr.fname = user.fname;
-                usr.lname = user.lname;
-                usr.username = user.username;
-                usr.email = user.email;
+                usr.Id = user.Id;
+                usr.FirstName = user.FirstName;
+                usr.LastName = user.LastName;
+                usr.Username = user.Username;
+                usr.EmailId = user.EmailId;
+                usr.Password = user.Password;
                 usr.Employeeid = user.Employeeid;
-                usr.pwd = user.pwd;
                 using (var u = new iGymConnectEntities())
                 {
                     u.UserLogins.Add(usr);

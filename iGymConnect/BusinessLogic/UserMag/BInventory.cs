@@ -13,7 +13,7 @@ namespace BusinessLogic.UserMag
         public static List<OMInventory> GetAllInventory()
         {
             var InvList = new List<OMInventory>();
-            using (var context = new UserLoginEntities2())
+            using (var context = new iGymConnectEntities())
             {
                 InvList = context.Inventories
                     .Where(x => !x.Deleted)
@@ -40,7 +40,7 @@ namespace BusinessLogic.UserMag
                 Inventory inventory = new Inventory();
                 if (inv.Id > 0)
                 {
-                    using (var i = new UserLoginEntities2())
+                    using (var i = new iGymConnectEntities())
                     {
                     inventory = i.Inventories.FirstOrDefault(x => x.Id == inv.Id);
                     inventory.Item = inv.Item;
@@ -72,7 +72,7 @@ namespace BusinessLogic.UserMag
                 inventory.Deleted = false;
                 inventory.CreatedBy = 1;
                 inventory.DateCreated = DateTime.Now;
-                using (var i = new UserLoginEntities2())
+                using (var i = new iGymConnectEntities())
                 {
                     i.Inventories.Add(inventory);
                     i.SaveChanges();
@@ -86,7 +86,7 @@ namespace BusinessLogic.UserMag
         {
             var invlist = new List<OMInventory>();
 
-            using (var i = new UserLoginEntities2())
+            using (var i = new iGymConnectEntities())
             {
                 var dlInventory = i.Inventories.FirstOrDefault(x => x.Id == Id);
                 //i.Inventories.Remove(dlInventory);

@@ -87,8 +87,8 @@ namespace BusinessLogic.UserMag
                     {
                         OMUser user = new OMUser();
                         user.Employeeid = curEmp.EmployeeId;
-                        user.username = emp.EmplUserName;
-                        user.pwd = emp.EmpPassword;
+                        user.Username = emp.EmplUserName;
+                        user.Password = emp.EmpPassword;
                         BUser.UpdateUser(user);
                     }
                     //e.SaveChanges();

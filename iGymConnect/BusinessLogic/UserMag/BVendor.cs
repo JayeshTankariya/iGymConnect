@@ -13,7 +13,7 @@ namespace BusinessLogic.UserMag
         public static List<OMVendor> GetAllVendors()
         {
             var vendorList = new List<OMVendor>();
-            using (var context = new UserLoginEntities2())
+            using (var context = new iGymConnectEntities())
             {
                 vendorList = context.Vendors
                     .Where(x => !x.Deleted)
@@ -38,7 +38,7 @@ namespace BusinessLogic.UserMag
             Vendor vendor = new Vendor();
             if (ven.Id > 0)
             {
-                using (var v = new UserLoginEntities2())
+                using (var v = new iGymConnectEntities())
                 {
                     vendor = v.Vendors.FirstOrDefault(x => x.Id == ven.Id);
                     vendor.Name = ven.Name;
@@ -62,7 +62,7 @@ namespace BusinessLogic.UserMag
                 vendor.Deleted = false;
                 vendor.CreatedBy = 1;
                 vendor.DateCreated = DateTime.Now;
-                using (var v = new UserLoginEntities2())
+                using (var v = new iGymConnectEntities())
                 {
                     v.Vendors.Add(vendor);
                     v.SaveChanges();
@@ -76,7 +76,7 @@ namespace BusinessLogic.UserMag
         {
             var vendorlist = new List<OMVendor>();
                        
-            using (var v = new UserLoginEntities2())
+            using (var v = new iGymConnectEntities())
             {
                 var dlVendor = v.Vendors.FirstOrDefault(x => x.Id == Id);
                // v.Vendors.Remove(dlVendor);

@@ -13,30 +13,30 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="frmUser">
-                        <input type="hidden" class="form-control" id="userid" placeholder="Plz Enter The Name" value="@(""+ user.id) ">
+                        <input type="hidden" class="form-control" id="userid" placeholder="Plz Enter The Name" value="@(""+ user.Id) ">
                         <span style="display:none" id="lblFName">Please enter Name</span>
                     <div class="form-group">
                             <label for="inputEmail3" class="col-sm-4 control-label">First Name:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control " id="txtFName" value="@(""+ user.fname) " placeholder="Enter The First Name">
+                                <input type="text" class="form-control " id="txtFName" value="@(""+ user.FirstName) " placeholder="Enter The First Name">
                             </div>
                     </div>
                     <div class="form-group">
                         <label for="input" class="col-sm-4 control-label">Last Name</label>
                         <div class="col-sm-8">
-                            <input type="text" width="100" class="form-control" id="txtLName" value="@(""+ user.lname )" placeholder="Enter The Last Name">
+                            <input type="text" width="100" class="form-control" id="txtLName" value="@(""+ user.LastName)" placeholder="Enter The Last Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="input" class="col-sm-4 control-label">User Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="txtUName" value="@(""+ user.username )" placeholder="Enter User Name">
+                            <input type="text" class="form-control" id="txtUName" value="@(""+ user.Username)" placeholder="Enter User Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="input" class="col-sm-4 control-label">Email</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control " id="txtUEmailId" value="@(""+user.email )" placeholder="Enter Email Id">
+                            <input type="text" class="form-control " id="txtUEmailId" value="@(""+user.EmailId)" placeholder="Enter Email Id">
                         </div>
                     </div>
                 </form>
@@ -62,30 +62,6 @@
         }
         return isSuccess;
     }
-    @*@*$(document).ready(function () {
-        $('#btnEdit').on('click', function () {
-            if (UserValidation()) {
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("UpdateUser", "Dashboard")',
-                    data: {
-                        fname: $('#txtFName').val(),
-                        lname: $('#txtLName').val(),
-                        username: $('#txtUName').val(),
-                        email: $('#txtUEmailId').val()
-                    },
-                    success: function (data) {
-                        $.each(data, function (index, element) {
-                            alert("Edit Sucessfully");
-
-                        });
-
-                        //document.getElementById("frmUser").reset();
-                    }
-                });
-            }
-        });
-    });*@
     
 </script>
 

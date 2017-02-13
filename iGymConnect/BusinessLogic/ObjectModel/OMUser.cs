@@ -10,8 +10,8 @@ namespace BusinessLogic.ObjectModel
     public class OMUser
     {
         public int Id { get; set; }
-        public int FirstName { get; set; }
-        public int LastName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         [Required(ErrorMessage = "Please enter username")]
         public string Username { get; set; }
         public string Password { get; set; }

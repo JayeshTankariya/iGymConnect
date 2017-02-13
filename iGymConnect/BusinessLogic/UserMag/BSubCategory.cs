@@ -13,7 +13,7 @@ namespace BusinessLogic.UserMag
         public static List<OMSubCategory> GetAllSubCategories()
         {
             var SubCatList = new List<OMSubCategory>();
-            using (var context = new UserLoginEntities2())
+            using (var context = new iGymConnectEntities())
             {
                 SubCatList = context.SubCategories
                     .Select(x => new OMSubCategory

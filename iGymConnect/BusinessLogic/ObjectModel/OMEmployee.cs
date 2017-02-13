@@ -31,7 +31,7 @@ namespace BusinessLogic.ObjectModel
             {
                 if (string.IsNullOrEmpty(_username))
                 {
-                    _username = BUser.GetAllUser().FirstOrDefault(x => x.Employeeid == EmployeeId).username;
+                    _username = BUser.GetAllUser().FirstOrDefault(x => x.Employeeid == EmployeeId).Username;
                 }
                 return _username;
             }
@@ -47,7 +47,7 @@ namespace BusinessLogic.ObjectModel
             {
                 if (string.IsNullOrEmpty(_password))
                 {
-                    _password = BUser.GetAllUser().FirstOrDefault(x => x.Employeeid == EmployeeId).pwd;
+                    _password = BUser.GetAllUser().FirstOrDefault(x => x.Employeeid == EmployeeId).Password;
                 }                
                 return _password;
             }

@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label for="input" class="col-sm-4 control-label">Email</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control " id="txtEmailId" value="@(""+user.email )" placeholder="Enter Email Id">
+                            <input type="text" class="form-control " id="txtUEmailId" value="@(""+user.email )" placeholder="Enter Email Id">
                         </div>
                     </div>
                 </form>
@@ -62,8 +62,34 @@
         }
         return isSuccess;
     }
+    @*@*$(document).ready(function () {
+        $('#btnEdit').on('click', function () {
+            if (UserValidation()) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UpdateUser", "Dashboard")',
+                    data: {
+                        fname: $('#txtFName').val(),
+                        lname: $('#txtLName').val(),
+                        username: $('#txtUName').val(),
+                        email: $('#txtUEmailId').val()
+                    },
+                    success: function (data) {
+                        $.each(data, function (index, element) {
+                            alert("Edit Sucessfully");
 
+                        });
+
+                        //document.getElementById("frmUser").reset();
+                    }
+                });
+            }
+        });
+    });*@
+    
 </script>
+
+
 <script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
 
 <script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>

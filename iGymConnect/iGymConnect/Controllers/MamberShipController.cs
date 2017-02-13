@@ -20,6 +20,7 @@ namespace iGymConnect.Controllers
 
         //************Member****************
 
+        //Memberform Show//
         public ActionResult GetMember()
         {
 
@@ -30,21 +31,25 @@ namespace iGymConnect.Controllers
 
         }
 
+        //Save Member Detail//
         [HttpPost]
         public ActionResult Save(OMMember mem, HttpPostedFileBase file)
         {
 
-            if (file.ContentLength > 0)
+            if (file!=null && file.ContentLength > 0)
             {
                 var fileName = file.FileName;
-                var path = Server.MapPath("~/Content/MemberImg") + fileName;
+                var path = Server.MapPath("~/Content/MemberImg/") + fileName;
                 file.SaveAs(path);
+                mem.MemberImage = file.FileName;
 
             }
-            mem.MemberImage = file.FileName;
+            
             var member = BMember.Save(mem);
             return Json(member);
         }
+
+        //ShowMemberdetail//
         public ActionResult ShowMemberDetails(int MemberId)
         {
             var mem = BMember.GetAllByMember().FirstOrDefault(x => x.MemberId == MemberId);
@@ -57,7 +62,28 @@ namespace iGymConnect.Controllers
         }
 
 
+        //Member Name Duplication//
 
+       public bool CheckDuplicationMember(int MemberId, string MemberName)
+       {
+            var mem = BMember.GetAllByMember();
+            if(MemberId > 0)
+            {
+                mem = mem.Where(x => x.MemberId != MemberId && x.MemberName == MemberName).ToList();
+            }
+            else
+            {
+                mem = mem.Where(x => x.MemberName == MemberName).ToList();
+            }
+            if(mem.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+       }
 
 
         //**********MemberShip**************//
@@ -67,6 +93,7 @@ namespace iGymConnect.Controllers
             var membership = BMembership.GetAllByMembership();
             return View("_Membership", membership);
         }
+        [HttpPost]
         public ActionResult SaveMemship(OMMembership membership)
         {
             var memship = BMembership.SaveMemship(membership);
@@ -78,12 +105,34 @@ namespace iGymConnect.Controllers
             var memship = BMembership.GetAllByMembership().FirstOrDefault(x => x.MembershipTypeId == MembershipTypeId);
             return Json(memship, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult DeleteMembership(int MembershipTypeId)
         {
             var memship = BMembership.Deletememship(MembershipTypeId);
             return Json(memship);
         }
 
+        //Duplication Membership//
+        public bool CheckDuplicationMembership(int MembershipTypeId, string Description)
+        {
+            var emp = BMembership.GetAllByMembership();
+            if (MembershipTypeId > 0)
+            {
+                emp = emp.Where(x => x.MembershipTypeId != MembershipTypeId && x.Description == Description).ToList();
+            }
+            else
+            {
+                emp = emp.Where(x => x.Description == Description).ToList();
+            }
+            if (emp.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
 
@@ -104,6 +153,7 @@ namespace iGymConnect.Controllers
         {
             var emp = BEmployee.GetAllByEmployee().FirstOrDefault(x => x.EmployeeId == EmployeeId);
             return Json(emp, JsonRequestBehavior.AllowGet);
+            
         }
         public ActionResult DeleteEmployee(int EmployeeId)
         {
@@ -111,7 +161,26 @@ namespace iGymConnect.Controllers
             return Json(emp);
         }
 
-
+        public bool CheckDuplicationEmployee(int EmployeeId, string FullName)
+        {
+            var emp = BEmployee.GetAllByEmployee();
+            if (EmployeeId > 0)
+            {
+                emp = emp.Where(x => x.EmployeeId != EmployeeId && x.FullName == FullName).ToList();
+            }
+            else
+            {
+                emp = emp.Where(x => x.FullName == FullName).ToList();
+            }
+            if (emp.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
     }

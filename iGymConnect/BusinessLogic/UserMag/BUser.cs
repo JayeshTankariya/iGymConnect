@@ -28,7 +28,26 @@ namespace BusinessLogic.UserMag
             }
             return userList;
         }
-        
+        public static List<OMUser> GetAllUser()
+        {
+            var userlist = new List<OMUser>();
+            using (var context = new UserLoginEntities1())
+            {
+                userlist = context.user_login
+                    .Select(x => new OMUser
+                    {
+                        id = x.id,
+                        fname = x.fname,
+                        Employeeid = x.Employeeid.HasValue ? x.Employeeid.Value : 0,
+                        username = x.username,
+                        pwd = x.pwd,
+                        email = x.email
+                    }).ToList();
+            }
+            return userlist;
+        }
+
+
         public static List<OMUser> UpdateUser(OMUser user)
         {
 
@@ -44,29 +63,31 @@ namespace BusinessLogic.UserMag
                     usr.username = user.username;
                     usr.email = user.email;
                     usr.pwd = user.pwd;
+                    usr.Employeeid = user.Employeeid;
                     u.SaveChanges();
                 }
             }
             else
             {
-                    usr.id = user.id;
-                    usr.fname = user.fname;
-                    usr.lname = user.lname;
-                    usr.username = user.username;
-                    usr.email = user.email;
-                    usr.pwd = user.pwd;
-                    using (var u = new UserLoginEntities1())
-                    {
-                        u.user_login.Add(usr);
-                        u.SaveChanges();
-                        userlist = GetByUserNameAndPassword(user);
-                    }
-                
+                usr.id = user.id;
+                usr.fname = user.fname;
+                usr.lname = user.lname;
+                usr.username = user.username;
+                usr.email = user.email;
+                usr.Employeeid = user.Employeeid;
+                usr.pwd = user.pwd;
+                using (var u = new UserLoginEntities1())
+                {
+                    u.user_login.Add(usr);
+                    u.SaveChanges();
+                    userlist = GetByUserNameAndPassword(user);
+                }
+
             }
             return userlist;
         }
     }
 }
-    
+
 
 

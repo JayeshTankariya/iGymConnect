@@ -18,7 +18,7 @@
                                     </td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="Des">
                                 @if (Model != null)
                                 {
                                     foreach (var memship in Model)
@@ -39,9 +39,13 @@
                             <input type="hidden"class="form-control" id="lblMembershipId">
                             <span style="display:none" id="lblmemshipName">Please enter Name</span>
                             <div class="form-group">
-                                <label  class="col-sm-4 control-label">Description:</label>
+                                <label  class="col-sm-4 control-label">Description:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="txtDescription" >
+                                    <span style="display:none; color:red" id="lblValDes">Description Is Mandatory</span>
+                                    <span style="display:none; color:red" id="lblvalMemDes">Description already Exist</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -100,14 +104,18 @@
                         InActiveDate: $('#InActiveDate').val()
                     },
                     success: function (data) {
+                        var row = "";
                         $.each(data, function (index, element) {
-                            
+                            row += "<tr><td>"+item.Description+"</td></tr>";
                         });
-                        
-                        document.getElementById("frmmemship").reset();
-                    }
+                        $("#Des").html(row);
+                    },
+                   
                 });
-            }
+                
+                       //alert("Save Sucessfully)")
+               document.getElementById("frmmemship").reset();
+               }
         });
         
     
@@ -124,8 +132,9 @@
                         $('#ActiveDate').val(myDate.toISOString().replace('Z',''));
                         var myDate1 = new Date(data.InActiveDate.match(/\d+/)[0] * 1);
                         $('#InActiveDate').val(myDate1.toISOString().replace('Z',''));
-                        
-                        }
+                        $("#tblMembership").load(window.location + " #tblMembership");
+                    }
+                    $("#tblMembership").load(window.location + " #tblMembership");
                     }
                 });
         });
@@ -153,7 +162,44 @@
 
                     }
                 });
+            });
+
+
+        //******** Descriptiopn Compulsory*****//
+        $('#txtDescription').keypress(function (e) {
+            var regex = RegExp("^[a-zA-Z]");
+            var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
+            if (regex.test(str)) {
+                $('#lblValDes').hide();
+                return true;
+            }
+            $('#lblValDes').show();
+            e.preventDefault();
+            return false;
         });
+
+
+        //***********Duplication**********//
+        $('#txtDescription').keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckDuplicationMembership", "MamberShip")',
+                data: { MembershipTypeId: $('#lblMembershipId').val() == "" ? "0" : $("#lblMembershipId").val(), Description: $('#txtDescription').val() },
+                success: function (data) {
+                    if (data == 'True') {
+                        alert("Member Exist");
+                        $('#lblvalMemDes').show();
+                    }
+                    else {
+                        $('#lblvalMemDes').hide();
+                    }
+
+                }
+            });
+
+
+        });
+
     });
 
 </script>

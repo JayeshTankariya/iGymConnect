@@ -40,7 +40,7 @@ namespace BusinessLogic.UserMag
 
         public static List<OMMember> Save(OMMember mem)
         {
-            var memberlist = new List<OMMember>();
+            var memberlist = new List <OMMember>();
             MemberMaster member = new MemberMaster();
             if (mem.MemberId > 0)
             {
@@ -60,7 +60,6 @@ namespace BusinessLogic.UserMag
                     member.Email = mem.Email;
                     member.Note = mem.Note;
                     member.Membershiptypeid = mem.Membershiptypeid;
-                    member.MemberId = mem.MemberId;
                     member.CreatedBy = 1;
                     member.Deleted = false;
                     member.DateCreated = DateTime.Now;
@@ -82,7 +81,6 @@ namespace BusinessLogic.UserMag
                 member.Email = mem.Email;
                 member.Note = mem.Note;
                 member.Membershiptypeid = mem.Membershiptypeid;
-                member.MemberId = mem.MemberId;
                 member.CreatedBy = 1;
                 member.Deleted = false;
                 member.DateCreated = DateTime.Now;

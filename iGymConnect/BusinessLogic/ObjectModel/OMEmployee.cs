@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic.UserMag;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +21,40 @@ namespace BusinessLogic.ObjectModel
         public string Note { get; set; }
         public bool Deleted { get; set; }
         public DateTime DateCreated { get; set; }
-        public int CreatedBy {get;set;}
+        public int CreatedBy { get; set; }
         public DateTime DateUpdated { get; set; }
         public int Updated { get; set; }
-
-        public string EmplUserName { get; set; }
-        public string EmpPassword { get; set; }
+        private string _username = "";
+        public string EmplUserName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_username))
+                {
+                    _username = BUser.GetAllUser().FirstOrDefault(x => x.Employeeid == EmployeeId).username;
+                }
+                return _username;
+            }
+            set
+            {
+                _username = value;
+            }
+        }
+        private string _password = "";
+        public string EmpPassword
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_password))
+                {
+                    _password = BUser.GetAllUser().FirstOrDefault(x => x.Employeeid == EmployeeId).pwd;
+                }                
+                return _password;
+            }
+            set
+            {
+                _password = value;
+            }
+        }
     }
 }

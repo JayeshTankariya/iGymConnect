@@ -30,8 +30,12 @@ namespace BusinessLogic.UserMag
                         HireDate = x.HireDate ?? DateTime.Now,
                         Note = x.Note,
                     }).ToList();
+                
+
             }
             return EmployeeList;
+
+
         }
         public static List<OMEmployee> SaveEmployee(OMEmployee emp)
         {
@@ -41,8 +45,7 @@ namespace BusinessLogic.UserMag
             {
                 using (var e = new UserLoginEntities1())
                 {
-
-                    employee.EmployeeId = emp.EmployeeId;
+                    //employee.EmployeeId = emp.EmployeeId;
                     employee.AdharcardId = emp.AdharcardId;
                     employee.FullName = emp.FullName;
                     employee.Address = emp.Address;
@@ -56,12 +59,13 @@ namespace BusinessLogic.UserMag
                     employee.Deleted = false;
                     employee.DateCreated = DateTime.Now;
                     e.SaveChanges();
+                   
                 }
             }
             else
             {
 
-                employee.EmployeeId = emp.EmployeeId;
+                //employee.EmployeeId = emp.EmployeeId;
                 employee.AdharcardId = emp.AdharcardId;
                 employee.FullName = emp.FullName;
                 employee.Address = emp.Address;
@@ -87,7 +91,9 @@ namespace BusinessLogic.UserMag
                         user.pwd = emp.EmpPassword;
                         BUser.UpdateUser(user);
                     }
+                    //e.SaveChanges();
                     employeelist = GetAllByEmployee();
+                   
                 }
             }
             return employeelist;

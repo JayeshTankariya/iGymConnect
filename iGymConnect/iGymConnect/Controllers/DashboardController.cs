@@ -27,6 +27,7 @@ namespace iGymConnect.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+        
 
         //****************UserDetails**************//
 
@@ -35,6 +36,7 @@ namespace iGymConnect.Controllers
             var user = BUser.GetByUserNameAndPassword(usr);
             return View("_UpdateProfile", user);
         }
+        [HttpPost]
         public ActionResult UpdateUser(OMUser usr)
         {
             var user = BUser.UpdateUser(usr);
@@ -47,4 +49,5 @@ namespace iGymConnect.Controllers
             return View("_Changepassword");
         }
     }
+
 }

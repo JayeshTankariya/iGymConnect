@@ -39,6 +39,7 @@
                     <div class="col-md-8">
                         <form id="frmmember" class="form-horizontal">
                             <input type="hidden" class="form-control" id="memid" placeholder="Plz Enter The Name">
+                            <input type="hidden" class="form-control" id="txtpath">
                             <span style="display:none" id="lblmemName">Please enter Name</span>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label"for="exampleInputFile">Member Image:</label>
@@ -51,16 +52,23 @@
                                 </div>
                                 </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Member Name:</label>
+                                <label class="col-sm-3 control-label">Member Name:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
                                 <div class="col-xs-6">
                                     <input type="text" class="form-control" id="txtMembername">
+                                    <span style="display:none; color:red" id="lblValMem">Member Name Is Mandatory</span>
+                                    <span style="display:none; color:red" id="lblValMemName">Member Name Is Already Exist.</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Gender:</label>
+                                <label class="col-sm-3 control-label">Gender:
+                                    
+                                </label>
                                 <div class="col-sm-2">
                                     <label class="radio-inline">
                                         <input name="Gender" id="Gender"  type="radio" />Male
+                                        
                                     </label>
                                 </div>
                                 <div class="col-sm-3">
@@ -94,15 +102,21 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">Zip:</label>
+                                <label  class="col-sm-3 control-label">Zip:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
                                 <div class="col-sm-4">
                                     <input class="form-control" id="Zip">
+                                    <span style="display:none; color:red" id="lblValZip">Zip Is Mandatory</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">Phone #1:</label>
+                                <label  class="col-sm-3 control-label">Phone #1:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
                                 <div class="col-xs-4">
                                     <input class="form-control" placeholder="HOME" id="PhoneHome1">
+                                    <span style="display:none; color:red" id="lblValPhone">Phone Number Is Mandatory</span>
                                 </div>
 
                             </div>
@@ -113,9 +127,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">Email:</label>
+                                <label  class="col-sm-3 control-label">Email:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="txtEmail" >
+                                    <span style="display:none; color:red" id="lblValEmail">Email Is Mandatory</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -156,11 +173,11 @@
     function MemberValidation() {
         var isSuccess = true;
         if ($('#txtMembername').val().length == 0) {
-            $('#lblmemName').show();
+            $('#lblValMem').show();
             isSuccess = false;
         }
         else {
-            $('#lblmemName').hide();
+            $('#lblValMem').hide();
         }
         return isSuccess;
     }
@@ -173,18 +190,21 @@
 
                 reader.onload = function (e) {
                     $('#img').attr('src', e.target.result);
+                    $('#txtpath').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(this.files[0]);
             }
             else {
-                $('#img').attr('src', '~/Content/MemberImg');
+                $('#img').attr('src', '@Url.Content("~/Content/MemberImg/")');
+                $('#txtpath').attr('src', '@Url.Content("~/Content/MemberImg/")');
+
             }
         });
 
         $('#btnmemsave').on('click', function () {
             var $file = document.getElementById('txtbrwz'),
             $formData = new FormData();
-            
+        //    $formData.append('MemberId', '#memid').val();
             $formData.append('MemberName', $('#txtMembername').val());
            //    $formData.append('MemberImage', $('#img'))
             $formData.append('Gender', $('#Gender').is(':checked'));
@@ -206,15 +226,15 @@
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("Save", "MamberShip")',
-                    data: $formData, 
+                    data: $formData,
                     dataType: 'json',
                     contentType: false,
                     processData: false,
                     success: function (data) {
                             $.each(data, function (index, element) {
-                            
+                                
                             });
-                            
+                            alert("Save Sucessfully)")
                             document.getElementById("frmmember").reset();
                     }
                 });
@@ -248,7 +268,7 @@
                 }
             });
         });
-    
+
     $('#btnmemreset').on('click', function () {
         document.getElementById("frmmember").reset();
     });
@@ -271,6 +291,94 @@
             }
         });
     });
+        //**** Member Name Compulsory***//
+        $('#txtMembername').keypress(function (e) {
+            var regex = new RegExp("^[a-zA-Z ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblValMem').hide();
+                return true;
+            }
+            $('#lblValMem').show();
+            e.preventDefault();
+            return false;
+        });
+
+        ////********Gender Compulsory*****//
+        //$('#Gender').keypress(function (e) {
+        //    var regex = new RegExp("^[a-zA-Z ]");
+        //    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        //    if (regex.test(str)) {
+        //        $('#lblValGen').hide();
+        //        return true;
+        //    }
+        //    $('#lblValGen').show();
+        //    e.preventDefault();
+        //    return false;
+        //});
+
+        //*********Zip Compulsory********//
+        $('#Zip').keypress(function (e) {
+            var regex = new RegExp("^[0-9 ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblValZip').hide();
+                return true;
+            }
+            $('#lblValZip').show();
+            e.preventDefault();
+            return false;
+        });
+
+        //******** Phone Number Compulsory*********//
+        $('#PhoneHome1').keypress(function (e) {
+            var regex = new RegExp("^[0-9 ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblValPhone').hide();
+                return true;
+            }
+            $('#lblValPhone').show();
+            e.preventDefault();
+            return false;
+        });
+
+        //*************Email Compulsory***********//
+        $('#txtEmail').keypress(function (e) {
+            var regex = new RegExp("^[\w+([-+.']\w+)*\w+([-.]\w+)*\.\w+([-.]\w+)* ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblValEmail').hide();
+                return true;
+            }
+            $('#lblValEmail').show();
+            e.preventDefault();
+            return false;
+        });
+
+
+
+        $('#txtMembername').keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckDuplicationMember", "MamberShip")',
+                data: {MemberId: $('#memid').val() == "" ? "0" : $("#memid").val(), MemberName: $('#txtMembername').val() },
+                success: function (data) {
+                    if(data == 'True')
+                    {
+                        alert("Member Exist");  
+                        $('#lblValMemName').show();
+                    }
+                    else
+                    {
+                        $('#lblValMemName').hide();
+                    }
+
+                }
+            });
+            
+
+        });
  });
 
 </script>

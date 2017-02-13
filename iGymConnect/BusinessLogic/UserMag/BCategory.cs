@@ -13,7 +13,7 @@ namespace BusinessLogic.UserMag
         public static List<OMCategory> GetAllCategories()
         {
             var catList = new List<OMCategory>();
-            using (var context = new UserLoginEntities2())
+            using (var context = new iGymConnectEntities())
             {
                 catList = context.Categories
                     .Where(x => !x.Deleted)
@@ -35,7 +35,7 @@ namespace BusinessLogic.UserMag
             Category category = new Category();
             if (cat.Id > 0)
             {
-                using (var c = new UserLoginEntities2())
+                using (var c = new iGymConnectEntities())
                 {
                     category = c.Categories.FirstOrDefault(x => x.Id == cat.Id);
                     category.CategoryName = cat.CategoryName;
@@ -57,7 +57,7 @@ namespace BusinessLogic.UserMag
                 category.Deleted = false;
                 category.CreatedBy = 1;
                 category.DateCreated = DateTime.Now;
-                using (var c = new UserLoginEntities2())
+                using (var c = new iGymConnectEntities())
                 {
                     c.Categories.Add(category);
                     c.SaveChanges();
@@ -71,7 +71,7 @@ namespace BusinessLogic.UserMag
         {
             var categorylist = new List<OMCategory>();
 
-            using (var c = new UserLoginEntities2())
+            using (var c = new iGymConnectEntities())
             {
                 var dlCategory = c.Categories.FirstOrDefault(x => x.Id == Id);
                 //c.Categories.Remove(dlCategory);

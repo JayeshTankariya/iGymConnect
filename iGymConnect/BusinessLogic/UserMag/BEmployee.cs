@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.ObjectModel;
-using DataLogic.Entity_Framework;
+using DataLogic.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace BusinessLogic.UserMag
         public static List<OMEmployee> GetAllByEmployee()
         {
             var EmployeeList = new List<OMEmployee>();
-            using (var context = new UserLoginEntities1())
+            using (var context = new iGymConnectEntities())
             {
                 EmployeeList = context.EmployeeMasters
                     .Where(x => !x.Deleted)
@@ -43,7 +43,7 @@ namespace BusinessLogic.UserMag
             EmployeeMaster employee = new EmployeeMaster();
             if (emp.EmployeeId > 0)
             {
-                using (var e = new UserLoginEntities1())
+                using (var e = new iGymConnectEntities())
                 {
                     //employee.EmployeeId = emp.EmployeeId;
                     employee.AdharcardId = emp.AdharcardId;
@@ -78,7 +78,7 @@ namespace BusinessLogic.UserMag
                 employee.CreatedBy = 1;
                 employee.Deleted = false;
                 employee.DateCreated = DateTime.Now;
-                using (var e = new UserLoginEntities1())
+                using (var e = new iGymConnectEntities())
                 {
                     e.EmployeeMasters.Add(employee);
                     e.SaveChanges();
@@ -101,7 +101,7 @@ namespace BusinessLogic.UserMag
         public static List<OMEmployee> Deleteemp(int EmployeeId)
         {
             var employeelist = new List<OMEmployee>();
-            using (var e = new UserLoginEntities1())
+            using (var e = new iGymConnectEntities())
             {
                 var delemp = e.EmployeeMasters.FirstOrDefault(x => x.EmployeeId == EmployeeId);
                 delemp.Deleted = true;

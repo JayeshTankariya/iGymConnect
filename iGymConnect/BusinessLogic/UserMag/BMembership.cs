@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.ObjectModel;
-using DataLogic.Entity_Framework;
+using DataLogic.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace BusinessLogic.UserMag
         public static List<OMMembership> GetAllByMembership()
         {
             var MembershipList = new List<OMMembership>();
-            using (var context = new UserLoginEntities1())
+            using (var context = new iGymConnectEntities())
             {
                 MembershipList = context.MembershipTypeMasters
                     .Where(x => !x.Deleted)
@@ -35,7 +35,7 @@ namespace BusinessLogic.UserMag
             MembershipTypeMaster membership = new MembershipTypeMaster();
             if (memship.MembershipTypeId > 0)
             {
-                using (var ms = new UserLoginEntities1())
+                using (var ms = new iGymConnectEntities())
                 {
                     
                     membership = ms.MembershipTypeMasters.FirstOrDefault(x => x.MembershipTypeId == memship.MembershipTypeId);
@@ -58,7 +58,7 @@ namespace BusinessLogic.UserMag
                 membership.CreatedBy = 1;
                 membership.Deleted = false;
                 membership.DateCreated = DateTime.Now;
-                using (var ms = new UserLoginEntities1())
+                using (var ms = new iGymConnectEntities())
                 {
                     ms.MembershipTypeMasters.Add(membership);
                     ms.SaveChanges();
@@ -71,7 +71,7 @@ namespace BusinessLogic.UserMag
         {
             var membershiplist = new List<OMMembership>();
 
-            using (var ms = new UserLoginEntities1())
+            using (var ms = new iGymConnectEntities())
             {
                 var dlmemship = ms.MembershipTypeMasters.FirstOrDefault(x => x.MembershipTypeId == MembershipTypeId);
                 dlmemship.Deleted = true;

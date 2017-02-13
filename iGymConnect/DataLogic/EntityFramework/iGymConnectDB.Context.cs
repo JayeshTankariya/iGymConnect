@@ -13,10 +13,10 @@ namespace DataLogic.EntityFramework
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class UserLoginEntities2 : DbContext
+    public partial class iGymConnectEntities : DbContext
     {
-        public UserLoginEntities2()
-            : base("name=UserLoginEntities2")
+        public iGymConnectEntities()
+            : base("name=iGymConnectEntities")
         {
         }
     
@@ -25,12 +25,15 @@ namespace DataLogic.EntityFramework
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<UserLogin> UserLogins { get; set; }
-        public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<SubCategory> SubCategories { get; set; }
+        public virtual DbSet<EmployeeMaster> EmployeeMasters { get; set; }
         public virtual DbSet<Inventory> Inventories { get; set; }
+        public virtual DbSet<MemberMaster> MemberMasters { get; set; }
+        public virtual DbSet<MembershipTypeMaster> MembershipTypeMasters { get; set; }
+        public virtual DbSet<SubCategory> SubCategories { get; set; }
         public virtual DbSet<TransactionChild> TransactionChilds { get; set; }
         public virtual DbSet<TransactionMaster> TransactionMasters { get; set; }
+        public virtual DbSet<UserLogin> UserLogins { get; set; }
+        public virtual DbSet<Vendor> Vendors { get; set; }
     }
 }

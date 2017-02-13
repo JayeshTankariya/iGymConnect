@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.ObjectModel;
-using DataLogic.Entity_Framework;
+using DataLogic.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace BusinessLogic.UserMag
         public static List<OMMember> GetAllByMember()
         {
             var MemberList = new List<OMMember>();
-            using (var context = new UserLoginEntities1())
+            using (var context = new iGymConnectEntities())
             {
                 MemberList = context.MemberMasters
                     .Where(x => !x.Deleted)
@@ -44,7 +44,7 @@ namespace BusinessLogic.UserMag
             MemberMaster member = new MemberMaster();
             if (mem.MemberId > 0)
             {
-                using (var m = new UserLoginEntities1())
+                using (var m = new iGymConnectEntities())
                 {
                     member = m.MemberMasters.FirstOrDefault(x => x.MemberId == mem.MemberId);
                     member.MemberName = mem.MemberName;
@@ -84,7 +84,7 @@ namespace BusinessLogic.UserMag
                 member.CreatedBy = 1;
                 member.Deleted = false;
                 member.DateCreated = DateTime.Now;
-                using (var m = new UserLoginEntities1())
+                using (var m = new iGymConnectEntities())
                 {
                     m.MemberMasters.Add(member);
                     m.SaveChanges();
@@ -96,7 +96,7 @@ namespace BusinessLogic.UserMag
         public static List<OMMember> Deletemem(int MemberId)
         {
             var memberlist = new List<OMMember>();
-            using (var m = new UserLoginEntities1())
+            using (var m = new iGymConnectEntities())
             {
                 var dlMember = m.MemberMasters.FirstOrDefault(x => x.MemberId == MemberId);
                 dlMember.Deleted = true;

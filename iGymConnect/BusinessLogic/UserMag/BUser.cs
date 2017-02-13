@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.ObjectModel;
-using DataLogic.Entity_Framework;
+using DataLogic.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +13,16 @@ namespace BusinessLogic.UserMag
         public static List<OMUser> GetByUserNameAndPassword(OMUser user)
         {
             var userList = new List<OMUser>();
-            using (var context = new UserLoginEntities1())
+            using (var context = new iGymConnectEntities())
             {
-                userList = context.user_login
+                userList = context.UserLogins
                  .Select(x => new OMUser
                  {
-                     fname = x.fname,
-                     lname = x.lname,
-                     username = x.username,
-                     pwd = x.pwd,
-                     email = x.email,
+                     FirstName = x.fname,
+                     LastName = x.LastName,
+                     Username = x.Username,
+                     Password = x.Password,
+                     EmailId = x.EmailId,
                      Employeeid = x.Employeeid.HasValue ? x.Employeeid.Value : 0,
                  }).ToList();
             }
@@ -31,17 +31,17 @@ namespace BusinessLogic.UserMag
         public static List<OMUser> GetAllUser()
         {
             var userlist = new List<OMUser>();
-            using (var context = new UserLoginEntities1())
+            using (var context = new iGymConnectEntities())
             {
-                userlist = context.user_login
+                userlist = context.UserLogins
                     .Select(x => new OMUser
                     {
-                        id = x.id,
-                        fname = x.fname,
+                        Id = x.Id,
+                        FirstName = x.FirstName,
                         Employeeid = x.Employeeid.HasValue ? x.Employeeid.Value : 0,
-                        username = x.username,
-                        pwd = x.pwd,
-                        email = x.email
+                        Username = x.Username,
+                        Password = x.Password,
+                        EmailId = x.EmailId
                     }).ToList();
             }
             return userlist;
@@ -52,12 +52,12 @@ namespace BusinessLogic.UserMag
         {
 
             var userlist = new List<OMUser>();
-            user_login usr = new user_login();
-            if (user.id > 0)
+            UserLogin usr = new UserLogin();
+            if (user.Id > 0)
             {
-                using (var u = new UserLoginEntities1())
+                using (var u = new iGymConnectEntities())
                 {
-                    usr.id = user.id;
+                    usr.Id = user.Id;
                     usr.fname = user.fname;
                     usr.lname = user.lname;
                     usr.username = user.username;
@@ -76,9 +76,9 @@ namespace BusinessLogic.UserMag
                 usr.email = user.email;
                 usr.Employeeid = user.Employeeid;
                 usr.pwd = user.pwd;
-                using (var u = new UserLoginEntities1())
+                using (var u = new iGymConnectEntities())
                 {
-                    u.user_login.Add(usr);
+                    u.UserLogins.Add(usr);
                     u.SaveChanges();
                     userlist = GetByUserNameAndPassword(user);
                 }

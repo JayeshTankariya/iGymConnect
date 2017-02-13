@@ -1,0 +1,334 @@
+﻿@model List<BusinessLogic.ObjectModel.OMEmployee>
+
+
+
+<div class="modal fade" id="employee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><b>Employee Detail</b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table id="tblEmployee" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Name
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var emp in Model)
+                                    {
+                                        <tr data-employeeid="@emp.EmployeeId">
+                                            <td>
+                                                @emp.FullName
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <form id="frmemp" class="form-horizontal" autocomplete="off">
+                            <input type="hidden" class="form-control" id="txtEmployeeId">
+                            <span style="display:none" id="lblempName">Please enter Name</span>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label"> Employee User Name:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="txtEmpUserName" id="txtEmpUserName">
+                                    <span style="display:none; color:red" id="lblValName"> User Name is Mandatory</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Employee Password:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-sm-4">
+                                    <input type="text" style="display:none;">
+                                    <input type="password" class="form-control" id="txtEmpPassword" autocomplete="off">
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">AdharCard Id:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="txtempAdharcardId">
+                                    <span style="display:none; color:red" id="lblValAdhar">AdharCard Number is Mandatory</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Full Name:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="txtFullname">
+                                    <span style="display:none; color:red" id="lblValFullName"> Full Name is Mandatory</span>
+                                    <span style="display:none; color:red" id="lblValEmpFullName">Full Name Already Exist.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Address:</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="txtempAddress">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">City:</label>
+                                <div class="col-sm-5">
+                                    <input class="form-control" id="txtempCity">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">State:</label>
+                                <div class="col-sm-5">
+                                    <input class="form-control" id="txtempState">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Zip:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-sm-5">
+                                    <input class="form-control" id="txtempZip">
+                                    <span style="display:none; color:red" id="lblValEmpZip"> Zip is Mandatory</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Position:</label>
+                                <div class="col-sm-5">
+                                    <select id="txtPosition" class="form-control">
+                                        <option value="0">-- Select --</option>
+                                        <option value="1">Personal Trainer</option>
+                                        <option value="2">Daily Care</option>
+                                        <option value="3">Sales Person</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Hire Date:</label>
+                                <div class="col-sm-6">
+                                    <input type="datetime-local" class="form-control" id="txtEmpHireDate">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Note:</label>
+                                <div class="col-xs-3">
+                                    <textarea id="txtempNote" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-primary" id="btnempsave">Save</button>
+                        <button type="button" class="btn btn-primary" id="btnempdelete">Delete</button>
+                        <button type="reset" class="btn btn-primary" value="Reset" id="btnempreset">Clear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+
+<!--Validation Of Employee-->
+
+<script>
+    
+    function empValidation() {
+        var isSuccess = true;
+        if ($('#txtFullname').val().length == 0) {
+            $('#lblempName').show();
+            isSuccess = false;
+        }
+        else {
+            $('#lblempName').hide();
+        }
+        return isSuccess;
+    }
+
+    $(document).ready(function () {
+        
+        $('#btnempsave').on('click', function () {
+            if (empValidation()) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveEmployee", "MamberShip")',
+                    data: {
+                        EmployeeId: $('#txtEmployeeId').val(),
+                        EmplUserName: $('#txtEmpUserName').val(),
+                        EmpPassword: $('#txtEmpPassword').val(),
+                        AdharcardId: $('#txtempAdharcardId').val(),
+                        FullName: $('#txtFullname').val(),
+                        Address: $('#txtempAddress').val(),
+                        City: $('#txtempCity').val(),
+                        State: $('#txtempState').val(),
+                        Zip: $('#txtempZip').val(),
+                        Position: $('#txtPosition').val(),
+                        HireDate: $('#txtEmpHireDate').val(),
+                        Note: $('#txtempNote').val()
+
+                    },
+                    success: function (data) {
+                        $.each(data, function (index, element) {
+                           
+                        });
+                        alert("Save Sucessfully)")
+
+                        document.getElementById("frmemp").reset();
+                    }
+                });
+            }
+        });
+
+        $('#tblEmployee tbody tr').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ShowEmployeeDetails", "MamberShip")',
+                data: { EmployeeId: $(this).data('employeeid') },
+                success: function (data) {
+                    if (data != null) {
+                        $('#txtEmployeeId').val(data.EmployeeId);
+                        $('#txtEmpUserName').val(data.EmplUserName);
+                        $('#txtEmpPassword').val(data.EmpPassword);
+                        $('#txtempAdharcardId').val(data.AdharcardId);
+                        $('#txtFullname').val(data.FullName);
+                        $('#txtempAddress').val(data.Address);
+                        $('#txtempCity').val(data.City);
+                        $('#txtempState').val(data.State);
+                        $('#txtempZip').val(data.Zip);
+                        $('#txtPosition').val(data.Position);
+                        var myDate2 = new Date(data.HireDate.match(/\d+/)[0] * 1);
+                        $('#txtEmpHireDate').val(myDate2.toISOString().replace('Z', ''));
+                        $('#txtempNote').val(data.Note);
+                    }
+                }
+            });
+        });
+        $('#btnempreset').on('click', function () {
+            document.getElementById("frmemp").reset();
+        });
+        $('#btnempdelete').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteEmployee", "MamberShip")',
+                data: { EmployeeId: $('#txtEmployeeId').val() },
+                success: function (data) {
+                    var a = confirm("Are You Sure ?????");
+                    if (a == true)
+                    {
+                        alert("Your Record Deleted Successfully");
+                    }
+                    else
+                    {
+                        alert("Record Not Deleted");
+                    }
+                    document.getElementById("frmemp").reset();
+
+                }
+            });
+        });
+
+        //*****UserName Compulsory*******//
+        $('#txtEmpUserName').keypress(function (e) {
+            var regex = RegExp("^[a-zA-Z]");
+            var str=String.fromCharCode(!e.charcode ? e.which: e.charcode);
+            if(regex.test(str)){
+                $('#lblValName').hide();
+                return true;
+            }
+            $('#lblValName').show();
+            e.preventDefault();
+            return false;
+        });
+
+        ////*********Password Compulsory*******//
+        //$('#txtEmpPassword').keypress(function (e) {
+        //    var regex = RegExp("^[a-zA-Z]");
+        //    var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
+        //    if (regex.test(str)) {
+        //        $('#lblValPwd').hide();
+        //        return true;
+        //    }
+        //    $('#lblValPwd').show();
+        //    e.preventDefault();
+        //    return false;
+        //});
+
+        //********** Adharcard Number Compulsory*******//
+        $('#txtempAdharcardId').keypress(function (e) {
+            var regex = RegExp("^[0-9 ]");
+            var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
+            if (regex.test(str)) {
+                $('#lblValAdhar').hide();
+                return true;
+            }
+            $('#lblValAdhar').show();
+            e.preventDefault();
+            return false;
+        });
+
+        //*************Employee Name Compulsory*********//
+        $('#txtFullname').keypress(function (e) {
+            var regex = RegExp("^[a-zA-Z]");
+            var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
+            if (regex.test(str)) {
+                $('#lblValFullName').hide();
+                return true;
+            }
+            $('#lblValFullName').show();
+            e.preventDefault();
+            return false;
+        });
+
+
+        //***************Employee Zip Compulsory**********//
+        $('#txtempZip').keypress(function (e) {
+            var regex = RegExp("^[0-9 ]");
+            var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
+            if (regex.test(str)) {
+                $('#lblValEmpZip').hide();
+                return true;
+            }
+            $('#lblValEmpZip').show();
+            e.preventDefault();
+            return false;
+        });
+
+        //*************Duplication***************//
+        $('#txtFullname').keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckDuplicationEmployee", "MamberShip")',
+                data: { EmployeeId: $('#txtEmployeeId').val() == "" ? "0" : $("#txtEmployeeId").val(), FullName: $('#txtFullname').val() },
+                success: function (data) {
+                    if (data == 'True') {
+                        alert("Member Exist");
+                        $('#lblValEmpFullName').show();
+                    }
+                    else {
+                        $('#lblValEmpFullName').hide();
+                    }
+
+                }
+            });
+        });
+    });
+</script>
+

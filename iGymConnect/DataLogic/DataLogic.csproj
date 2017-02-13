@@ -88,15 +88,42 @@
     <Compile Include="EntityFramework\Vendor.cs">
       <DependentUpon>UserDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity Framework\EmployeeMaster.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\MemberMaster.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\MembershipTypeMaster.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\UserDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\UserDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\UserDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\user_login.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="EntityFramework\UserDB.edmx">
+    <EntityDeploy Include="Entity Framework\UserDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>UserDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EntityFramework\UserDB.edmx.diagram">
+    <None Include="Entity Framework\UserDB.edmx.diagram">
       <DependentUpon>UserDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
@@ -105,12 +132,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EntityFramework\UserDB.Context.tt">
+    <Content Include="Entity Framework\UserDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>UserDB.edmx</DependentUpon>
-      <LastGenOutput>UserDB.Context.cs</LastGenOutput>
+      <LastGenOutput>UserDB.Context1.cs</LastGenOutput>
     </Content>
-    <Content Include="EntityFramework\UserDB.tt">
+    <Content Include="Entity Framework\UserDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>UserDB.edmx</DependentUpon>
       <LastGenOutput>UserDB.cs</LastGenOutput>

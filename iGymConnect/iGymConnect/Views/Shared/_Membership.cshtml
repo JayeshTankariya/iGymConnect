@@ -1,0 +1,206 @@
+﻿@model List<BusinessLogic.ObjectModel.OMMembership>
+
+<div class="modal fade" id="membership" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Membership Type</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table id="tblMembership" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Name
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody id="Des">
+                                @if (Model != null)
+                                {
+                                    foreach (var memship in Model)
+                                    {
+                                        <tr data-membershiptypeid="@memship.MembershipTypeId">
+                                            <td>
+                                                @memship.Description
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <form id="frmmemship"class="form-horizontal">
+                            <input type="hidden"class="form-control" id="lblMembershipId">
+                            <span style="display:none" id="lblmemshipName">Please enter Name</span>
+                            <div class="form-group">
+                                <label  class="col-sm-4 control-label">Description:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" id="txtDescription" >
+                                    <span style="display:none; color:red" id="lblValDes">Description Is Mandatory</span>
+                                    <span style="display:none; color:red" id="lblvalMemDes">Description already Exist</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-4 control-label">Active Date:</label>
+                                <div class="col-sm-6">
+                                    <input type="datetime-local" class="form-control" id="ActiveDate">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-4 control-label">InActive Date:</label>
+                                <div class="col-sm-6">
+                                    <input type="datetime-local" class="form-control" id="InActiveDate">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnmemshipsave">Save</button>
+                        <button type="button" class="btn btn-primary" id="btnmemshipdelete">Delete</button>
+                        <button type="reset" class="btn btn-primary" id="btnmemshipreset">Clear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+    </div>
+<script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+
+        <!--Validation Of Membership-->
+
+ <script>
+    function MemshipValidation() {
+        var isSuccess = true;
+        if ($('#txtDescription').val().length == 0) {
+            $('#lblmemshipName').show();
+            isSuccess = false;
+        }
+        else {
+            $('#lblmemshipName').hide();
+        }
+        return isSuccess;
+    }
+    $(document).ready(function () {
+        $('#btnmemshipsave').on('click', function () {
+            if(MemshipValidation())
+            {
+                $.ajax({
+                    type:"POST",
+                    url: '@Url.Action("SaveMemship", "MamberShip")',
+                    data: {
+                        MembershipTypeId: $('#lblMembershipId').val(),
+                        Description: $('#txtDescription').val(),
+                        ActiveDate: $('#ActiveDate').val(),
+                        InActiveDate: $('#InActiveDate').val()
+                    },
+                    success: function (data) {
+                        var row = "";
+                        $.each(data, function (index, element) {
+                            row += "<tr><td>"+item.Description+"</td></tr>";
+                        });
+                        $("#Des").html(row);
+                    },
+                   
+                });
+                
+                       //alert("Save Sucessfully)")
+               document.getElementById("frmmemship").reset();
+               }
+        });
+        
+    
+        $('#tblMembership tbody tr').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ShowMembershipDetails", "MamberShip")',
+                data: { MembershipTypeId: $(this).data('membershiptypeid') },
+                success: function (data) {
+                    if (data != null) {
+                        $('#lblMembershipId').val(data.MembershipTypeId);
+                        $('#txtDescription').val(data.Description);
+                        var myDate = new Date(data.ActiveDate.match(/\d+/)[0] * 1);
+                        $('#ActiveDate').val(myDate.toISOString().replace('Z',''));
+                        var myDate1 = new Date(data.InActiveDate.match(/\d+/)[0] * 1);
+                        $('#InActiveDate').val(myDate1.toISOString().replace('Z',''));
+                        $("#tblMembership").load(window.location + " #tblMembership");
+                    }
+                    $("#tblMembership").load(window.location + " #tblMembership");
+                    }
+                });
+        });
+
+
+
+            $('#btnmemshipreset').on('click', function () {
+                document.getElementById("frmmemship").reset();
+            });
+            $('#btnmemshipdelete').on('click', function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteMembership", "MamberShip")',
+                    data: { MembershipTypeId: $('#lblMembershipId').val() },
+                    success: function (data) {
+                        var a = confirm("Are You Sure ?");
+                        if (a == true)
+                        {
+                            alert("Your Record Deleted Successfully");
+                        }
+                        else {
+                            alert("Record Not Deleted");
+                        }
+                        document.getElementById("frmmemship").reset();
+
+                    }
+                });
+            });
+
+
+        //******** Descriptiopn Compulsory*****//
+        $('#txtDescription').keypress(function (e) {
+            var regex = RegExp("^[a-zA-Z]");
+            var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
+            if (regex.test(str)) {
+                $('#lblValDes').hide();
+                return true;
+            }
+            $('#lblValDes').show();
+            e.preventDefault();
+            return false;
+        });
+
+
+        //***********Duplication**********//
+        $('#txtDescription').keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckDuplicationMembership", "MamberShip")',
+                data: { MembershipTypeId: $('#lblMembershipId').val() == "" ? "0" : $("#lblMembershipId").val(), Description: $('#txtDescription').val() },
+                success: function (data) {
+                    if (data == 'True') {
+                        alert("Member Exist");
+                        $('#lblvalMemDes').show();
+                    }
+                    else {
+                        $('#lblvalMemDes').hide();
+                    }
+
+                }
+            });
+
+
+        });
+
+    });
+
+</script>
+        

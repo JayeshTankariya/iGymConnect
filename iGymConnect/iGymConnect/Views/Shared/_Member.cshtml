@@ -1,0 +1,386 @@
+﻿
+@model List<BusinessLogic.ObjectModel.OMMember>
+
+
+<div class="modal fade" id="member" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Member Information</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table id="tblMember" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Name
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var mem in Model)
+                                    {
+                                        <tr data-memberid="@mem.MemberId">
+                                            <td>
+                                                @mem.MemberName
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <form id="frmmember" class="form-horizontal">
+                            <input type="hidden" class="form-control" id="memid" placeholder="Plz Enter The Name">
+                            <input type="hidden" class="form-control" id="txtpath">
+                            <span style="display:none" id="lblmemName">Please enter Name</span>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"for="exampleInputFile">Member Image:</label>
+                                    <div class="col-sm-3">
+                                        <input type="file" class="form-control" id="txtbrwz">
+                                    </div>
+                                <div class="col-xs-3">
+                                    <img id="img" style="width:150px; height:150px;" /><br />
+                                    <br />
+                                </div>
+                                </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Member Name:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control" id="txtMembername">
+                                    <span style="display:none; color:red" id="lblValMem">Member Name Is Mandatory</span>
+                                    <span style="display:none; color:red" id="lblValMemName">Member Name Is Already Exist.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Gender:
+                                    
+                                </label>
+                                <div class="col-sm-2">
+                                    <label class="radio-inline">
+                                        <input name="Gender" id="Gender"  type="radio" />Male
+                                        
+                                    </label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="radio-inline">
+                                        <input name="gender"   type="radio" />Female
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Address:</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" id="txtAddress">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Line 2:</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" id="txtAddress2">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">City:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="txtCity">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">State:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="txtState">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Zip:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" id="Zip">
+                                    <span style="display:none; color:red" id="lblValZip">Zip Is Mandatory</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Phone #1:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-xs-4">
+                                    <input class="form-control" placeholder="HOME" id="PhoneHome1">
+                                    <span style="display:none; color:red" id="lblValPhone">Phone Number Is Mandatory</span>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Phone #2:</label>
+                                <div class="col-xs-4">
+                                    <input class="form-control" placeholder="WORK" id="PhoneWork1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Email:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="txtEmail" >
+                                    <span style="display:none; color:red" id="lblValEmail">Email Is Mandatory</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">Note:</label>
+                                <div class="col-xs-3">
+                                    <textarea class="form-control" rows="3" id="txtNote"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Description:</label>
+                                <div class="col-xs-3">
+                                    @Html.DropDownList("ddlmemship", new SelectList(ViewBag.membershiplist, "MembershipTypeId", "Description"), "-- Select --", new { @class = "form-control" })
+                                </div>
+                                </div>
+                              </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btnmemsave">Save</button>
+                        <button type="button" class="btn btn-primary" id="btnmemdelete">Delete</button>
+                        <button type="reset" class="btn btn-primary" id="btnmemreset">Clear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
+
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+
+
+<!--Validation Of Member-->
+
+<script>
+    function MemberValidation() {
+        var isSuccess = true;
+        if ($('#txtMembername').val().length == 0) {
+            $('#lblValMem').show();
+            isSuccess = false;
+        }
+        else {
+            $('#lblValMem').hide();
+        }
+        return isSuccess;
+    }
+    $(document).ready(function () {
+        $('#txtbrwz').change(function () {
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (this.files && this.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img').attr('src', e.target.result);
+                    $('#txtpath').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+            else {
+                $('#img').attr('src', '@Url.Content("~/Content/MemberImg/")');
+                $('#txtpath').attr('src', '@Url.Content("~/Content/MemberImg/")');
+
+            }
+        });
+
+        $('#btnmemsave').on('click', function () {
+            var $file = document.getElementById('txtbrwz'),
+            $formData = new FormData();
+        //    $formData.append('MemberId', '#memid').val();
+            $formData.append('MemberName', $('#txtMembername').val());
+           //    $formData.append('MemberImage', $('#img'))
+            $formData.append('Gender', $('#Gender').is(':checked'));
+            $formData.append('Address', $('#txtAddress').val());
+            $formData.append('Address2', $('#txtAddress2').val());
+            $formData.append('City', $('#txtCity').val());
+            $formData.append('State', $('#txtState').val());
+            $formData.append('Zip', $('#Zip').val());
+            $formData.append('PhoneHome1', $('#PhoneHome1').val());
+            $formData.append('PhoneWork1', $('#PhoneWork1').val());
+            $formData.append('Email', $('#txtEmail').val());
+            $formData.append('Note', $('#txtNote').val());
+            $formData.append('Membershiptypeid', $('#ddlmemship').val());
+            if ($file.files.length > 0) {
+                $formData.append('file', $file.files[0]);
+            }
+
+           if (MemberValidation()) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Save", "MamberShip")',
+                    data: $formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                            $.each(data, function (index, element) {
+                                
+                            });
+                            alert("Save Sucessfully)")
+                            document.getElementById("frmmember").reset();
+                    }
+                });
+            }
+        });
+
+        $('#tblMember tbody tr').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ShowMemberDetails", "MamberShip")',
+                data: { MemberId: $(this).data('memberid') },
+                success: function (data) {
+                    if (data != null) {
+                        $('#memid').val(data.MemberId);
+                        var src1 = '@Url.Content("~/Content/MemberImg/")' + data.MemberImage;
+                        $('#img').attr('src', src1);
+                        $('#txtMembername').val(data.MemberName);
+                        $('#Gender').val(data.Gender);
+                        $('#txtAddress').val(data.Address);
+                        $('#txtAddress2').val(data.Address2);
+                        $('#txtCity').val(data.City);
+                        $('#txtState').val(data.State);
+                        $('#Zip').val(data.Zip);
+                        $('#PhoneHome1').val(data.PhoneHome1);
+                        $('#PhoneWork1').val(data.PhoneWork1);
+                        $('#txtEmail').val(data.Email);
+                        $('#txtNote').val(data.Note);
+                        $('#ddlmemship').val(data.Membershiptypeid)
+
+                    }
+                }
+            });
+        });
+
+    $('#btnmemreset').on('click', function () {
+        document.getElementById("frmmember").reset();
+    });
+    $('#btnmemdelete').on('click', function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteMember", "MamberShip")',
+            data: {MemberId: $('#memid').val()},
+            success: function (data) {
+                var a = confirm("Are You Sure ?");
+                if (a == true)
+                {
+                    alert("Your Record Deleted Successfully");
+                }
+                else {
+                    alert("Record Not Deleted");
+                }
+                document.getElementById("frmmember").reset();
+
+            }
+        });
+    });
+        //**** Member Name Compulsory***//
+        $('#txtMembername').keypress(function (e) {
+            var regex = new RegExp("^[a-zA-Z ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblValMem').hide();
+                return true;
+            }
+            $('#lblValMem').show();
+            e.preventDefault();
+            return false;
+        });
+
+        ////********Gender Compulsory*****//
+        //$('#Gender').keypress(function (e) {
+        //    var regex = new RegExp("^[a-zA-Z ]");
+        //    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        //    if (regex.test(str)) {
+        //        $('#lblValGen').hide();
+        //        return true;
+        //    }
+        //    $('#lblValGen').show();
+        //    e.preventDefault();
+        //    return false;
+        //});
+
+        //*********Zip Compulsory********//
+        $('#Zip').keypress(function (e) {
+            var regex = new RegExp("^[0-9 ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblValZip').hide();
+                return true;
+            }
+            $('#lblValZip').show();
+            e.preventDefault();
+            return false;
+        });
+
+        //******** Phone Number Compulsory*********//
+        $('#PhoneHome1').keypress(function (e) {
+            var regex = new RegExp("^[0-9 ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblValPhone').hide();
+                return true;
+            }
+            $('#lblValPhone').show();
+            e.preventDefault();
+            return false;
+        });
+
+        //*************Email Compulsory***********//
+        $('#txtEmail').keypress(function (e) {
+            var regex = new RegExp("^[\w+([-+.']\w+)*\w+([-.]\w+)*\.\w+([-.]\w+)* ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblValEmail').hide();
+                return true;
+            }
+            $('#lblValEmail').show();
+            e.preventDefault();
+            return false;
+        });
+
+
+
+        $('#txtMembername').keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckDuplicationMember", "MamberShip")',
+                data: {MemberId: $('#memid').val() == "" ? "0" : $("#memid").val(), MemberName: $('#txtMembername').val() },
+                success: function (data) {
+                    if(data == 'True')
+                    {
+                        alert("Member Exist");  
+                        $('#lblValMemName').show();
+                    }
+                    else
+                    {
+                        $('#lblValMemName').hide();
+                    }
+
+                }
+            });
+            
+
+        });
+ });
+
+</script>
+
+

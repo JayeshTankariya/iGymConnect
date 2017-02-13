@@ -194,7 +194,22 @@
     <Content Include="Content\CategoryImages\t3.jpg" />
     <Content Include="Content\CategoryImages\vendors1.jpg" />
     <Content Include="Content\CategoryImages\vendorss.jpg" />
+    <Content Include="Content\MemberImg\1.png" />
+    <Content Include="Content\MemberImg\10.jpg" />
+    <Content Include="Content\MemberImg\11.jpg" />
+    <Content Include="Content\MemberImg\123.jpg" />
+    <Content Include="Content\MemberImg\2.jpg" />
+    <Content Include="Content\MemberImg\3.jpg" />
+    <Content Include="Content\MemberImg\345.jpg" />
+    <Content Include="Content\MemberImg\4.jpg" />
+    <Content Include="Content\MemberImg\5.jpg" />
+    <Content Include="Content\MemberImg\6jpg.jpg" />
+    <Content Include="Content\MemberImg\7.jpg" />
+    <Content Include="Content\MemberImg\8.jpg" />
+    <Content Include="Content\MemberImg\9.jpg" />
+    <Content Include="Content\MemberImg\abc.jpg" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\url.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\1.jpg" />
@@ -264,6 +279,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\POSController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\MamberShipController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -284,6 +300,12 @@
     <Content Include="Views\Shared\_Vendor.cshtml" />
     <Content Include="Views\Shared\_Inventory.cshtml" />
     <Content Include="Views\Reports\Reports.cshtml" />
+    <Content Include="Views\MamberShip\MembershipView.cshtml" />
+    <Content Include="Views\Shared\_Member.cshtml" />
+    <Content Include="Views\Shared\_Membership.cshtml" />
+    <Content Include="Views\Shared\_Employee.cshtml" />
+    <Content Include="Views\Shared\_UpdateProfile.cshtml" />
+    <Content Include="Views\Shared\_Changepassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -316,7 +338,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49594</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49594/</IISUrl>
+          <IISUrl>http://localhost/iGymConnect</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost/iGymConnect</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

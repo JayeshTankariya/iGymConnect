@@ -1,0 +1,141 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MembershipView</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><h4></h4>IGym Connect</a>
+            </div>
+                <div class="container-fluid navbar-right">
+                    <button type="button" class="btn btn-link"  data-toggle="modal" data-target="#member" >
+                        Member
+                    </button>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#membership" >
+                        Membership Type
+                    </button>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#employee">
+                        Employee
+                    </button>
+                </div>
+            </div>
+        </nav>
+     
+    <div class="form-group">
+        
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="~/Images/Item3.jpg">
+                <div class="caption">
+                    <h3 class="text-center">POS</h3>
+                    <p>
+                        <a href="#" class="btn btn-primary" role="button">Inventory</a> 
+                        <a href="#" class="btn btn-primary" role="button">Category</a>
+                        <a href="#" class="btn btn-primary" role="button">Vendor</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="~/Images/Item3.jpg">
+                <div class="caption">
+                    <h3 class="text-center">MEMBERSHIP</h3>
+                    <p>
+                        <a href="#" class="btn btn-primary" role="button">Member</a>
+                        <a href="#" class="btn btn-primary" role="button">MembershipType</a>
+                        <a href="#" class="btn btn-primary" role="button">Employee</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="~/Images/Item3.jpg">
+                <div class="caption">
+                    <h3 class="text-center">CHECK IN</h3>
+                    <p>
+                        <a href="#" class="btn btn-primary" role="button">CheckIn-Out</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="~/Images/Item3.jpg">
+                <div class="caption">
+                    <h3 class="text-center">REPORT</h3>
+                    <p>
+                        <a href="#" class="btn btn-primary" role="button">Member</a>
+                        <a href="#" class="btn btn-primary" role="button">POS</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="~/Images/Item3.jpg">
+                <div class="caption">
+                    <h3 class="text-center">USER MANAGEMENT</h3>
+                    <p>
+                        <a href="#" class="btn btn-primary" role="button">Button</a>
+                        <a href="#" class="btn btn-primary" role="button">Button</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="~/Images/Item3.jpg">
+                <div class="caption">
+                    <h3 class="text-center">CONTACT</h3>
+                    <p>
+                        <a href="#" class="btn btn-primary" role="button">Contact</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+            <!--Member-->
+            @{ Html.RenderAction("GetMember", "MamberShip");}
+
+            <!--Membership-->
+            @{Html.RenderAction("GetMembership", "MamberShip");}
+
+            <!--Employee-->
+            @{Html.RenderAction("GetEmployee", "MamberShip");}
+    
+   
+    
+</body>
+</html>
+
+
+<script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
+
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+

@@ -25,9 +25,12 @@ namespace DataLogic.EntityFramework
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Inventory> Inventories { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<SubCategory> SubCategories { get; set; }
+        public virtual DbSet<Inventory> Inventories { get; set; }
+        public virtual DbSet<TransactionChild> TransactionChilds { get; set; }
+        public virtual DbSet<TransactionMaster> TransactionMasters { get; set; }
     }
 }

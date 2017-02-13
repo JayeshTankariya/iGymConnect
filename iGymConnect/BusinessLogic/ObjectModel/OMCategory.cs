@@ -12,6 +12,7 @@ namespace BusinessLogic.ObjectModel
         public string CategoryName { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+        public int ParentId { get; set; }
         public bool Deleted { get; set; }
         public DateTime DateCreated { get; set; }
         public int CreatedBy { get; set; }

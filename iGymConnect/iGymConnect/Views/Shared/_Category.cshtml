@@ -8,8 +8,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-4">
-                        <table class="table table-bordered table-hover table-striped">
+                    <div class="col-md-4" >
+                        <div style="overflow-y:scroll;">
+                        <table id="tblCategories" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
                                     <td>
@@ -22,7 +23,7 @@
                                 {
                                     foreach (var cat in Model)
                                     {
-                                        <tr>
+                                        <tr data-categoryId="@cat.Id">
                                             <td>
                                                 @cat.CategoryName
                                             </td>
@@ -32,45 +33,53 @@
 
                             </tbody>
                         </table>
+                            </div>
                     </div>
-                    <div class="col-md-8">
-                        <form class="form-horizontal">
+                    <div class="col-md-4">
+                        <form class="form-horizontal" id="frmCategory">
+
+                            <input type="hidden" class="form-control" id="txtCategoryId" >
+                            <input type="hidden" class="form-control" id="txtpath">
                             <div class="form-group">
-                                <label for="exampleInputName2">Category Name</label>
-                                <input type="text" class="form-control" id="txtName" placeholder="Enter Category">
+                                <label for="exampleInputName2">Category Name<span style="display:inline; color:red">  *</span></label>
+                                <input type="text" class="form-control" id="txtCategoryName" placeholder="Enter Category">
                                 <span style="display:none" id="lblName">Please enter Name</span>
+                                <span style="display:none; color:red" id="lblVal">Name Is Mandatory</span>
+                                <span style="display:none; color:red" id="lblValCat"> Already Exists </span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail2">Description</label>
-                                <input type="text" class="form-control" id="txtDesc" placeholder="Describe">
+                                <textarea class="form-control" id="txtDesc" placeholder="Describe"></textarea>
+                                
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail2">Browse From</label>
-                                <input type="file" class="form-control" id="fImage">
+                                <input type="file" class="form-control" id="fuBrowseFrom"> 
+                                
+                                
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputName2">Parent Category List</label>
-                                <div class="dropdown">
-                                    <select class="form-control">
-                                        @foreach (var cat in Model)
-                                        {
-                                            <option value="@cat.Id">
-                                                @cat.CategoryName
-                                            </option>
-                                        }
-                                    </select>
-                                </div>
+                                @Html.DropDownList("ddlCategory", new SelectList(ViewBag.ParentCategoryList, "Id", "CategoryName"), "-- Select --", new { @class = "form-control" })
                             </div>
                         </form>
+                     </div>
+                    <div class="col-lg-4">
+                            <div align="center">
+                                <img id="img" style="width:200px; height:200px;" /><br />
+                                <br />
+                                <input type="reset" id="ImgReset" value="Clear" class="btn btn-primary" />
+                            </div>
+                        
                     </div>
                 </div>
             </div>
             <div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Add New</button>
-                    <button type="button" id="btnCatSave" class="btn btn-primary">Update</button>
-                    <button type="button" class="btn btn-primary">Delete</button>
-                    <button type="button" class="btn btn-primary">View</button>
+                    <button type="button" id="btnCatReset" class="btn btn-primary">Add New</button>
+                    <button type="button" id="btnCatSave" class="btn btn-primary">Save</button>
+                    <button type="button" id="btnCatDel" class="btn btn-primary">Delete</button>
+
                 </div>
             </div>
         </div>
@@ -78,9 +87,11 @@
 </div>
 
 <script>
+    
+
     function CatValidation() {
         var isSuccess = true;
-        if ($('#txtName').val().length == 0) {
+        if ($('#txtCategoryName').val().length == 0) {
             $('#lblName').show();
             isSuccess = false;
         }
@@ -90,20 +101,129 @@
         return isSuccess;
     }
     $(document).ready(function () {
+        $('#fuBrowseFrom').change(function () {
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (this.files && this.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img').attr('src', e.target.result);
+                    $('#txtpath').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+            else {
+                $('#img').attr('src', '~/Content/CategoryImages/');
+                $('#txtpath').attr('src', '/Content/CategoryImages');
+            }
+        });
+
         $('#btnCatSave').on('click', function () {
+            var $file = document.getElementById('fuBrowseFrom'),
+            $formData = new FormData();
+            $formData.append('Id', $('#txtCategoryId').val());
+            $formData.append('CategoryName', $('#txtCategoryName').val());
+            $formData.append('Description', $('#txtDesc').val());
+            $formData.append('ParentId', $('#ddlCategory').val());
+            if($file.files.length > 0) {
+                $formData.append('file', $file.files[0]);
+            }
             if (CatValidation()) {
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("SaveCategory","POS")',
-                    data: { CategoryName: $('#txtName').val(), Description: $('#txtDesc').val() },
+                    data: $formData, //{ CategoryId: $('#txtCategoryId').val(), CategoryName: $('#txtCategoryName').val(), Description: $('#txtDesc').val(),},
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
                     success: function (data) {
-                        if (data == "Success") {
-                            alert("Category Saved Successfully.");
-                        }
+                        $.each(data, function (index, element) {
+                            //alert(element.CategoryName);
+                            location.reload();
+                        });
+
                     }
                 });
-                //alert("After Ajax");
+
             }
         });
-    });
+        $('#tblCategories tbody tr').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ShowCategoryDetails","POS")',
+                data: { Id: $(this).data('categoryid') },
+                success: function (data) {
+                    if (data != null) {
+                        $('#txtCategoryId').val(data.Id);
+                        $('#txtCategoryName').val(data.CategoryName);
+                        $('#txtDesc').val(data.Description);
+                        // $('#fuBrowseFrom').val(data.Image);
+                        var src1 = '@Url.Content("~/Content/CategoryImages/")' + data.Image;
+                       //  var src1 = '/Content/CategoryImages' + data.Image;
+                        $('#img').attr('src',src1);
+                        $('#ddlCategory').val(data.ParentId);
+                    }
+                }
+            });
+
+            //alert($(this).data('CategoryId'));
+        });
+
+        $('#btnCatReset').on('click', function () {
+            $('#img').attr('src', '');
+            document.getElementById("frmCategory").reset();
+        });
+
+        $('#ImgReset').on('click', function () {
+            $('#img').attr('src', '');
+           
+          });
+
+        $('#btnCatDel').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteCategory", "POS")',
+                data: { Id: $('#txtCategoryId').val() },
+                success: function (data) {
+                    var a = confirm("Are You Sure ?");
+                    if (a == true)
+                    {
+                        alert("Your Record Deleted Successfully");
+                    }
+                    location.reload();
+                }
+            });
+        });
+
+        $('#txtCategoryName').keypress(function (e) {
+            var regex = new RegExp("^[a-zA-Z ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblVal').hide();
+                   return true;
+            }
+            $('#lblVal').show();
+            e.preventDefault();
+            return false;
+            
+        });
+        $('#txtCategoryName').keyup(function () { 
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckDulplicationCategory", "POS")',
+                data: { Id: $('#txtCategoryId').val() == "" ? "0" : $('#txtCategoryId').val(), CategoryName: $('#txtCategoryName').val() },
+                success: function (data) {
+                    if (data == 'True') {
+                        alert("Category exists");
+                        $('#lblValCat').show();
+                    }
+                    else {
+                        $('#lblValCat').hide();
+                    }
+                }
+
+            });
+        });
+      });
 </script>

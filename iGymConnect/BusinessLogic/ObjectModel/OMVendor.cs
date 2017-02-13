@@ -19,5 +19,8 @@ namespace BusinessLogic.ObjectModel
         public int ItemId { get; set; }
         public int CategoryId { get; set; }
 
+        public string Address { get; set; }
+        public Decimal Number { get; set; }
+        public string City { get; set; }
     }
 }

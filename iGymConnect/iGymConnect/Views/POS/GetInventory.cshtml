@@ -1,6 +1,6 @@
-﻿
+﻿@model List<BusinessLogic.ObjectModel.OMCategory>
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+   // Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "GetInventory";
 }
 
@@ -10,534 +10,474 @@
 @using (Html.BeginForm("GetInventory", "POS", FormMethod.Post))
 {
 
-    <div>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @*<a class="navbar-brand" href="#">Brand</a>*@
-                </div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">GYM  MANAGEMENT  SYSTEM</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    @*<li><img src="~/Images/Inventory.jpg" height="40px" width="40px" /></li>*@
+                    <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myInventory" id="InvOpen"> Inventory <span class="sr-only">(current)</span></a></li>
+                    
+                    @*<li><img style="margin-top:5px" src="~/Images/cat1.jpg" height="40px" width="40px" /></li>*@
+                    <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myCategory"> Category </a></li>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><img src="~/Images/Inventory.jpg" height="40px" width="40px" /></li>
-                        <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myInventory"> Inventory <span class="sr-only">(current)</span></a></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li><img style="margin-top:5px" src="~/Images/cat1.jpg" height="40px" width="40px" /></li>
-                        <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myCategory"> Category </a></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li><img style="margin-top:5px" src="~/Images/vendorss.jpg" height="40px" width="40px" /></li>
-                        <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myVendor"> Vendors </a></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li><img style="margin-top:5px" src="~/Images/Giftcard1.jpg" height="40px" width="40px" /></li>
-                        <li><a href="#" class="navbar-brand"> Gift Cards </a></li>
+                    @*<li><img style="margin-top:5px" src="~/Images/vendorss.jpg" height="40px" width="40px" /></li>*@
+                    <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myVendor"> Vendors </a></li>
 
-
-                    </ul>
-
-
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-    </div>
-    <div>
-        <div>
-            <div class="navbar navbar-default" style="overflow-y:scroll; margin-right:600px">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <ul>
-                            <li>
-                                <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-bottom:5px;margin-top:5px;float:left"></div>
-                                <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-left:10px;margin-bottom:5px;margin-top:5px;float:left"></div>
-                                <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-left:10px;margin-bottom:5px;margin-top:5px;float:left"></div>
-                                <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-left:10px;margin-bottom:5px;margin-top:5px;float:left"></div>
-                            </li>
-                            <li>
-                                <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-bottom:5px;margin-top:5px;float:left"></div>
-                                <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-left:10px;margin-bottom:5px;margin-top:5px;float:left"></div>
-                                <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-left:10px;margin-bottom:5px;margin-top:5px;float:left"></div>
-                                <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-left:10px;margin-bottom:5px;margin-top:5px;float:left"></div>
-                            </li>
-                            @*<li>
-                                    <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-bottom:5px;margin-top:5px;float:left"></div>
-                                    <div style="width:70px;height:70px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-left:10px;margin-bottom:5px;margin-top:5px;float:left"></div>
-                                </li>*@
-                        </ul>
-                    </div>
-                </div>
+                    @*<li><img style="margin-top:5px" src="~/Images/Giftcard1.jpg" height="40px" width="40px" /></li>*@
+                    <li><a href="#" class="navbar-brand"> Gift Cards </a></li>
+                </ul>
+               
             </div>
         </div>
+    </nav>
 
-        <div style="margin-right:600px;overflow-y:scroll">
-            <table class="table table-bordered table-striped" style="overflow-x:auto">
-                <thead>
-                    <tr>
-                        <th>ItemID</th>
-                        <th>Description</th>
-                        <th>Retail</th>
-                        <th>Discount</th>
-                        <th>Selling</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div id="myPOS" class="container-fluid navbar navbar-default">
+       
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main " >
+            <h1 class="page-header"> POINT OF SALE </h1>
 
-    </div>
-
-        <div class="row col-lg-10">
-            <form>
-                @******total
-                    *****sub- total*@
-
-
-            </form>
-        </div>
-
+            <div>
                 <div>
-                    <nav class="navbar navbar-default">
+
+                    <div class="navbar navbar-default" >
                         <div class="container-fluid">
                             <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                <a class="navbar-brand" href="#">Purchased Items : </a>
+                            <div>
+                                <ul>
+                                    <li>
+                                        @if (Model != null)
+                                        {
+                                            foreach (var cat in Model)
+                                            {
+                                                <div data-poscategoryid="@cat.Id" style="width:100px;height:100px;padding:2px 0 2px 3px;border:solid;margin-bottom:5px;margin-top:5px;float:left;">
+                                                    @*<a href="@Url.Action("GetCategories","POS")"><img src="('/Content/CategoryImages/' +data.Image)" id="img1" height="75px" width="90px" /> @cat.CategoryName </a>*@
+                                                    <a href="#"><img src="@("/Content/CategoryImages/" + cat.Image)" id="img1" height="75px" width="90px" /> @cat.CategoryName </a>
+                                                </div>
+                                            }
+                                        }
+                                        
+                                        
+                                    </li>
+                                    </ul>
+                                
                             </div>
 
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        </div>
 
-                                <form class="navbar-form navbar-left">
-                                    <div class="form-group">
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li><a href="#"><input type="text" class="form-control" placeholder="Search"></a></li>
-                                            <li><a href="#"><input type="text" class="form-control" placeholder="Select a category or an inventory item" /></a></li>
 
-                                        </ul>
-                                    </div>
+                     
 
-                                </form>
-
-                            </div><!-- /.navbar-collapse -->
-                        </div><!-- /.container-fluid -->
-                    </nav>
-
+                    </div>
                 </div>
+
+
+
                 <div>
-                    <ul class="nav navbar-nav">
-                        <li><a href="#"><button type="button" class="btn btn-success">Discount</button></a></li>
-                        <li></li>
-                        <li><a href="#"><button type="button" class="btn btn-success">Delete</button></a></li>
-                        <li></li>
-                        <li><a href="#"><button type="button" class="btn btn-success">Void</button></a></li>
-                        <li></li>
-                        <li><a href="#"><button type="button" class="btn btn-success">Quantity</button></a></li>
-                        <li></li>
-                        <li><a href="#"><button type="button" class="btn btn-success">Refund</button></a></li>
-                        <li></li>
-                        <li><a href="#"><button type="button" class="btn btn-success">Pending</button></a></li>
-                        <li></li>
-                        <li><a href="#"><button type="button" class="btn btn-success">Payments</button></a></li>
-                    </ul>
-                </div>
-                <div>
-                    <table class="table table-bordered table-striped">
+                    <table id="tblcat" class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Oty</th>
+                                <th>Item</th>
                                 <th>Description</th>
-                                <th>Retail</th>
                                 <th>Discount</th>
-                                <th>Split</th>
-                                <th>Seling</th>
-                                <th>Tax</th>
-                                <th>Total</th>
-                                <th>Package Expiration</th>
+                                <th>Cost</th>
+                                <th>Barcode</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                        </tbody>
+                               <tr data-toggle="modal" data-target="#myModal">
+                                   <td>
+
+                                   </td>
+                               </tr>
+                         </tbody>
+                       
                     </table>
                 </div>
 
+            </div>
+            <div>
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid" >
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">Purchased Items : </a>
+                        </div>
 
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                            <form class="navbar-form navbar-left">
+                                <div class="form-group">
+                                    <ul class="nav navbar-nav navbar-right" >
+                                        <li><a href="#"><input type="text" style="border:solid" class="form-control" placeholder="Search"></a></li>
+                                        <li><a href="#"><input type="text" style="border:solid" class="form-control" placeholder="Select a category or an inventory item" /></a></li>
+
+                                    </ul>
+                                </div>
+
+                            </form>
+
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+
+            </div>
+            <form class="form-inline">
+                <ul class="nav nav-pills navbar-collapse">
+                    <li role="presentation">
+                        <a href="#">
+                            <button type="button" id="btnDelete" class="btn btn-default btn-lg btn-block">Delete</button> 
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#">
+                            <button type="button" id="btnVoid" class="btn btn-default btn-lg btn-block">Void</button> 
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#">
+                            <button type="button" id="btnPayment" class="btn btn-default btn-lg btn-block">Payment</button> 
+                        </a>
+                    </li>
+                </ul>
+
+                <br />
+                
+            </form>
+            <div>
+               <table id="tblCart" class="table table-striped">
+                         <thead>
+                            <tr>                                
+                                <th>Item</th>
+                                <th>Description</th>
+                                <th>Discount</th>
+                                <th>Cost</th>
+                                <th>Barcode</th>
+                                <th>Oty</th>
+                                <th>Amount</th>
+                                <th>Total Amt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                
+             <div>
+                 <form class="form-inline">
+                     <div class="form-group navbar-right">
+                         <label for="exampleInputName2"><h3><b><i> TOTAL PAYABLE AMOUNT </i></b></h3></label>
+                         <input type="text" class="form-control" id="txtGrandTotal">
+                     </div>
+                 </form>
+            </div>
+        </div>
+    </div>
+    //*********************************
+    @*<div class="row col-lg-10">
+            <form>
+                @******total
+                    *****sub- total*@
 }
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> User Required Quantity </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2"> Quantity </label>
+                        <input type="text" class="form-control" id="txtQty" placeholder="Enter the Qty...">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnAddQty" class="btn btn-primary"> Add </button>
+                
+          </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> Payment Options </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2"> Payment Modes </label><br />
+
+                    </div>
+                    <ul class="nav nav-pills nav-stacked navbar-collapse">
+                        <li role="presentation" id="btnCash"><a href="#">
+                                CASH MODE
+                        </a></li>
+                        <li role="presentation" id="btnGiftCard"><a href="#">
+                             GIFT CARD 
+                        </a></li>
+                    </ul>
+                    
+                    <br />
+                    @*<div class="form-group">
+                        <br />
+                        
+                        <br />
+                        
+                    </div>*@
+                 </form>
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" id="btnAddQty" class="btn btn-primary"> Add </button>
+
+            </div>*@
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myCash" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" align="center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="color:deeppink"><i> PAYMENT VIA CASH </i></h4>
+            </div>
+            <div class="modal-body">
+                <span style="display:none; color:red" id="lblCash"> Cash Payment </span>
+                <span style="display:none; color:red" id="lblGiftCard"> Gift Card Payment </span>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2" style="color:lightseagreen"> Item Total </label>
+                        <input type="text" class="form-control" id="txtItemTotal" style="color:lightseagreen;font-style:initial">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName2" style="color:lightseagreen"> Remarks </label>
+                        <textarea class="form-control" id="txtRemarks" style="color:lightseagreen;font-style:initial" placeholder="Customer Remarks "></textarea>
+                    </div>
+                </form>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <br />
+                        <label for="exampleInputName2" style="color:deeppink"><i> Your Payment Has Successfully Been Done !!! </i></label><br />
+                        <img src="~/Content/CategoryImages/t1.png" />
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="btnDone" class="btn btn-primary"> Done </button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myGiftCard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" align="center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> Payment via Gift - Card </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <br />
+                        <label for="exampleInputName2"><i> Your Payment Has Successfully Been Done !!! </i></label><br />
+                        <img src="~/Content/CategoryImages/Giftcard1.jpg" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @************* CATEGORY SECTION ************@
 @{
     Html.RenderAction("GetCategories", "POS");
 }
 
     @************ VENDOR SECTION *************@
-    <div class="modal fade" id="myVendor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">VENDORS</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <td>
-                                            Name
-                                        </td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-lg-8">
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail2">Vendor</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Plz Enter The Name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail2">Firm Name</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail2">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail2">Address</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Select Date">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail2">Number</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail2" placeholder="Select Date">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail2">City</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Select Date">
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary"> Add New </button>
-                    <button type="button" class="btn btn-primary"> Update </button>
-                    <button type="button" class="btn btn-primary"> Delete </button>
-                    <button type="button" class="btn btn-primary"> View </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @{ Html.RenderAction("GetVendors", "POS");
+        }
 
     @************** INVENTORY SECTION **********@
 
-    <div class="modal fade" id="myInventory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"> INVENTORIES </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div style="height:550px;overflow-x:scroll;">
-                                <table class="table table-bordered table-hover table-striped">
-                                    <thead>
-                                        <tr align="center">
-                                            <th>ITEMS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>1</td></tr>
-                                        <tr><td>2</td></tr>
-                                        <tr><td>3</td></tr>
-                                        <tr><td>4</td></tr>
-                                        <tr><td>5</td></tr>
-                                        <tr><td>6</td></tr>
-                                        <tr><td>7</td></tr>
-                                        <tr><td>8</td></tr>
-                                        <tr><td>9</td></tr>
-                                        <tr><td>10</td></tr>
-                                        <tr><td>11</td></tr>
-                                        <tr><td>12</td></tr>
-                                        <tr><td>13</td></tr>
-                                        <tr><td>14</td></tr>
-                                        <tr><td>15</td></tr>
-                                        <tr><td>16</td></tr>
-                                        <tr><td>17</td></tr>
-                                        <tr><td>18</td></tr>
-                                        <tr><td>19</td></tr>
-                                        <tr><td>20</td></tr>
+    @{ 
+        Html.RenderAction("GetInventories", "POS");
+    }
+<script>
+    var invId = 0;
+    var invs;
+    var TransactionMasterId = 0;
+    var now = new Date();
+    var selection;
+    var a = $('#btnCash').select();
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div>
-                                <div>
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label for="inputEmail3" class="col-sm-2 control-label">Item#</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputEmail3" placeholder="item id">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
-                                            <div class="col-sm-10">
-                                                <textarea rows="3" class="form-control"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputPassword3" class="col-sm-2 control-label">Vendor</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control">
-                                                    <option>-- Select --</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputPassword3" class="col-sm-2 control-label">Category</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control">
-                                                    <option>-- Select --</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputPassword3" class="col-sm-2 control-label">Sub Category</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control">
-                                                    <option>-- Select --</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputPassword3" class="col-sm-2 control-label">Cost</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        @*<div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Remember me
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>*@
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-default">Save</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    @*<form>
-                                            <div class="form-group">
-                                                <ul>
-                                                    <li class="nav navbar">
-                                                        <a href="#">
-                                                            <label for="exampleInputEmail1">Item</label>
-                                                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Item">
-                                                        </a>
-                                                    </li>
+    if (a.select)
+    {
+        selection = $('lblCash').show();
+    }
+    else{
+        selection = $('#lblGiftCard').show();
+    }
 
-                                                    <li class="nav navbar">
-                                                        <label for="exampleInputEmail2">Vendor</label>
-                                                        <select class="form-control">
-                                                            <option>-- Select --</option>
-                                                        </select>
-                                                    </li>
-                                                </ul>
-                                            </div>
+    function Final() {
+        var GrandTotal = 0;
+        $('#tblCart tbody tr').each(function () {           
+                var value = parseFloat($(this).find('td:last').text());
+                GrandTotal += value;             
+         });
+        $('#txtGrandTotal').val(GrandTotal);
+    }
+    var paymentMode = 'CASH';
+    
+    $(document).ready(function () {
 
-                                            <div class="form-group">
-                                                <ul>
-                                                    <li class="nav navbar">
-                                                        <a href="#">
-                                                            <label for="exampleInputEmail2">Decription</label>
-                                                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Description of the Item">
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+       $('body').on('click', '#tblcat tbody tr', function () {
+            $('#txtQty').val("");
+            invId = $(this).data('invid');
+            invs=$(this);
+            $('#myModal').modal('show');            
+        });
 
-                                            <div class="form-group">
-                                                <ul>
-                                                    <li class="nav navbar">
-                                                        <a href="#">
-                                                            <label for="exampleInputEmail2">Category</label>
-                                                            <input type="number" class="form-control" id="exampleInputEmail2" placeholder="Select Date">
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+        $('#btnPayment').on('click', function () {
+            $('#myPayment').modal('show');
+        });
+        $('#btnCash').on('click', function () {
+            paymentMode = 'CASH';
+            $('#myCash').modal('show');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CashPayment", "POS")',
+                data: { Id: invId },
+                success: function (data) {
+                    if (data != null) {
+                        $('#myCash').each(function (index) {
+                            if ($('#tblCart tbody tr td:last') != null) {
+                                $('#txtItemTotal').val($('#txtGrandTotal').val());
+                            }
+                        });
+                    }
+                }
+            });
+        });
+        $('#btnGiftCard').on('click', function () {
+            $('#myGiftCard').modal('show');
+        });
+        $('#btnDone').on('click', function () {
+            TransactionMasterId = $(this).data('TransactionMasterId');
+            var items = [];
+            $.each($('#tblCart tbody tr'), function (index, element) {
+                items.push({
+                    ItemId: $(this).data('itemid'),
+                    ItemTotal: $(this).find('td:eq(7)').text()
+                });
+            });
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: "POST",
+                url: '@Url.Action("GetAllByTransactionMaster", "POS")',
+                data: JSON.stringify({
+                    MemberId: 0,
+                    Remarks: $('#txtRemarks').val(),
+                    Items: items,
+                    TransactionMode: paymentMode
+                }),
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
 
-                                            <div class="form-group">
-                                                <ul>
-                                                    <li class="nav navbar">
-                                                        <a href="#">
-                                                            <label for="exampleInputEmail2">Cost</label>
-                                                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Select Date">
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+        $('#btnVoid').on('click', function () {
+            //$('#myPOS').reload(true);
+            window.location.reload();
+        });
 
-                                            <div class="form-group">
-                                                <ul>
-                                                    <li class="nav navbar">
-                                                        <a href="#">
-                                                            <label for="exampleInputEmail2">Bracode</label>
-                                                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Select Date">
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </form>*@
+        $('#btnAddQty').on('click', function () {
+            var isFound = false;
+            $('#tblCart tbody tr').each(function () {
+                if ($(this).find('td:eq(1)').text() == invs.find('td:eq(1)').text()) {
+                    $(this).find('td:eq(5)').text(parseInt($(this).find('td:eq(5)').text()) + parseInt($('#txtQty').val()));
+                    $(this).find('td:eq(7)').text(parseInt($(this).find('td:eq(5)').text()) * parseInt($(this).find('td:eq(6)').text()));
+                    Final();
+                    isFound = true;
+                }
+            });
+            if (!isFound) {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("AddQty", "POS")',
+                    data: { Id: invId },
+                    success: function (data) {
+                        if (data != null) {
+                            $('tblCart tbody').empty();
+                            var abc = $('#txtQty').val() * data.Total;
+                            $('#tblCart tbody').append('<tr data-itemid="' + data.Id + '"><td>' + data.Item + '</td><td>' + data.Description + '</td><td>' + data.Discount + '</td><td>' + data.Cost + '</td><td>' + data.Barcode + '</td><td>' + $('#txtQty').val() + '</td><td>' + data.Total + '</td><td>' + abc + '</td></tr>');
+                            $('#myModal').modal('hide');
+                            Final();
+                        };
+                    }
+                });
+            }
+            else {
+                $('#myModal').modal('hide');
+            }
+        });
 
-                                </div>
+        $('body').on('click', '#tblCart tbody tr', function () {
+            a = $(this).index();
+        });
 
-                            </div>
+        $('#btnDelete').on('click', function () {
+            if ('click', '#tblCart tbody tr') {
+                if (confirm("Are You Sure You Want To Remove This Item From Cart ?")) {
+                    $('#tblCart tbody tr:eq(' + a + ')').remove();
+                    a = null;
+                    Final();
+                }
+            }
+        });
 
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Add New</button>
-                        <button type="button" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-primary">Delete</button>
-                        <button type="button" class="btn btn-primary">View</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @*<script src="@Url.Content("~/Content/js/jquery-1.8.2.min.js")"></script>*@
+        $('div[data-poscategoryid]').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetInvntoryByCategoryId", "POS")',
+                data: { Id: $(this).data('poscategoryid') },
+                success: function (data) {
+                    if (data != null) {
+                        $('#tblcat tbody').empty();
+                        $.each(data, function (index, element) {
+                            $('#tblcat tbody').append('<tr data-invid="' + element.Id + '"><td>' + element.Item + '</td><td>' + element.Description + '</td><td>' + element.Discount + '</td><td> ' + element.Cost + ' </td><td> ' + element.Barcode + ' </td></tr>');
+                        });
+                    }
+                }
+            });
+        });
+    });
 
-    @*<script src="@Url.Content("~/Content/")"></script>*@
-
-    @*<script src="@Url.Content("~/Content/js/bootstrap.min.js")"></script>*@
+</script>

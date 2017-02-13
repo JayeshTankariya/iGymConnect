@@ -49,10 +49,17 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="ObjectModel\OMCategory.cs" />
+    <Compile Include="ObjectModel\OMInventory.cs" />
+    <Compile Include="ObjectModel\OMSubCategory.cs" />
+    <Compile Include="ObjectModel\OMTransaction.cs" />
+    <Compile Include="ObjectModel\OMTransactionChild.cs" />
     <Compile Include="ObjectModel\OMUser.cs" />
     <Compile Include="ObjectModel\OMVendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserMag\BCategory.cs" />
+    <Compile Include="UserMag\BInventory.cs" />
+    <Compile Include="UserMag\BSubCategory.cs" />
+    <Compile Include="UserMag\BTransaction.cs" />
     <Compile Include="UserMag\BUser.cs" />
     <Compile Include="UserMag\BVendor.cs" />
   </ItemGroup>

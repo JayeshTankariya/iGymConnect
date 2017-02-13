@@ -1,4 +1,5 @@
 ﻿@model List<BusinessLogic.ObjectModel.OMVendor>
+
 <div class="modal fade" id="myVendor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -9,73 +10,204 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-4">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <td>
-                                        Name
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model != null)
-                                {
-                                    foreach (var ven in Model)
+                        <div style="overflow-y:scroll;">
+                            <table id="tblVendors" class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            Name
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
                                     {
-                                        <tr>
-                                            <td>
-                                                @ven.Name
-                                            </td>
-                                        </tr>
+                                        foreach (var ven in Model)
+                                        {
+                                            <tr data-vendorId="@ven.Id">
+                                                <td>
+                                                    @ven.Name
+                                                </td>
+                                            </tr>
+                                        }
                                     }
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="col-lg-8">
-                        <form>
+                        <form id="frmVendor">
+                            <input type="hidden" class="form-control" id="txtId" placeholder="Plz Enter The Name">
+
                             <div class="form-group">
-                                <label for="exampleInputEmail2">Vendor</label>
-                                <input type="text" class="form-control" id="lblName" placeholder="Plz Enter The Name">
+                                <label for="exampleInputEmail2">Vendor Name<span style="display:inline; color:red">  *</span></label>
+                                <input type="text" class="form-control" id="txtVendorName" placeholder="Enter The Name">
+                                <span style="display:none" id="lblName">Please enter Name</span>
+                                <span style="display:none; color:red" id="lblVal2">Name Is Mandatory</span>
+                                <span style="display:none; color:red" id="lblValVen"> Already Exists </span>
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail2">Firm Name</label>
-                                <input type="text" class="form-control" id="lblFirmName">
+                                <label for="exampleInputEmail2">Firm Name<span style="display:inline; color:red">  *</span></label>
+                                <input type="text" class="form-control" id="txtFirmName" placeholder="Enter Firm-Name">
+                                <span style="display:none; color:red" id="lblVal3">Firm Name Is Mandatory</span>
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail2">Address</label>
-                                <input type="text" class="form-control" id="lblAddress" placeholder="Select Date">
+                                <label for="exampleInputEmail2">Address<span style="display:inline; color:red">  *</span></label>
+                                <textarea class="form-control" id="txtAddress" placeholder="Enter Address"></textarea>
+
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail2">Number</label>
-                                <input type="number" class="form-control" id="lblNumber" placeholder="Select Date">
+                                <label for="exampleInputEmail2">Number<span style="display:inline; color:red">  *</span></label>
+                                <input type="number" class="form-control" id="txtNumber" placeholder="Enter Number">
+                                <span style="display:none; color:red" id="lblVal4">Only Numeric</span>
                             </div>
 
                             <div class="form-group">
                                 <label for="exampleInputEmail2">City</label>
-                                <input type="text" class="form-control" id="lblCity" placeholder="Select Date">
+                                <input type="text" class="form-control" id="txtCity" placeholder="Enter City">
                             </div>
                         </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnVendorReset"> Add New </button>
+                            <button type="button" class="btn btn-primary" id="btnVenSave"> Save </button>
+                            <button type="button" class="btn btn-primary" id="btnVenDel"> Delete </button>
 
+                        </div>
                     </div>
                 </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary"> Add New </button>
-                <button type="button" class="btn btn-primary"> Update </button>
-                <button type="button" class="btn btn-primary"> Delete </button>
-                <button type="button" class="btn btn-primary"> View </button>
-            </div>
+
         </div>
     </div>
 </div>
-    <script>
-        function VenValidation() {
-            var isSuccess = true;
-            if()
+<script>
+    function VenValidation() {
+        var isSuccess = true;
+        if ($('#txtVendorName').val().length == 0) {
+            $('#lblName').show();
+            isSuccess = false;
         }
-    </script>
+        else {
+            $('#lblName').hide();
+        }
+
+        return isSuccess;
+    }
+
+    $(document).ready(function () {
+        $('#btnVenSave').on('click', function () {
+            if (VenValidation()) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveVendor","POS")',
+                    data: { Id: $('#txtId').val(), Name: $('#txtVendorName').val(), FirmName: $('#txtFirmName').val(), Address: $('#txtAddress').val(), Number: $('#txtNumber').val(), City: $('#txtCity').val() },
+                    success: function (data) {
+                        $.each(data, function (index, element) {
+                            //alert(element.Name);
+                            location.reload();
+                        });
+                    }
+                });
+            }
+        });
+
+        $('#tblVendors tbody tr').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ShowVendorDetails", "POS")',
+                data: { Id: $(this).data('vendorid') },
+                success: function (data) {
+                    if (data != null) {
+                        $('#txtId').val(data.Id);
+                        $('#txtVendorName').val(data.Name);
+                        $('#txtFirmName').val(data.FirmName);
+                        $('#txtAddress').val(data.Address);
+                        $('#txtNumber').val(data.Number);
+                        $('#txtCity').val(data.City);
+                    }
+                }
+            });
+            // alert($(this).data('vendorId'));
+        });
+
+        $('#btnVendorReset').on('click', function () {
+            document.getElementById("frmVendor").reset();
+        });
+
+        $('#btnVenDel').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteVendor", "POS")',
+                data: { Id: $('#txtId').val() },
+                success: function (data) {
+                    var a = confirm("Are You Sure ?");
+                    if (a == true) {
+                        alert("Your Record Deleted Successfully");
+                    }
+                    location.reload();
+                }
+            });
+        });
+
+        $('#txtVendorName').keypress(function (e) {
+            var regex = new RegExp("^[a-zA-Z ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblVal2').hide();
+                return true;
+            }
+            $('#lblVal2').show();
+            e.preventDefault();
+            return false;
+
+        });
+        $('#txtFirmName').keypress(function (e) {
+            var regex = new RegExp("^[a-zA-Z ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblVal3').hide();
+                return true;
+            }
+            $('#lblVal3').show();
+            e.preventDefault();
+            return false;
+
+        });
+        $('#txtNumber').keypress(function (e) {
+            var regex = new RegExp("^[0-9]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblVal4').hide();
+                return true;
+            }
+            $('#lblVal4').show();
+            e.preventDefault();
+            return false;
+
+        });
+
+        $('#txtVendorName').keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckDulplicationVendor", "POS")',
+                data: { Id: $('#txtId').val() == "" ? "0" : $('#txtId').val(), Name: $('#txtVendorName').val() },
+                success: function (data) {
+                    if (data == 'True') {
+                        alert("Vendor exists");
+                        $('#lblValVen').show();
+                    }
+                    else {
+                        $('#lblValVen').hide();
+                    }
+                }
+
+            });
+        });
+    });
+
+
+</script>

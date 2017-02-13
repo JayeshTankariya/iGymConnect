@@ -1,0 +1,289 @@
+﻿
+@{
+    Layout = null;
+}
+@*<link href="@Url.Content("~/Content/bootstrap-theme.min.css")" rel="stylesheet" />*@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MembershipView</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">GYM  MANAGEMENT  SYSTEM</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#member">
+                                1
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#membership">
+                                2
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#employee">
+                                3
+                            </button>
+                        </a>
+                    </li>
+                </ul>                                        
+            </div>
+        </div>
+    </nav>
+
+    <div id="myReports" class="container-fluid navbar navbar-default">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main ">
+            <h1 class="page-header"> REPORTS </h1>
+           
+                <div class="form-group" id="POS" data-toggle="modal" data-target="id="POSModal">
+                    <div class="col-xs-4 col-md-5">
+                        <div>
+                            <div style="width:350px;height:350px;padding:2px 0 2px 3px;margin-bottom:5px;margin-top:5px;float:left;">
+                                <img src="~/Content/Banners/1.png" class="img-circle" width="300px">
+                                <div>
+                                    <ul class="nav nav-pills navbar-collapse">
+                                        @*nav-stacked*@
+                                        <li role="presentation" id="btnPOS">
+                                            <a href="#" align="center">
+                                                <h3> POS </h3>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                           </div>
+                    </div>
+                </div>
+                <div class="form-group" id="Membership">
+                    <div class="col-xs-5 col-md-4">
+                        <div>
+                            <div style="width:350px;height:350px;padding:2px 0 2px 3px;margin-bottom:5px;margin-top:5px;float:left;">
+                                <img src="~/Content/Banners/2.png" class="img-circle" width="260px">
+                                <div>
+                                    <ul class="nav nav-pills navbar-collapse">
+                                        @*nav-stacked*@
+                                        <li role="presentation" id="btnMembership">
+                                            <a href="#" align="center">
+                                                <h3> MEMBERSHIP </h3>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+               
+                <div class="form-group" id="CheckIn">
+                    <div class="col-xs-4 col-md-5">
+                        <div>
+                            <div style="width:350px;height:350px;padding:2px 0 2px 3px;margin-bottom:5px;margin-top:5px;float:left;">
+                                <img src="~/Content/Banners/inout.png" class="img-circle" height="280px">
+                                <div>
+                                    <ul class="nav nav-pills navbar-collapse">
+                                        @*nav-stacked*@
+                                        <li role="presentation" id="btnCheckIn">
+                                            <a href="#" align="center">
+                                                <h3> CHECK - IN </h3>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="form-group" id="UserManagement">
+                    <div class="col-xs-5 col-md-4">
+                        <div>
+                            <div style="width:350px;height:350px;padding:2px 0 2px 3px;margin-bottom:5px;margin-top:5px;float:left;">
+                                <img src="~/Content/Banners/um1.jpg" class="img-circle" height="280px">
+                                <div>
+                                    <ul class="nav nav-pills navbar-collapse">
+                                        @*nav-stacked*@
+                                        <li role="presentation" id="btnUserManagement">
+                                            <a href="#" align="center">
+                                                <h3>USER - MANAGEMENT </h3>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+         
+            
+        </div>
+        </div>
+
+<script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
+
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+
+    <!-- POS Modal -->
+    <div class="modal fade" id="POSModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" ><h3><i><b> POS REPORTS </b></i></h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline">
+                        <div>
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="border:solid;color:black" src="~/Images/Inventory.jpg" height="100px" width="100px">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">
+                                        <ul class="nav nav-pills nav-stacked navbar-collapse">
+                                            <li role="presentation" id="btnRInventory">
+                                                <a href="#">List Of Inventory </a>
+                                                Gives you reports on the basis of Inventories
+                                                </li>
+                                         </ul>
+                                    </h4>
+                                    
+                                </div>
+                            </div>
+                            @*2*@
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="border:solid;color:black" src="~/Images/category.jpg" height="100px" width="100px">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">
+                                        <ul class="nav nav-pills nav-stacked navbar-collapse">
+                                            <li role="presentation" id="btnRInventory">
+                                                <a href="#">List Of Category </a>
+                                                Gives you reports on the basis of Categories
+                                            </li>
+                                        </ul>
+                                    </h4>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @*3*@
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" style="border:solid;color:black" src="~/Images/currency.jpg" height="100px" width="100px">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <ul class="nav nav-pills nav-stacked navbar-collapse">
+                                        <li role="presentation" id="btnRInventory">
+                                            <a href="#">List Of Cost of Products </a>
+                                            Gives you reports on the basis of Products
+                                        </li>
+                                    </ul>
+                                </h4>
+
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" style="border:solid;color:black" src="~/Images/dt.jpg" height="100px" width="100px">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <ul class="nav nav-pills nav-stacked navbar-collapse">
+                                        <li role="presentation" id="btnRInventory">
+                                            <a href="#">List Of Date & Time </a>
+                                            Gives you reports on the basis of Date And Time
+                                        </li>
+                                    </ul>
+                                </h4>
+
+                            </div>
+                        </div>
+                            @*<div class="form-group">
+                                    <label for="exampleInputName2"><b> REPORTS </b></label><br />
+
+                                </div>
+                                <ul class="nav nav-pills nav-stacked navbar-collapse">
+                                    <li role="presentation" id="btnRInventory">
+                                        <a href="#">
+                                            List Of  INVENTORY
+                                        </a>
+                                    </li>
+                                    <li role="presentation" id="btnRCategory">
+                                        <a href="#">
+                                            List Of  CATEGORY
+                                        </a>
+                                    </li>
+                                    <li role="presentation" id="btnRDateTime">
+                                        <a href="#">
+                                            List Of  ITEMS UPON DATE & TIME
+                                        </a>
+                                    </li>
+                                    <li role="presentation" id="btnRGiftCard">
+                                        <a href="#">
+                                            List Of  GIFT CARD PURCHASE
+                                        </a>
+                                    </li>
+                                    <li role="presentation" id="btnRDiscount">
+                                        <a href="#">
+                                            List Of  DISCOUNTED ITEMS
+                                        </a>
+                                    </li>
+                                </ul>*@
+                          
+                        <br />
+                       
+                    </form>
+                </div>
+                @*<div class="modal-footer" align="center">
+                    
+                    <img src="~/Content/Banners/pos1.jpg" class="img-responsive">
+                </div>*@
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        $('#POS').on('click', function () {
+            $('#POSModal').modal('show');
+        });
+    });
+</script>
+
+

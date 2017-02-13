@@ -58,6 +58,15 @@
     <Compile Include="EntityFramework\Inventory.cs">
       <DependentUpon>UserDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\SubCategory.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\TransactionChild.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\TransactionMaster.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\UserDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

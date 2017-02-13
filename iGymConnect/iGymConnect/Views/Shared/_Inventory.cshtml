@@ -1,0 +1,300 @@
+﻿@model List<BusinessLogic.ObjectModel.OMInventory>
+<div class="modal fade" id="myInventory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> INVENTORIES </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div style="overflow-y:scroll;">
+                            <table id="tblInventory" class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr align="center">
+                                        <th>ITEMS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var inv in Model)
+                                        {
+                                            <tr data-inventoryId="@inv.Id">
+                                                <td>@inv.Item</td>
+                                            </tr>
+                                        }
+                                    }
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div>
+                            <div>
+                                <form class="form-horizontal" id="frmInventory">
+                                    
+                                    <input type="hidden" class="form-control" id="txtInventoryId" placeholder="item id">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Item#<span style="display:inline; color:red">  *</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="txtInventoryItem" placeholder="Item">
+                                            <span style ="display:none" id="lblName">Please enter Name</span>
+                                            <span style="display:none; color:red" id="lblVal1">Name Is Mandatory</span>
+                                            <span style="display:none; color:red" id="lblValInv"> Already Exists </span>
+                                         </div>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">Barcode<span style="display:inline; color:red">  *</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="txtBarcode" placeholder="Barcode">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
+                                        <div class="col-sm-10">
+                                            <textarea rows="3" class="form-control" id="txtDescription" placeholder="Describe"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">Vendor</label>
+                                        <div class="col-sm-10">
+                                            @Html.DropDownList("ddlVendor", new SelectList(ViewBag.VendorList, "Id", "Name"), "-- Select --", new { @class = "form-control" })
+                                            </div>
+                                            @*<div class="col-sm-10">
+                <select class="form-control" id="drpVendorId">
+                    @foreach(var inv in Model)
+                    {
+                        <option value="@inv.Id">
+                            @inv.VendorId
+                        </option>
+                    }
+                </select>
+            </div>*@
+                                        </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">Category</label>
+                                        <div class="col-sm-10">
+                                            @Html.DropDownList("ddlCategoryList", new SelectList(ViewBag.CategoryList, "Id", "CategoryName"), "-- Select --", new { @class = "form-control" })
+                                            </div>
+                                            @*<div class="col-sm-10">
+                <select class="form-control" id="drpCategoryId">
+                    @foreach (var inv in Model)
+                    {
+                        <option value="@inv.Id">
+                            @inv.CategoryId
+                        </option>
+                    }
+                </select>
+            </div>*@
+                                        </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">Sub Category</label>
+                                        <div class="col-sm-10">
+                                            @Html.DropDownList("ddlSubCategoryList", new SelectList(ViewBag.SubCategoryList, "Id", "Name"), "-- Select --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    <div class="form-group">
+                                        <div class="panel panel-default">
+                                          
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <label for="inputPassword3" class="col-sm-2 control-label"></label>
+                                                            <div class="input-group-addon">Cost<span style="display:inline; color:red">  *</span></div>
+                                                            <input type="text" class="form-control" id="txtCost" placeholder="Cost">
+                                                            <span style="display:none; color:red" id="lblVal5">Numeric Only</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <label for="inputPassword3" class="col-sm-2 control-label"></label>
+                                                            <div class="input-group-addon">Disc (%)<span style="display:inline; color:red">  *</span></div>
+                                                            <input type="text" class="form-control" id="txtDiscount" placeholder="Discount">
+                                                            <span style="display:none; color:red" id="lblVal6">Numeric Only</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <label for="inputPassword3" class="col-sm-2 control-label"></label>
+                                                            <div class="input-group-addon">Total</div>
+                                                            <input type="text" class="form-control" id="txtTotal" placeholder="Total">
+                                                        </div>
+                                                    </div>
+                                                    @*
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="txtDiscount" placeholder="Discount"></input>
+                                                    </div>*@
+                                                </div>
+                                                                                                                               
+                                              </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </form>
+                             </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnInvReset">Add New</button>
+                    <button type="button" class="btn btn-primary" id="btnInvSave">Save</button>
+                    <button type="button" class="btn btn-primary" id="btnInvDel">Delete</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function InvValidation() {
+        var isSuccess = true;
+        if ($('#txtInventoryItem').val().length == 0) {
+            $('#lblName').show();
+            isSuccess = false;
+        }
+        else {
+            $('#lblName').hide();
+        }
+        return isSuccess;
+    }
+
+    $(document).ready(function () {
+        $('#btnInvSave').on('click', function () {
+            if (InvValidation()) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveInventory", "POS")',
+                    data: { Id: $('#txtInventoryId').val(), Item: $('#txtInventoryItem').val(), Description: $('#txtDescription').val(), VendorId: $('#ddlVendor').val(), CategoryId: $('#ddlCategoryList').val(), SubCategoryId: $('#ddlSubCategoryList').val(), Discount: $('#txtDiscount').val(), Cost: $('#txtCost').val(), Total: $('#txtTotal').val(), Barcode: $('#txtBarcode').val() },
+                    success: function (data) {
+                        $.each(data, function (index, element) {
+                           // alert(element);
+                         //  $('#tblInventory tbody tr').append('<td>' + element + '</td>');
+                            document.getElementById("frmInventory").reset();
+                            location.reload();
+                        });
+
+
+                    }
+                });
+            }
+        });
+        $('#txtTotal').keyup(function () {
+            //alert(" !!!! ");
+            var a = $('#txtDiscount').val() / 100;
+            var b = $('#txtCost').val() * a;
+            var c = $('#txtCost').val() - b;
+            $('#txtTotal').val(c);
+        });
+
+
+        $('#tblInventory tbody tr').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ShowInventoryDetails", "POS")',
+                data: { Id: $(this).data('inventoryid') },
+                success: function (data) {
+                    if(data != null)
+                    {
+                        // debugger;
+                        $('#txtInventoryId').val(data.Id);
+                        $('#txtInventoryItem').val(data.Item);
+                        $('#txtDescription').val(data.Description);
+                        $('#ddlVendor').val(data.VendorId);
+                        $('#ddlCategoryList').val(data.CategoryId);
+                        $('#ddlSubCategoryList').val(data.SubCategoryId);
+                        $('#txtDiscount').val(data.Discount);
+                        $('#txtCost').val(data.Cost);
+                        $('#txtTotal').val(data.Total);
+                        $('#txtBarcode').val(data.Barcode);
+                    }
+                 }
+                
+              });
+            
+            //alert($(this).data('inventoryId'));
+        });
+
+        $('#btnInvReset').on('click', function () {
+            document.getElementById("frmInventory").reset();
+        });
+
+        $('#btnInvDel').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteInventory", "POS")',
+                data: { Id: $('#txtInventoryId').val() },
+                success: function (data) {
+                   if (confirm("Are You Sure ?")) {
+                        alert("Your Record Deleted Successfully");
+                   }
+                   location.reload();
+                }
+            });
+        });
+
+        $('#txtInventoryItem').keypress(function (e) {
+            var regex = new RegExp("^[a-zA-Z ]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblVal1').hide();
+                return true;
+            }
+            $('#lblVal1').show();
+            e.preventDefault();
+            return false;
+
+        });
+        $('#txtCost').keypress(function (e) {
+            var regex = new RegExp("^[0-9]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblVal5').hide();
+                return true;
+            }
+            $('#lblVal5').show();
+            e.preventDefault();
+            return false;
+
+        });
+        $('#txtDiscount').keypress(function (e) {
+            var regex = new RegExp("^[0-9]");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                $('#lblVal6').hide();
+                return true;
+            }
+            $('#lblVal6').show();
+            e.preventDefault();
+            return false;
+
+        });
+        $('#txtInventoryItem').keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckDulplicationInventory", "POS")',
+                data: { Id: $('#txtInventoryId').val() == "" ? "0" : $('#txtInventoryId').val(), InventoryName: $('#txtInventoryItem').val() },
+                success: function (data) {
+                    if (data == 'True') {
+                        alert("Inventory exists");
+                        $('#lblValInv').show();
+                    }
+                    else {
+                        $('#lblValInv').hide();
+                    }
+                }
+
+            });
+        });
+    });
+
+</script>

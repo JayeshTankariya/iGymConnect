@@ -17,12 +17,13 @@ namespace DataLogic.EntityFramework
         public int Id { get; set; }
         public string Name { get; set; }
         public string FirmName { get; set; }
-        public Nullable<bool> Deleted { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
+        public bool Deleted { get; set; }
+        public System.DateTime DateCreated { get; set; }
+        public int CreatedBy { get; set; }
         public Nullable<System.DateTime> DateUpdated { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
-        public Nullable<int> ItemId { get; set; }
-        public Nullable<int> CategoryId { get; set; }
+        public string Address { get; set; }
+        public Nullable<decimal> Number { get; set; }
+        public string City { get; set; }
     }
 }

@@ -11,8 +11,9 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Image" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParentId" Type="int" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -24,19 +25,47 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ItemId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Item" Type="nvarchar" MaxLength="50" />
           <Property Name="VendorId" Type="int" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CategoryId" Type="int" />
+          <Property Name="SubCategoryId" Type="int" />
           <Property Name="Discount" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Barcode" Type="nvarchar" MaxLength="50" />
           <Property Name="Alias" Type="nvarchar" MaxLength="50" />
-          <Property Name="Deleted" Type="bit" />
-          <Property Name="DateCreated" Type="datetime" />
-          <Property Name="CreatedBy" Type="int" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="DateUpdated" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="SubCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TransactionChild">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionMasterId" Type="int" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="ItemTotal" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="TransactionMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" />
+          <Property Name="TransactionDateTime" Type="datetime" />
+          <Property Name="TransactionMode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -49,22 +78,21 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="EmailId" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'UserLogin.dbo.Vendor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vendor">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="FirmName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Deleted" Type="bit" />
-          <Property Name="DateCreated" Type="datetime" />
-          <Property Name="CreatedBy" Type="int" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="DateUpdated" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
-          <Property Name="ItemId" Type="int" />
-          <Property Name="CategoryId" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Inventory_Inventory">
           <End Role="Inventory" Type="Self.Inventory" Multiplicity="1" />
@@ -81,21 +109,11 @@ warning 6002: The table/view 'UserLogin.dbo.Vendor' does not have a primary key 
         <EntityContainer Name="UserLoginModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionChild" EntityType="Self.TransactionChild" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionMaster" EntityType="Self.TransactionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Vendor" EntityType="Self.Vendor" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Vendor].[Id] AS [Id], 
-    [Vendor].[Name] AS [Name], 
-    [Vendor].[FirmName] AS [FirmName], 
-    [Vendor].[Deleted] AS [Deleted], 
-    [Vendor].[DateCreated] AS [DateCreated], 
-    [Vendor].[CreatedBy] AS [CreatedBy], 
-    [Vendor].[DateUpdated] AS [DateUpdated], 
-    [Vendor].[UpdatedBy] AS [UpdatedBy], 
-    [Vendor].[ItemId] AS [ItemId], 
-    [Vendor].[CategoryId] AS [CategoryId]
-    FROM [dbo].[Vendor] AS [Vendor]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Inventory_Inventory" Association="Self.FK_Inventory_Inventory">
             <End Role="Inventory" EntitySet="Inventory" />
             <End Role="Inventory1" EntitySet="Inventory" />
@@ -105,41 +123,6 @@ warning 6002: The table/view 'UserLogin.dbo.Vendor' does not have a primary key 
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UserLoginModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Deleted" Type="Boolean" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Inventory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ItemId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="VendorId" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryId" Type="Int32" />
-          <Property Name="Discount" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Alias" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Deleted" Type="Boolean" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <NavigationProperty Name="Inventory1" Relationship="Self.FK_Inventory_Inventory" FromRole="Inventory" ToRole="Inventory1" />
-          <NavigationProperty Name="Inventory2" Relationship="Self.FK_Inventory_Inventory" FromRole="Inventory1" ToRole="Inventory" />
-        </EntityType>
         <EntityType Name="UserLogin">
           <Key>
             <PropertyRef Name="Id" />
@@ -151,24 +134,83 @@ warning 6002: The table/view 'UserLogin.dbo.Vendor' does not have a primary key 
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityContainer Name="UserLoginEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+          <EntitySet Name="Vendors" EntityType="UserLoginModel.Vendor" />
+          <EntitySet Name="Categories" EntityType="UserLoginModel.Category" />
+          <EntitySet Name="SubCategories" EntityType="UserLoginModel.SubCategory" />
+          <EntitySet Name="Inventories" EntityType="UserLoginModel.Inventory" />
+          <AssociationSet Name="FK_Inventory_Inventory" Association="UserLoginModel.FK_Inventory_Inventory">
+            <End Role="Inventory" EntitySet="Inventories" />
+            <End Role="Inventory1" EntitySet="Inventories" />
+          </AssociationSet>
+          <EntitySet Name="TransactionChilds" EntityType="UserLoginModel.TransactionChild" />
+          <EntitySet Name="TransactionMasters" EntityType="UserLoginModel.TransactionMaster" />
+        </EntityContainer>
         <EntityType Name="Vendor">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirmName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Deleted" Type="Boolean" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="DateUpdated" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="ItemId" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SubCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Item" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VendorId" Type="Int32" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CategoryId" Type="Int32" />
+          <Property Name="SubCategoryId" Type="Int32" />
+          <Property Name="Discount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Alias" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="Inventory1" Relationship="UserLoginModel.FK_Inventory_Inventory" FromRole="Inventory" ToRole="Inventory1" />
+          <NavigationProperty Name="Inventory2" Relationship="UserLoginModel.FK_Inventory_Inventory" FromRole="Inventory1" ToRole="Inventory" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
         </EntityType>
         <Association Name="FK_Inventory_Inventory">
-          <End Role="Inventory" Type="Self.Inventory" Multiplicity="1" />
-          <End Role="Inventory1" Type="Self.Inventory" Multiplicity="0..1" />
+          <End Type="UserLoginModel.Inventory" Role="Inventory" Multiplicity="1" />
+          <End Type="UserLoginModel.Inventory" Role="Inventory1" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Inventory">
               <PropertyRef Name="Id" />
@@ -178,57 +220,31 @@ warning 6002: The table/view 'UserLogin.dbo.Vendor' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="UserLoginEntities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Inventories" EntityType="Self.Inventory" />
-          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
-          <EntitySet Name="Vendors" EntityType="Self.Vendor" />
-          <AssociationSet Name="FK_Inventory_Inventory" Association="Self.FK_Inventory_Inventory">
-            <End Role="Inventory" EntitySet="Inventories" />
-            <End Role="Inventory1" EntitySet="Inventories" />
-          </AssociationSet>
-        </EntityContainer>
+        <EntityType Name="TransactionChild">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionMasterId" Type="Int32" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="ItemTotal" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="TransactionMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" />
+          <Property Name="TransactionDateTime" Type="DateTime" Precision="3" />
+          <Property Name="TransactionMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="UserLoginModelStoreContainer" CdmEntityContainer="UserLoginEntities2">
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="UserLoginModel.Category">
-              <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Inventories">
-            <EntityTypeMapping TypeName="UserLoginModel.Inventory">
-              <MappingFragment StoreEntitySet="Inventory">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
-                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-                <ScalarProperty Name="Alias" ColumnName="Alias" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserLogins">
             <EntityTypeMapping TypeName="UserLoginModel.UserLogin">
               <MappingFragment StoreEntitySet="UserLogin">
@@ -244,16 +260,84 @@ warning 6002: The table/view 'UserLogin.dbo.Vendor' does not have a primary key 
           <EntitySetMapping Name="Vendors">
             <EntityTypeMapping TypeName="UserLoginModel.Vendor">
               <MappingFragment StoreEntitySet="Vendor">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="FirmName" ColumnName="FirmName" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="FirmName" ColumnName="FirmName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="UserLoginModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCategories">
+            <EntityTypeMapping TypeName="UserLoginModel.SubCategory">
+              <MappingFragment StoreEntitySet="SubCategory">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="UserLoginModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionChilds">
+            <EntityTypeMapping TypeName="UserLoginModel.TransactionChild">
+              <MappingFragment StoreEntitySet="TransactionChild">
+                <ScalarProperty Name="ItemTotal" ColumnName="ItemTotal" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="TransactionMasterId" ColumnName="TransactionMasterId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionMasters">
+            <EntityTypeMapping TypeName="UserLoginModel.TransactionMaster">
+              <MappingFragment StoreEntitySet="TransactionMaster">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="TransactionMode" ColumnName="TransactionMode" />
+                <ScalarProperty Name="TransactionDateTime" ColumnName="TransactionDateTime" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

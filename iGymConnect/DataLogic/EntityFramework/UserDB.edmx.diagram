@@ -5,11 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="03d904484d9f46b698af6eab51c0c305" Name="Diagram1" ZoomLevel="89">
-        <EntityTypeShape EntityType="UserLoginModel.Category" Width="1.5" PointX="2.375" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="UserLoginModel.Inventory" Width="1.5" PointX="0.625" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="UserLoginModel.UserLogin" Width="1.5" PointX="4.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="UserLoginModel.Vendor" Width="1.5" PointX="4.375" PointY="3.875" IsExpanded="true" />
-        <AssociationConnector Association="UserLoginModel.FK_Inventory_Inventory" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="UserLoginModel.Vendor" Width="1.5" PointX="4.375" PointY="4.75" />
+        <EntityTypeShape EntityType="UserLoginModel.Category" Width="1.5" PointX="6.375" PointY="0.75" />
+        <EntityTypeShape EntityType="UserLoginModel.SubCategory" Width="1.5" PointX="6.375" PointY="4.75" />
+        <EntityTypeShape EntityType="UserLoginModel.Inventory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="UserLoginModel.FK_Inventory_Inventory" />
+        <EntityTypeShape EntityType="UserLoginModel.TransactionChild" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="UserLoginModel.TransactionMaster" Width="1.5" PointX="6.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

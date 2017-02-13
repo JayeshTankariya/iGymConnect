@@ -194,6 +194,11 @@
     <Content Include="Content\CategoryImages\t3.jpg" />
     <Content Include="Content\CategoryImages\vendors1.jpg" />
     <Content Include="Content\CategoryImages\vendorss.jpg" />
+    <Content Include="Content\ReportImages\bgReport.jpg" />
+    <Content Include="Content\ReportImages\reports1.jpg" />
+    <Content Include="Content\ReportImages\reports2.jpg" />
+    <Content Include="Content\ReportImages\reports3.jpg" />
+    <Content Include="Content\ReportImages\reports4.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -238,6 +243,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\ReportImages\reports" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />

@@ -69,7 +69,7 @@ namespace BusinessLogic.UserMag
                     vendorlist = GetAllVendors();
                 }
             }
-            return vendorlist;
+            return vendorlist;  
         }
 
         public static List<OMVendor> Delete(int Id)

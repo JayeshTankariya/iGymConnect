@@ -208,6 +208,11 @@
     <Content Include="Content\MemberImg\8.jpg" />
     <Content Include="Content\MemberImg\9.jpg" />
     <Content Include="Content\MemberImg\abc.jpg" />
+    <Content Include="Content\ReportsImages\bgReport.jpg" />
+    <Content Include="Content\ReportsImages\reports1.jpg" />
+    <Content Include="Content\ReportsImages\reports2.jpg" />
+    <Content Include="Content\ReportsImages\reports3.jpg" />
+    <Content Include="Content\ReportsImages\reports4.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\url.htm" />
     <Content Include="DBScripts\iGymConnect.sql" />
@@ -239,6 +244,7 @@
     <Content Include="Images\m1.jpg" />
     <Content Include="Images\m2.jpg" />
     <Content Include="Images\m3.jpg" />
+    <Content Include="Images\muserpng.png" />
     <Content Include="Images\t1.jpg" />
     <Content Include="Images\t2.jpg" />
     <Content Include="Images\t3.jpg" />

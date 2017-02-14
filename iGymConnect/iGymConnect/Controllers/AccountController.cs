@@ -21,7 +21,7 @@ namespace iGymConnect.Controllers
             var user = (BUser.GetByUserNameAndPassword(model).FirstOrDefault());
             if (user != null)
             {
-                Session["user_login"] = user;
+                Session["UserLogin"] = user;
                  return RedirectToAction("Index", "Dashboard");
                
             }

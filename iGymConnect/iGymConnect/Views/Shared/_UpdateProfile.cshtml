@@ -1,7 +1,8 @@
 ﻿@model List<BusinessLogic.ObjectModel.OMUser>
 
 @{
-    var user = (BusinessLogic.ObjectModel.OMUser)Session["user_login"];
+   // Layout = null;
+    var user = (BusinessLogic.ObjectModel.OMUser)Session["UserLogin"];
 }
 
 <div id="Updateprofile" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

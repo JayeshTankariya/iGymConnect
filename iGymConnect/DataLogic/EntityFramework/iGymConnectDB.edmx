@@ -74,8 +74,8 @@
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="State" Type="nvarchar" MaxLength="50" />
           <Property Name="Zip" Type="int" />
-          <Property Name="PhoneHome1" Type="int" />
-          <Property Name="PhoneWork1" Type="int" />
+          <Property Name="PhoneHome1" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="PhoneWork1" Type="numeric" Precision="10" Scale="0" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Membershiptypeid" Type="int" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
@@ -243,30 +243,6 @@
           <NavigationProperty Name="Inventory1" Relationship="Self.FK_Inventory_Inventory" FromRole="Inventory" ToRole="Inventory1" />
           <NavigationProperty Name="Inventory2" Relationship="Self.FK_Inventory_Inventory" FromRole="Inventory1" ToRole="Inventory" />
         </EntityType>
-        <EntityType Name="MemberMaster">
-          <Key>
-            <PropertyRef Name="MemberId" />
-          </Key>
-          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="Boolean" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Zip" Type="Int32" />
-          <Property Name="PhoneHome1" Type="Int32" />
-          <Property Name="PhoneWork1" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Membershiptypeid" Type="Int32" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Deleted" Type="Boolean" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
-          <Property Name="Updated" Type="Int32" />
-        </EntityType>
         <EntityType Name="MembershipTypeMaster">
           <Key>
             <PropertyRef Name="MembershipTypeId" />
@@ -351,7 +327,6 @@
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="EmployeeMasters" EntityType="Self.EmployeeMaster" />
           <EntitySet Name="Inventories" EntityType="Self.Inventory" />
-          <EntitySet Name="MemberMasters" EntityType="Self.MemberMaster" />
           <EntitySet Name="MembershipTypeMasters" EntityType="Self.MembershipTypeMaster" />
           <EntitySet Name="SubCategories" EntityType="Self.SubCategory" />
           <EntitySet Name="TransactionChilds" EntityType="Self.TransactionChild" />
@@ -362,7 +337,32 @@
             <End Role="Inventory" EntitySet="Inventories" />
             <End Role="Inventory1" EntitySet="Inventories" />
           </AssociationSet>
+          <EntitySet Name="MemberMasters" EntityType="iGymConnectModel.MemberMaster" />
         </EntityContainer>
+        <EntityType Name="MemberMaster">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="Int32" />
+          <Property Name="PhoneHome1" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="PhoneWork1" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Membershiptypeid" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="Updated" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -425,31 +425,6 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MemberMasters">
-            <EntityTypeMapping TypeName="iGymConnectModel.MemberMaster">
-              <MappingFragment StoreEntitySet="MemberMaster">
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
-                <ScalarProperty Name="MemberImage" ColumnName="MemberImage" />
-                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="PhoneHome1" ColumnName="PhoneHome1" />
-                <ScalarProperty Name="PhoneWork1" ColumnName="PhoneWork1" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Membershiptypeid" ColumnName="Membershiptypeid" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
-                <ScalarProperty Name="Updated" ColumnName="Updated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -524,6 +499,31 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberMasters">
+            <EntityTypeMapping TypeName="iGymConnectModel.MemberMaster">
+              <MappingFragment StoreEntitySet="MemberMaster">
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Membershiptypeid" ColumnName="Membershiptypeid" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneWork1" ColumnName="PhoneWork1" />
+                <ScalarProperty Name="PhoneHome1" ColumnName="PhoneHome1" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="MemberImage" ColumnName="MemberImage" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

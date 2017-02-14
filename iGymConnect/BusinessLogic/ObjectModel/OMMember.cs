@@ -18,8 +18,8 @@ namespace BusinessLogic.ObjectModel
         public string City { get; set;}
         public string State { get; set;}
         public int Zip { get; set;}
-        public int PhoneHome1 { get; set;}
-        public int PhoneWork1 { get; set;}
+        public decimal PhoneHome1 { get; set;}
+        public decimal PhoneWork1 { get; set;}
         public string Email { get; set;}
         public string Note { get; set; }
         public int Membershiptypeid { get; set; }

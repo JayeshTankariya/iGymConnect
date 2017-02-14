@@ -23,8 +23,8 @@ namespace DataLogic.EntityFramework
         public string City { get; set; }
         public string State { get; set; }
         public Nullable<int> Zip { get; set; }
-        public Nullable<int> PhoneHome1 { get; set; }
-        public Nullable<int> PhoneWork1 { get; set; }
+        public Nullable<decimal> PhoneHome1 { get; set; }
+        public Nullable<decimal> PhoneWork1 { get; set; }
         public string Email { get; set; }
         public Nullable<int> Membershiptypeid { get; set; }
         public string Note { get; set; }

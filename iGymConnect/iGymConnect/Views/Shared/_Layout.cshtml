@@ -11,6 +11,34 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
 <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"> </span> iGym Connect</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" class="col-xs-3">@Html.ActionLink("POS", "GetInventory", "POS", null, new { @class = "btn" })</a></li>
+                <li><a href="#" class="col-xs-3">@Html.ActionLink("MEMBERSHIP", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
+                <li><a href="#" class="col-xs-3">@Html.ActionLink("CHECK-IN", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
+                <li><a href="#" class="col-xs-3">@Html.ActionLink("REPORTS", "Reports", "Reports", null, new { @class = "btn" })</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-navbar dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @("Welcome " +((BusinessLogic.ObjectModel.OMUser)Session["UserLogin"]).FirstName) </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" class="col-xs-2" data-toggle="modal" data-target="#Updateprofile">Update Profile</a>
+                        </li>
+                        <li>
+                            <a href="#" class="col-xs-2" data-toggle="modal" data-target="#Changepwd">Change Password</a>
+                        </li>
+                        <li>
+                            <a href="#" class="col-xs-2">@Html.ActionLink("Logout", "Login", "Account", null, new { @class = "btn" })</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
     @RenderBody()
 
     

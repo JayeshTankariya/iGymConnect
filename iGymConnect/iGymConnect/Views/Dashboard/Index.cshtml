@@ -1,7 +1,8 @@
 ﻿@model BusinessLogic.ObjectModel.OMUser
 @{
     Layout = null;
-   var user = (BusinessLogic.ObjectModel.OMUser)Session["user_login"];
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    //var user = (BusinessLogic.ObjectModel.OMUser)Session["UserLogin"];
 }
 
 <!DOCTYPE html>
@@ -13,34 +14,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#"><h4></h4>IGym Connect</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">@Html.ActionLink("POS", "GetInventory", "POS", null, new { @class = "btn" })</a></li>
-                <li><a href="#">@Html.ActionLink("MEMBESHIP", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
-                <li><a href="#">@Html.ActionLink("CHECK-IN", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
-                <li><a href="#">@Html.ActionLink("REPORT", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
-                <li class="dropdown">
-                    <a href="#" class="nav-navbar dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@("Welcome " + user.FirstName) </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#" class="col-xs-2" data-toggle="modal" data-target="#Updateprofile">Update Profile</a>
-                        </li>
-                        <li>
-                           <a href="#" class="col-xs-2" data-toggle="modal" data-target="#Changepwd">Change Password</a>
-                        </li>
-                        <li>
-                          <a href="#" class="col-xs-2">@Html.ActionLink("Logout", "Login", "Account", null, new { @class = "btn" })</a>
-                        </li>
-                
-                    </ul>
-                   </li>
-               </ul>
-       </div>
-    </nav>
+    
 
    
     <!--UserDetail-->

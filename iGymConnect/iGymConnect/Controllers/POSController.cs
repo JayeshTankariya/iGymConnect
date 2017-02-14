@@ -137,7 +137,7 @@ namespace iGymConnect.Controllers
             if (file != null && file.ContentLength > 0)
             {
                 var fileName = file.FileName;
-                var path = Server.MapPath("~/Content/CategoryImages") + fileName;
+                var path = Server.MapPath("~/Content/CategoryImages/") + fileName;
                 file.SaveAs(path);
                 cat.Image = file.FileName;
             }

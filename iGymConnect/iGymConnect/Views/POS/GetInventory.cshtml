@@ -1,6 +1,7 @@
 ﻿@model List<BusinessLogic.ObjectModel.OMCategory>
 @{
-   // Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+    //Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "GetInventory";
 }
 
@@ -10,159 +11,142 @@
 @using (Html.BeginForm("GetInventory", "POS", FormMethod.Post))
 {
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">GYM  MANAGEMENT  SYSTEM</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    @*<li><img src="~/Images/Inventory.jpg" height="40px" width="40px" /></li>*@
-                    <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myInventory" id="InvOpen"> Inventory <span class="sr-only">(current)</span></a></li>
-                    
-                    @*<li><img style="margin-top:5px" src="~/Images/cat1.jpg" height="40px" width="40px" /></li>*@
-                    <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myCategory"> Category </a></li>
-
-                    @*<li><img style="margin-top:5px" src="~/Images/vendorss.jpg" height="40px" width="40px" /></li>*@
-                    <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myVendor"> Vendors </a></li>
-
-                    @*<li><img style="margin-top:5px" src="~/Images/Giftcard1.jpg" height="40px" width="40px" /></li>*@
-                    <li><a href="#" class="navbar-brand"> Gift Cards </a></li>
-                </ul>
-               
-            </div>
-        </div>
-    </nav>
+    
 
     <div id="myPOS" class="container-fluid navbar navbar-default">
-       
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main " >
-            <h1 class="page-header"> POINT OF SALE </h1>
-
-            <div>
-                <div>
-
-                    <div class="navbar navbar-default" >
-                        <div class="container-fluid">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div>
-                                <ul>
-                                    <li>
-                                        @if (Model != null)
-                                        {
-                                            foreach (var cat in Model)
-                                            {
-                                                <div data-poscategoryid="@cat.Id" style="width:100px;height:100px;padding:2px 0 2px 3px;border:solid;margin-bottom:5px;margin-top:5px;float:left;">
-                                                    @*<a href="@Url.Action("GetCategories","POS")"><img src="('/Content/CategoryImages/' +data.Image)" id="img1" height="75px" width="90px" /> @cat.CategoryName </a>*@
-                                                    <a href="#"><img src="@("/Content/CategoryImages/" + cat.Image)" id="img1" height="75px" width="90px" /> @cat.CategoryName </a>
-                                                </div>
-                                            }
-                                        }
-                                        
-                                        
-                                    </li>
-                                    </ul>
-                                
-                            </div>
-
-                        </div>
-
-
-                     
-
-                    </div>
-                </div>
-
-
-
-                <div>
-                    <table id="tblcat" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Description</th>
-                                <th>Discount</th>
-                                <th>Cost</th>
-                                <th>Barcode</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                               <tr data-toggle="modal" data-target="#myModal">
-                                   <td>
-
-                                   </td>
-                               </tr>
-                         </tbody>
-                       
-                    </table>
-                </div>
-
+        <div class="col-xs-2 col-sm-2 sidebar-offcanvas navbar-left" id="sidebar">
+            <div class="list-group nav navbar-left">                
+                <ul class="nav navbar-left">
+                    <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myInventory" id="InvOpen"> Inventory <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myCategory"> Category </a></li>
+                    <li><a href="#" class="navbar-brand" data-toggle="modal" data-target="#myVendor"> Vendors </a></li>
+                    <li><a href="#" class="navbar-brand"> Gift Cards </a></li>
+                </ul>                
             </div>
-            <div>
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid" >
-                        <!-- Brand and toggle get grouped for better mobile display -->
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a class="navbar-brand" href="#">Purchased Items : </a>
-                        </div>
+        </div>
+        
+        <div class="col-xs-3 col-sm-9 main ">
+            @*<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main ">*@
+                <h1 class="page-header"> POINT OF SALE </h1>
 
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div>
+                    <div>
 
-                            <form class="navbar-form navbar-left">
-                                <div class="form-group">
-                                    <ul class="nav navbar-nav navbar-right" >
-                                        <li><a href="#"><input type="text" style="border:solid" class="form-control" placeholder="Search"></a></li>
-                                        <li><a href="#"><input type="text" style="border:solid" class="form-control" placeholder="Select a category or an inventory item" /></a></li>
+                        <div class="navbar navbar-default">
 
+                            <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+
+                                <div>
+                                    <ul>
+                                        <li>
+                                            @if (Model != null)
+                                            {
+                                                foreach (var cat in Model)
+                                                {
+                                                    <div data-poscategoryid="@cat.Id" style="width:100px;height:100px;padding:2px 0 2px 3px;border:solid;margin-bottom:5px;margin-top:5px;float:left;">
+                                                        @*<a href="@Url.Action("GetCategories","POS")"><img src="('/Content/CategoryImages/' +data.Image)" id="img1" height="75px" width="90px" /> @cat.CategoryName </a>*@
+                                                        <a href="#"><img src="@Url.Content("~/Content/CategoryImages/" + cat.Image)" id="img1" height="75px" width="90px" /> @cat.CategoryName </a>
+                                                    </div>
+                                                }
+                                            }
+
+
+                                        </li>
                                     </ul>
+
                                 </div>
 
-                            </form>
+                            </div>
 
-                        </div><!-- /.navbar-collapse -->
-                    </div><!-- /.container-fluid -->
-                </nav>
 
-            </div>
-            <form class="form-inline">
-                <ul class="nav nav-pills navbar-collapse">
-                    <li role="presentation">
-                        <a href="#">
-                            <button type="button" id="btnDelete" class="btn btn-default btn-lg btn-block">Delete</button> 
-                        </a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#">
-                            <button type="button" id="btnVoid" class="btn btn-default btn-lg btn-block">Void</button> 
-                        </a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#">
-                            <button type="button" id="btnPayment" class="btn btn-default btn-lg btn-block">Payment</button> 
-                        </a>
-                    </li>
-                </ul>
 
-                <br />
-                
-            </form>
-            <div>
-               <table id="tblCart" class="table table-striped">
-                         <thead>
-                            <tr>                                
+
+                        </div>
+                    </div>
+
+
+
+                    <div>
+                        <table id="tblcat" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Description</th>
+                                    <th>Discount</th>
+                                    <th>Cost</th>
+                                    <th>Barcode</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-toggle="modal" data-target="#myModal">
+                                    <td></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+                <div>
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="#">Purchased Items : </a>
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                                <form class="navbar-form navbar-left">
+                                    <div class="form-group">
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li><a href="#"><input type="text" style="border:solid" class="form-control" placeholder="Search"></a></li>
+                                            <li><a href="#"><input type="text" style="border:solid" class="form-control" placeholder="Select a category or an inventory item" /></a></li>
+
+                                        </ul>
+                                    </div>
+
+                                </form>
+
+                            </div><!-- /.navbar-collapse -->
+                        </div><!-- /.container-fluid -->
+                    </nav>
+
+                </div>
+                <form class="form-inline">
+                    <ul class="nav nav-pills navbar-collapse">
+                        <li role="presentation">
+                            <a href="#">
+                                <button type="button" id="btnDelete" class="btn btn-default btn-lg btn-block">Delete</button>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">
+                                <button type="button" id="btnVoid" class="btn btn-default btn-lg btn-block">Void</button>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">
+                                <button type="button" id="btnPayment" class="btn btn-default btn-lg btn-block">Payment</button>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <br />
+
+                </form>
+                <div>
+                    <table id="tblCart" class="table table-striped">
+                        <thead>
+                            <tr>
                                 <th>Item</th>
                                 <th>Description</th>
                                 <th>Discount</th>
@@ -173,22 +157,20 @@
                                 <th>Total Amt</th>
                             </tr>
                         </thead>
-                        <tbody>
-
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
-                
-             <div>
-                 <form class="form-inline">
-                     <div class="form-group navbar-right">
-                         <label for="exampleInputName2"><h3><b><i> TOTAL PAYABLE AMOUNT </i></b></h3></label>
-                         <input type="text" class="form-control" id="txtGrandTotal">
-                     </div>
-                 </form>
+
+                <div>
+                    <form class="form-inline">
+                        <div class="form-group navbar-right">
+                            <label for="exampleInputName2"><h3><b><i> TOTAL PAYABLE AMOUNT </i></b></h3></label>
+                            <input type="text" class="form-control" id="txtGrandTotal">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     //*********************************
     @*<div class="row col-lg-10">
             <form>
@@ -325,25 +307,26 @@
 
     @************** INVENTORY SECTION **********@
 
-    @{ 
+ @{ 
         Html.RenderAction("GetInventories", "POS");
     }
+    
+ <!--UserDetail-->
+@{ Html.RenderAction("GetUserDetail", "Dashboard");}
+
+<!--Change Passowrd-->
+@{ Html.RenderAction("Changepwd", "Dashboard");}
+
+
 <script>
     var invId = 0;
     var invs;
     var TransactionMasterId = 0;
     var now = new Date();
-    var selection;
+    
     var a = $('#btnCash').select();
 
-    if (a.select)
-    {
-        selection = $('lblCash').show();
-    }
-    else{
-        selection = $('#lblGiftCard').show();
-    }
-
+    
     function Final() {
         var GrandTotal = 0;
         $('#tblCart tbody tr').each(function () {           

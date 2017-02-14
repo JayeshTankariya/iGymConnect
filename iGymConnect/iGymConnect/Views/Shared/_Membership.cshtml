@@ -78,7 +78,8 @@
 
         <!--Validation Of Membership-->
 
- <script>
+ 
+     <script>
     function MemshipValidation() {
         var isSuccess = true;
         if ($('#txtDescription').val().length == 0) {
@@ -110,15 +111,15 @@
                         });
                         $("#Des").html(row);
                     },
-                   
+
                 });
-                
+
                        //alert("Save Sucessfully)")
                document.getElementById("frmmemship").reset();
                }
         });
-        
-    
+
+
         $('#tblMembership tbody tr').on('click', function () {
             $.ajax({
                 type: "GET",
@@ -167,7 +168,7 @@
 
         //******** Descriptiopn Compulsory*****//
         $('#txtDescription').keypress(function (e) {
-            var regex = RegExp("^[a-zA-Z]");
+            var regex = RegExp("^[a-zA-Z ]");
             var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
             if (regex.test(str)) {
                 $('#lblValDes').hide();
@@ -203,4 +204,7 @@
     });
 
 </script>
+
+
+
         

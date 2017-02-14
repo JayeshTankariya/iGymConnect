@@ -59,10 +59,11 @@ namespace BusinessLogic.UserMag
                     member.PhoneWork1 = mem.PhoneWork1;
                     member.Email = mem.Email;
                     member.Note = mem.Note;
+
                     member.Membershiptypeid = mem.Membershiptypeid;
-                    member.CreatedBy = 1;
                     member.Deleted = false;
-                    member.DateCreated = DateTime.Now;
+                    member.Updated = 1;
+                    member.DateUpdated = DateTime.Now;
                     m.SaveChanges();
                 }
             }

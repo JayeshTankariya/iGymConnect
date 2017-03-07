@@ -59,11 +59,11 @@ namespace BusinessLogic.UserMag
                     member.PhoneWork1 = mem.PhoneWork1;
                     member.Email = mem.Email;
                     member.Note = mem.Note;
-
-                    member.Membershiptypeid = mem.Membershiptypeid;
-                    member.Deleted = false;
                     member.Updated = 1;
                     member.DateUpdated = DateTime.Now;
+                    member.Membershiptypeid = mem.Membershiptypeid;
+                    member.Deleted = false;
+                    
                     m.SaveChanges();
                 }
             }
@@ -82,8 +82,8 @@ namespace BusinessLogic.UserMag
                 member.Email = mem.Email;
                 member.Note = mem.Note;
                 member.Membershiptypeid = mem.Membershiptypeid;
-                member.CreatedBy = 1;
                 member.Deleted = false;
+                member.CreatedBy = 1;
                 member.DateCreated = DateTime.Now;
                 using (var m = new iGymConnectEntities())
                 {

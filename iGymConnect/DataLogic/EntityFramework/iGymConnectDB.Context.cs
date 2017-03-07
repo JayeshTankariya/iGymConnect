@@ -35,5 +35,7 @@ namespace DataLogic.EntityFramework
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<MemberMaster> MemberMasters { get; set; }
+        public virtual DbSet<CardMaster> CardMasters { get; set; }
+        public virtual DbSet<POSCardItem> POSCardItems { get; set; }
     }
 }

@@ -14,6 +14,10 @@ namespace iGymConnect.Controllers
         // GET: POS
         public ActionResult GetInventory()
         {
+            var p = BMember.GetAllByMember().ToList();
+            ViewBag.AllMember = p;
+            var q = BCardMaster.GetAllCard().ToList();
+            ViewBag.AllCard = q;
             return View(BCategory.GetAllCategories());
         }
         public ActionResult GetInvntoryByCategoryId(int Id)
@@ -104,14 +108,35 @@ namespace iGymConnect.Controllers
                 return false;
             }
         }
+        //Check Duplication Inventory***********
+        public bool CheckDulplicationCard(int Id, int Number)
+        {
+            var card = BCardMaster.GetAllCard();
+            if (Id > 0)
+            {
+                card = card.Where(x => x.Id != Id && x.Number == Number).ToList();
+            }
+            else
+            {
+                card = card.Where(x => x.Number == Number).ToList();
+            }
+            if (card.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         //Cash Payment***********
         public ActionResult CashPayment(int Id)
         {
             var inv = BInventory.GetAllInventory().FirstOrDefault(x => x.Id == Id);
             return Json(inv, JsonRequestBehavior.AllowGet);
-
         }
+
 
         //Transaction Master *****[ CASH ]************
         [HttpPost]
@@ -121,12 +146,78 @@ namespace iGymConnect.Controllers
             return Json(transaction);
 
         }
+        //Card Master *****[ GIFT CARD ]************
+        //public ActionResult GetCardItems(OMCardMaster card)
+        //{
+        //    var CardItems = BCardMaster.SaveCardItems(card);
+        //    return Json(CardItems, JsonRequestBehavior.AllowGet);
+        //}
 
+        //********* Barcode Scanner ***********
+        public ActionResult GetAllByBarcode(string Barcode)
+        {
+            var b = BInventory.GetAllInventory().FirstOrDefault(x => x.Barcode == Barcode);
+            return Json(b, JsonRequestBehavior.AllowGet);
+        }
+
+        //********* Barcode Scanner ***********
+        public ActionResult GetAllByCard()
+        {
+            var z = BMember.GetAllByMember().ToList();
+            ViewBag.MemberList = z;
+            var y = BCardMaster.GetCard().ToList();
+            ViewBag.CardList = y;
+            return View("_GiftCard");
+        }
+        //********* New Card Generate ***********
+        public ActionResult GenerateCard(int From, int To, decimal Amount, DateTime ExpiryDate)
+        {
+            if (BCardMaster.Save(From, To, Amount, ExpiryDate) == 0)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
+        [HttpPost]
+        public ActionResult GetMemberIdInCard(int MemberId, int Number)
+        {
+            var mem = BCardMaster.GetMemberAndCard(MemberId, Number);
+            return Json(mem);
+        }
+
+        //******* Get Card numbers by Member *********
+        public ActionResult GetCardNoByMember(int Id)
+        {
+            var card = BPOSCardMaster.GetCardByMember(Id);
+            var usedCards = BTransaction.GetCardItems(0);
+            if (usedCards != null)
+            {
+                foreach (var usedCard in usedCards)
+                {
+                    var foundCard = card.FirstOrDefault(x => x.Id == usedCard.CardId);
+                    if (foundCard != null)
+                    {
+                        card.Remove(foundCard);
+                    }
+                }
+            }
+            return Json(card, JsonRequestBehavior.AllowGet);
+
+        }
+        //******* Get Card Details *********
+        public ActionResult GetCardDetails(int Id)
+        {
+            var card = BCardMaster.GetAllCard().FirstOrDefault(x => x.Id == Id);
+            return Json(card, JsonRequestBehavior.AllowGet);
+
+        }
 
         //********* Category ***********
         public ActionResult SaveCategory(OMCategory cat)
         {
-
             var category = BCategory.Save(cat);
             return Json(category);
         }

@@ -45,6 +45,69 @@ namespace BusinessLogic.UserMag
             }
             return TranList;
         }
+        
+        public static List<OMTransaction> GetDateWiseTransaction(Nullable<DateTime> dt)
+        {
+            var dtList = new List<OMTransaction>();
+            using (var c = new iGymConnectEntities())
+            {
+                dtList = c.TransactionMasters.Where(x => x.TransactionDateTime > dt)
+                .Select(x => new OMTransaction
+                {
+                    Id = x.Id,
+                    MemberId = x.MemberId.HasValue ? x.MemberId.Value: 0,
+                    TransactionDateTime = x.TransactionDateTime ?? DateTime.Now,
+                    TransactionMode = x.TransactionMode,
+                    Remarks = x.Remarks
+                }).ToList();
+            }
+            return dtList;
+        }
+        public static List<OMTransaction> GetTranRange(Nullable<DateTime> dt, Nullable<DateTime> dt1)
+        {
+            var dtList = new List<OMTransaction>();
+            using (var c = new iGymConnectEntities())
+            {
+                dtList = c.TransactionMasters.Where(x => x.TransactionDateTime > dt && x.TransactionDateTime < dt1)
+                .Select(x => new OMTransaction
+                {
+                    Id = x.Id,
+                    MemberId = x.MemberId.HasValue ? x.MemberId.Value : 0,
+                    TransactionDateTime = x.TransactionDateTime ?? DateTime.Now,
+                    TransactionMode = x.TransactionMode,
+                    Remarks = x.Remarks
+                }).ToList();
+            }
+            return dtList;
+        }
+        public static List<OMPOSCardMaster> GetCardItems(int id)
+        {
+            var TranList = new List<OMPOSCardMaster>();
+            using (var context = new iGymConnectEntities())
+            {
+                if (id > 0)
+                {
+                    TranList = context.POSCardItems.Where(x => x.TransactionMasterId == id)
+                    .Select(x => new OMPOSCardMaster
+                    {
+                        Id = x.Id,
+                        TransactionMasterId = x.TransactionMasterId.HasValue ? x.TransactionMasterId.Value : 0,
+                        CardId = x.CardId.HasValue ? x.CardId.Value : 0
+                    }).ToList();
+                }
+                else
+                {
+                    TranList = context.POSCardItems
+                    .Select(x => new OMPOSCardMaster
+                    {
+                        Id = x.Id,
+                        TransactionMasterId = x.TransactionMasterId.HasValue ? x.TransactionMasterId.Value : 0,
+                        CardId = x.CardId.HasValue ? x.CardId.Value : 0
+                    }).ToList();
+                }
+            }
+            return TranList;
+        }
 
         public static List<OMTransaction> Save(OMTransaction tran)
         {
@@ -64,12 +127,19 @@ namespace BusinessLogic.UserMag
                     for (var _items = 0; _items < tran.Items.Count; _items++)
                     {
                         TransactionChild tranChild = new TransactionChild();
-                        //List<OMTransactionChild> tc = tran.Items;
                         tranChild.Id = tran.Id;
                         tranChild.TransactionMasterId = tran.Items[_items].TransactionMasterId;
                         tranChild.ItemId = tran.Items[_items].ItemId;
                         tranChild.ItemTotal = tran.Items[_items].ItemTotal;
                         t.TransactionChilds.Add(tranChild);
+                    }
+
+                    for (var _cards = 0; _cards < tran.Cards.Count; _cards++)
+                    {
+                        POSCardItem tranChild = new POSCardItem();
+                        tranChild.Id = tran.Id;
+                        tranChild.TransactionMasterId = tran.Items[_cards].TransactionMasterId;
+                        t.POSCardItems.Add(tranChild);
                     }
                     t.TransactionMasters.Add(tranMas);
                     t.SaveChanges();
@@ -102,6 +172,20 @@ namespace BusinessLogic.UserMag
                     tranChild.ItemId = tran.Items[_items].ItemId;
                     tranChild.ItemTotal = tran.Items[_items].ItemTotal;
                     t.TransactionChilds.Add(tranChild);
+                    t.SaveChanges();
+                }
+                for (var _cards = 0; _cards < tran.Cards.Count; _cards++)
+                {
+                    POSCardItem tranChild = new POSCardItem();
+                    tranChild.Id = tran.Id;
+                    tranChild.CardId = tran.Cards[_cards].CardId;
+                    tranChild.TransactionMasterId = lastInserted.Id;
+                    tranChild.DateCreated = DateTime.Now;
+                    tranChild.DateUpdated = DateTime.Now;
+                    tranChild.CreatedBy = 1;
+                    tranChild.UpdatedBy = 1;
+                    tranChild.Deleted = false;
+                    t.POSCardItems.Add(tranChild);
                     t.SaveChanges();
                 }
             }

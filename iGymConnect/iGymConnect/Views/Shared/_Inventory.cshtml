@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <label for="inputPassword3" class="col-sm-2 control-label">Barcode<span style="display:inline; color:red">  *</span></label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="txtBarcode" placeholder="Barcode">
+                                            <input type="text" class="form-control" id="txtBarcode1" placeholder="Barcode">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -91,12 +91,7 @@
                 </select>
             </div>*@
                                         </div>
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-2 control-label">Sub Category</label>
-                                        <div class="col-sm-10">
-                                            @Html.DropDownList("ddlSubCategoryList", new SelectList(ViewBag.SubCategoryList, "Id", "Name"), "-- Select --", new { @class = "form-control" })
-                                            </div>
-                                        </div>
+                                    
                                     <div class="form-group">
                                         <div class="panel panel-default">
                                           
@@ -174,7 +169,7 @@
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("SaveInventory", "POS")',
-                    data: { Id: $('#txtInventoryId').val(), Item: $('#txtInventoryItem').val(), Description: $('#txtDescription').val(), VendorId: $('#ddlVendor').val(), CategoryId: $('#ddlCategoryList').val(), SubCategoryId: $('#ddlSubCategoryList').val(), Discount: $('#txtDiscount').val(), Cost: $('#txtCost').val(), Total: $('#txtTotal').val(), Barcode: $('#txtBarcode').val() },
+                    data: { Id: $('#txtInventoryId').val(), Item: $('#txtInventoryItem').val(), Barcode: $('#txtBarcode1').val(), Description: $('#txtDescription').val(), VendorId: $('#ddlVendor').val(), CategoryId: $('#ddlCategoryList').val(), SubCategoryId: $('#ddlSubCategoryList').val(), Discount: $('#txtDiscount').val(), Cost: $('#txtCost').val(), Total: $('#txtTotal').val() },
                     success: function (data) {
                         $.each(data, function (index, element) {
                            // alert(element);
@@ -208,6 +203,7 @@
                         // debugger;
                         $('#txtInventoryId').val(data.Id);
                         $('#txtInventoryItem').val(data.Item);
+                        $('#txtBarcode1').val(data.Barcode);
                         $('#txtDescription').val(data.Description);
                         $('#ddlVendor').val(data.VendorId);
                         $('#ddlCategoryList').val(data.CategoryId);
@@ -215,7 +211,7 @@
                         $('#txtDiscount').val(data.Discount);
                         $('#txtCost').val(data.Cost);
                         $('#txtTotal').val(data.Total);
-                        $('#txtBarcode').val(data.Barcode);
+                       // $('#txtBarcode').val(data.Barcode);
                     }
                  }
                 

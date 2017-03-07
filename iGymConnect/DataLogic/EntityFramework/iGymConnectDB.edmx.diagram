@@ -16,6 +16,8 @@
         <EntityTypeShape EntityType="iGymConnectModel.Vendor" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="iGymConnectModel.FK_Inventory_Inventory" ManuallyRouted="false" />
         <EntityTypeShape EntityType="iGymConnectModel.MemberMaster" Width="1.5" PointX="2" PointY="5.25" />
+        <EntityTypeShape EntityType="iGymConnectModel.CardMaster" Width="1.5" PointX="4.375" PointY="9.75" />
+        <EntityTypeShape EntityType="iGymConnectModel.POSCardItem" Width="1.5" PointX="6.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

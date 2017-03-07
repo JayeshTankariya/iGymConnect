@@ -98,5 +98,28 @@ namespace BusinessLogic.UserMag
 
             return invlist;
         }
+
+        public static List<OMInventory> GetInvByCat(int Id)
+        {
+            var InvList = new List<OMInventory>();
+            using (var context = new iGymConnectEntities())
+            {
+                InvList = context.Inventories
+                    .Where(x => x.CategoryId == Id)
+                    .Select(x => new OMInventory
+                    {
+                        Id = x.Id,
+                        Item = x.Item,
+                        CategoryId = x.CategoryId.HasValue ? x.CategoryId.Value : 0,
+                        Barcode = x.Barcode,
+                        Description = x.Description,
+                        Cost = x.Cost.HasValue ? x.Cost.Value : 0,
+                        Discount = x.Discount.HasValue ? x.Discount.Value : 0,
+                        Total = x.Total.HasValue ? x.Total.Value : 0,
+                    }).ToList();
+            }
+
+            return InvList;
+        }
     }
 }

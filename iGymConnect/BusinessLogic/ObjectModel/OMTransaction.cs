@@ -14,6 +14,7 @@ namespace BusinessLogic.ObjectModel
         public DateTime TransactionDateTime { get; set; }
         public string TransactionMode { get; set; }
         public string Remarks { get; set; }
+        
         private List<OMTransactionChild> _items;
         public List<OMTransactionChild> Items
         {
@@ -28,6 +29,23 @@ namespace BusinessLogic.ObjectModel
             set
             {
                 _items = value;
+            }
+        }
+
+        private List<OMPOSCardMaster> _cards;
+        public List<OMPOSCardMaster> Cards
+        {
+            get
+            {
+                if (_cards == null || _cards.Count == 0)
+                {
+                    _cards = BTransaction.GetCardItems(Id);
+                }
+                return _cards;
+            }
+            set
+            {
+                _cards = value;
             }
         }
     }

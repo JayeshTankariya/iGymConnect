@@ -47,7 +47,7 @@
                                         <input type="file" class="form-control" id="txtbrwz">
                                     </div>
                                 <div class="col-xs-3">
-                                    <img id="img" style="width:150px; height:150px;" /><br />
+                                    <img src="~/Images/defaultuser.png" id="img" style="width:150px; height:150px;" /><br />
                                     <br />
                                 </div>
                                 </div>
@@ -61,6 +61,17 @@
                                     <span style="display:none; color:red" id="lblValMemName">Member Name Is Already Exist.</span>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    Barcode:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control" id="txtmembarcode">
+                                    <span style="display:none; color:red" id="lblmembarcode">Barcode Is Mandatory</span>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Gender:
                                     
@@ -167,6 +178,9 @@
 <script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
 
 
+
+
+
 <!--Validation Of Member-->
 
 <script>
@@ -204,9 +218,9 @@
         $('#btnmemsave').on('click', function () {
             var $file = document.getElementById('txtbrwz'),
             $formData = new FormData();
-        //    $formData.append('MemberId', '#memid').val();
+        // $formData.append('MemberId', '#memid').val();
             $formData.append('MemberName', $('#txtMembername').val());
-           //    $formData.append('MemberImage', $('#img'))
+            $formData.append('Barcode', $('#txtmembarcode').val());
             $formData.append('Gender', $('#Gender').is(':checked'));
             $formData.append('Address', $('#txtAddress').val());
             $formData.append('Address2', $('#txtAddress2').val());
@@ -252,6 +266,7 @@
                         var src1 = '@Url.Content("~/Content/MemberImg/")' + data.MemberImage;
                         $('#img').attr('src', src1);
                         $('#txtMembername').val(data.MemberName);
+                        $('#txtmembarcode').val(data.Barcode);
                         $('#Gender').val(data.Gender);
                         $('#txtAddress').val(data.Address);
                         $('#txtAddress2').val(data.Address2);

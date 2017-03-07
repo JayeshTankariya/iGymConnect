@@ -15,12 +15,12 @@ namespace DataLogic.EntityFramework
     public partial class EmployeeMaster
     {
         public int EmployeeId { get; set; }
-        public Nullable<int> AdharcardId { get; set; }
+        public Nullable<decimal> AdharcardId { get; set; }
         public string FullName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public Nullable<int> Zip { get; set; }
+        public Nullable<decimal> Zip { get; set; }
         public string Position { get; set; }
         public Nullable<System.DateTime> HireDate { get; set; }
         public string Note { get; set; }

@@ -140,7 +140,7 @@
                     </div>
                     <div class="col-sm-4 col-xs-8">
                         <div id="tile2" class="tile">
-                            <div class="carousel slide" data-ride="carousel">
+                            <div class="carousel slide" data-ride="carousel" id="MReport" data-toggle="modal" data-target="#membershipreport" >
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class="item active text-center">
@@ -185,7 +185,7 @@
                     </div>
                     <div class="col-sm-4 col-xs-8">
                         <div id="tile2" class="tile">
-                            <div class="carousel slide" data-ride="carousel">
+                            <div class="carousel slide" data-ride="carousel" data-toggle="modal" data-target="#checkinout" >
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class="item active text-center">
@@ -319,7 +319,7 @@
             </script>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- POS Modal -->
     <div class="modal fade" id="myPOS" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -356,6 +356,59 @@
                             </div>
                         </div>
                     </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--Membership -->
+    <div class="modal fade" id="membershipreport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"> <i><b><h3> MEMBERSHIP REPORTS</h3></b></i></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline">
+                      
+                            <ul class="nav nav-pills nav-stacked navbar-collapse">
+                                <li role="presentation">
+                                    @Html.ActionLink(" LIST OF EMPLOYEE DETAILS", "EmployeeReport", "Reports", null, new { target = "_blank" })                                    
+                                </li>
+                           
+                                <li role="presentation">
+                                    @Html.ActionLink("LIST OF MEMBER DETAILS", "MemberReport", "Reports", null, new { target = "_blank" })
+                                </li>
+                            
+                                <li role="presentation">
+                                    @Html.ActionLink("LIST OF MEMBERSHITYPE DETAILS", "MembershipTypeDetail", "Reports", null, new { target = "_blank" })
+                                </li>
+                           </ul>
+                       
+                    </form>
+                </div>              
+            </div>
+        </div>
+    </div>
+    
+    <!--CheckIn-out-->
+
+    <!--Membership -->
+    <div class="modal fade" id="checkinout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"> <i><b><h3> CheckIn-Out REPORTS</h3></b></i></h4>
+                </div>
+                <div class="modal-body"> 
+                    <form class="form-inline">
+                        <ul class="nav nav-pills nav-stacked navbar-collapse">
+                            <li>
+                                @Html.ActionLink("CHECK-IN-OUT DETAILS", "CheckInDetail", "Reports", null, new { target = "_blank" })
+                            </li>
+                        </ul>
+                     </form>
                 </div>
             </div>
         </div>

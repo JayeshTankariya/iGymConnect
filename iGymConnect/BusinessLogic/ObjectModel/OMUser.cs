@@ -17,5 +17,8 @@ namespace BusinessLogic.ObjectModel
         public string Password { get; set; }
         public string EmailId { get; set; }
         public int Employeeid { get; set; }
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 }

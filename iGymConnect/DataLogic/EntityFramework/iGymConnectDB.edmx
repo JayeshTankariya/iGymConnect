@@ -20,19 +20,34 @@
           <Property Name="DateUpdated" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
         </EntityType>
+        <EntityType Name="CheckInMaster">
+          <Key>
+            <PropertyRef Name="CheckIn" />
+          </Key>
+          <Property Name="CheckIn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Memberid" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="InTime" Type="datetime" />
+          <Property Name="OutTime" Type="datetime" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="Updated" Type="int" />
+        </EntityType>
         <EntityType Name="EmployeeMaster">
           <Key>
             <PropertyRef Name="EmployeeId" />
           </Key>
           <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AdharcardId" Type="int" />
+          <Property Name="AdharcardId" Type="numeric" Precision="12" Scale="0" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="State" Type="nvarchar" MaxLength="50" />
-          <Property Name="Zip" Type="int" />
+          <Property Name="Zip" Type="numeric" Precision="6" Scale="0" />
           <Property Name="Position" Type="nvarchar" MaxLength="50" />
-          <Property Name="HireDate" Type="datetime" />
+          <Property Name="HireDate" Type="date" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
@@ -68,12 +83,13 @@
           <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MemberImage" Type="nvarchar" MaxLength="50" />
           <Property Name="MemberName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Barcode" Type="nvarchar" MaxLength="50" />
           <Property Name="Gender" Type="bit" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
           <Property Name="Address2" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="State" Type="nvarchar" MaxLength="50" />
-          <Property Name="Zip" Type="int" />
+          <Property Name="Zip" Type="numeric" Precision="6" Scale="0" />
           <Property Name="PhoneHome1" Type="numeric" Precision="10" Scale="0" />
           <Property Name="PhoneWork1" Type="numeric" Precision="10" Scale="0" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
@@ -91,8 +107,8 @@
           </Key>
           <Property Name="MembershipTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="ActiveDate" Type="datetime" />
-          <Property Name="InActiveDate" Type="datetime" />
+          <Property Name="ActiveDate" Type="date" />
+          <Property Name="InActiveDate" Type="date" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -167,6 +183,7 @@
         </Association>
         <EntityContainer Name="iGymConnectModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckInMaster" EntityType="Self.CheckInMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeMaster" EntityType="Self.EmployeeMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberMaster" EntityType="Self.MemberMaster" Schema="dbo" store:Type="Tables" />
@@ -200,26 +217,6 @@
           <Property Name="DateUpdated" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
         </EntityType>
-        <EntityType Name="EmployeeMaster">
-          <Key>
-            <PropertyRef Name="EmployeeId" />
-          </Key>
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AdharcardId" Type="Int32" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Zip" Type="Int32" />
-          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HireDate" Type="DateTime" Precision="3" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Deleted" Type="Boolean" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
-          <Property Name="Updated" Type="Int32" />
-        </EntityType>
         <EntityType Name="Inventory">
           <Key>
             <PropertyRef Name="Id" />
@@ -242,20 +239,6 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <NavigationProperty Name="Inventory1" Relationship="Self.FK_Inventory_Inventory" FromRole="Inventory" ToRole="Inventory1" />
           <NavigationProperty Name="Inventory2" Relationship="Self.FK_Inventory_Inventory" FromRole="Inventory1" ToRole="Inventory" />
-        </EntityType>
-        <EntityType Name="MembershipTypeMaster">
-          <Key>
-            <PropertyRef Name="MembershipTypeId" />
-          </Key>
-          <Property Name="MembershipTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ActiveDate" Type="DateTime" Precision="3" />
-          <Property Name="InActiveDate" Type="DateTime" Precision="3" />
-          <Property Name="Deleted" Type="Boolean" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
-          <Property Name="Updated" Type="Int32" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -325,9 +308,7 @@
         </Association>
         <EntityContainer Name="iGymConnectEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="EmployeeMasters" EntityType="Self.EmployeeMaster" />
           <EntitySet Name="Inventories" EntityType="Self.Inventory" />
-          <EntitySet Name="MembershipTypeMasters" EntityType="Self.MembershipTypeMaster" />
           <EntitySet Name="SubCategories" EntityType="Self.SubCategory" />
           <EntitySet Name="TransactionChilds" EntityType="Self.TransactionChild" />
           <EntitySet Name="TransactionMasters" EntityType="Self.TransactionMaster" />
@@ -338,6 +319,9 @@
             <End Role="Inventory1" EntitySet="Inventories" />
           </AssociationSet>
           <EntitySet Name="MemberMasters" EntityType="iGymConnectModel.MemberMaster" />
+          <EntitySet Name="CheckInMasters" EntityType="iGymConnectModel.CheckInMaster" />
+          <EntitySet Name="MembershipTypeMasters" EntityType="iGymConnectModel.MembershipTypeMaster" />
+          <EntitySet Name="EmployeeMasters" EntityType="iGymConnectModel.EmployeeMaster" />
         </EntityContainer>
         <EntityType Name="MemberMaster">
           <Key>
@@ -346,16 +330,66 @@
           <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MemberImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="Boolean" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Zip" Type="Int32" />
+          <Property Name="Zip" Type="Decimal" Precision="6" Scale="0" />
           <Property Name="PhoneHome1" Type="Decimal" Precision="10" Scale="0" />
           <Property Name="PhoneWork1" Type="Decimal" Precision="10" Scale="0" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Membershiptypeid" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="Updated" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CheckInMaster">
+          <Key>
+            <PropertyRef Name="CheckIn" />
+          </Key>
+          <Property Name="CheckIn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Memberid" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="InTime" Type="DateTime" Precision="3" />
+          <Property Name="OutTime" Type="DateTime" Precision="3" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="Updated" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MembershipTypeMaster">
+          <Key>
+            <PropertyRef Name="MembershipTypeId" />
+          </Key>
+          <Property Name="MembershipTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveDate" Type="DateTime" Precision="0" />
+          <Property Name="InActiveDate" Type="DateTime" Precision="0" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="Updated" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdharcardId" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="Decimal" Precision="6" Scale="0" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HireDate" Type="DateTime" Precision="0" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
@@ -385,27 +419,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EmployeeMasters">
-            <EntityTypeMapping TypeName="iGymConnectModel.EmployeeMaster">
-              <MappingFragment StoreEntitySet="EmployeeMaster">
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="AdharcardId" ColumnName="AdharcardId" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
-                <ScalarProperty Name="Updated" ColumnName="Updated" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Inventories">
             <EntityTypeMapping TypeName="iGymConnectModel.Inventory">
               <MappingFragment StoreEntitySet="Inventory">
@@ -425,21 +438,6 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MembershipTypeMasters">
-            <EntityTypeMapping TypeName="iGymConnectModel.MembershipTypeMaster">
-              <MappingFragment StoreEntitySet="MembershipTypeMaster">
-                <ScalarProperty Name="MembershipTypeId" ColumnName="MembershipTypeId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ActiveDate" ColumnName="ActiveDate" />
-                <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
-                <ScalarProperty Name="Updated" ColumnName="Updated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -521,9 +519,62 @@
                 <ScalarProperty Name="Address2" ColumnName="Address2" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
                 <ScalarProperty Name="MemberName" ColumnName="MemberName" />
                 <ScalarProperty Name="MemberImage" ColumnName="MemberImage" />
                 <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckInMasters">
+            <EntityTypeMapping TypeName="iGymConnectModel.CheckInMaster">
+              <MappingFragment StoreEntitySet="CheckInMaster">
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="OutTime" ColumnName="OutTime" />
+                <ScalarProperty Name="InTime" ColumnName="InTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Memberid" ColumnName="Memberid" />
+                <ScalarProperty Name="CheckIn" ColumnName="CheckIn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MembershipTypeMasters">
+            <EntityTypeMapping TypeName="iGymConnectModel.MembershipTypeMaster">
+              <MappingFragment StoreEntitySet="MembershipTypeMaster">
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
+                <ScalarProperty Name="ActiveDate" ColumnName="ActiveDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MembershipTypeId" ColumnName="MembershipTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeMasters">
+            <EntityTypeMapping TypeName="iGymConnectModel.EmployeeMaster">
+              <MappingFragment StoreEntitySet="EmployeeMaster">
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="AdharcardId" ColumnName="AdharcardId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -45,7 +45,7 @@ namespace BusinessLogic.UserMag
             {
                 using (var e = new iGymConnectEntities())
                 {
-                    //employee.EmployeeId = emp.EmployeeId;
+                    employee = e.EmployeeMasters.FirstOrDefault(x => x.EmployeeId == emp.EmployeeId);
                     employee.AdharcardId = emp.AdharcardId;
                     employee.FullName = emp.FullName;
                     employee.Address = emp.Address;
@@ -55,17 +55,16 @@ namespace BusinessLogic.UserMag
                     employee.Position = emp.Position;
                     employee.HireDate = emp.HireDate;
                     employee.Note = emp.Note;
-                    employee.CreatedBy = 1;
+                    employee.Updated = 1;
                     employee.Deleted = false;
-                    employee.DateCreated = DateTime.Now;
+                    employee.DateUpdated = DateTime.Now;
                     e.SaveChanges();
-                   
                 }
             }
             else
             {
 
-                //employee.EmployeeId = emp.EmployeeId;
+                employee.EmployeeId = emp.EmployeeId;
                 employee.AdharcardId = emp.AdharcardId;
                 employee.FullName = emp.FullName;
                 employee.Address = emp.Address;

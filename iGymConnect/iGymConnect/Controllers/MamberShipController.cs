@@ -18,9 +18,7 @@ namespace iGymConnect.Controllers
 
 
 
-        //************Member****************
-
-        //Memberform Show//
+        //************Member****************   
         public ActionResult GetMember()
         {
 
@@ -31,7 +29,6 @@ namespace iGymConnect.Controllers
 
         }
 
-        //Save Member Detail//
         [HttpPost]
         public ActionResult Save(OMMember mem, HttpPostedFileBase file)
         {
@@ -49,7 +46,6 @@ namespace iGymConnect.Controllers
             return Json(member);
         }
 
-        //ShowMemberdetail//
         public ActionResult ShowMemberDetails(int MemberId)
         {
             var mem = BMember.GetAllByMember().FirstOrDefault(x => x.MemberId == MemberId);
@@ -60,9 +56,6 @@ namespace iGymConnect.Controllers
             var mem = BMember.Deletemem(MemberId);
             return Json(mem);
         }
-
-
-        //Member Name Duplication//
 
        public bool CheckDuplicationMember(int MemberId, string MemberName)
        {
@@ -111,8 +104,7 @@ namespace iGymConnect.Controllers
             var memship = BMembership.Deletememship(MembershipTypeId);
             return Json(memship);
         }
-
-        //Duplication Membership//
+    
         public bool CheckDuplicationMembership(int MembershipTypeId, string Description)
         {
             var emp = BMembership.GetAllByMembership();
@@ -182,6 +174,8 @@ namespace iGymConnect.Controllers
             }
         }
 
-
+       
     }
+
+    
 }

@@ -57,7 +57,7 @@ namespace BusinessLogic.UserMag
             {
                 using (var u = new iGymConnectEntities())
                 {
-                    usr.Id = user.Id;
+                    usr = u.UserLogins.FirstOrDefault(x => x.Id == user.Id);
                     usr.FirstName = user.FirstName;
                     usr.LastName = user.LastName;
                     usr.Username = user.Username;
@@ -85,6 +85,34 @@ namespace BusinessLogic.UserMag
 
             }
             return userlist;
+        }
+        public static List<OMUser> Changepwd(OMUser chng)
+        {
+
+            var chngelist = new List<OMUser>();
+            UserLogin cg = new UserLogin();
+            if (chng.Id > 0)
+            {
+                using (var u = new iGymConnectEntities())
+                {
+                    cg = u.UserLogins.FirstOrDefault(x => x.Id == chng.Id); 
+                    cg.Password = chng.Password; 
+                    u.SaveChanges();
+                }
+            }
+            else
+            {
+                cg.FirstName = chng.FirstName;
+                cg.Password = chng.Password;  
+                using (var u = new iGymConnectEntities())
+                {
+                    u.UserLogins.Add(cg);
+                    u.SaveChanges();
+                    chngelist = GetByUserNameAndPassword(chng);
+                }
+
+            }
+            return chngelist;
         }
     }
 }

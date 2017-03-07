@@ -22,6 +22,7 @@ namespace BusinessLogic.UserMag
                         MemberId = x.MemberId,
                         MemberImage=x.MemberImage,
                         MemberName = x.MemberName,
+                        Barcode = x.Barcode,
                         Gender = x.Gender,
                         Address = x.Address,
                         Address2 = x.Address2,
@@ -38,6 +39,7 @@ namespace BusinessLogic.UserMag
             return MemberList;
         }
 
+
         public static List<OMMember> Save(OMMember mem)
         {
             var memberlist = new List <OMMember>();
@@ -49,6 +51,7 @@ namespace BusinessLogic.UserMag
                     member = m.MemberMasters.FirstOrDefault(x => x.MemberId == mem.MemberId);
                     member.MemberName = mem.MemberName;
                     member.MemberImage = mem.MemberImage;
+                    member.Barcode = mem.Barcode;
                     member.Gender = mem.Gender;
                     member.Address = mem.Address;
                     member.Address2 = mem.Address2;
@@ -59,8 +62,7 @@ namespace BusinessLogic.UserMag
                     member.PhoneWork1 = mem.PhoneWork1;
                     member.Email = mem.Email;
                     member.Note = mem.Note;
-
-                    member.Membershiptypeid = mem.Membershiptypeid;
+                    member.Membershiptypeid = mem.Membershiptypeid;                    
                     member.Deleted = false;
                     member.Updated = 1;
                     member.DateUpdated = DateTime.Now;
@@ -69,8 +71,10 @@ namespace BusinessLogic.UserMag
             }
             else
             {
+                member.MemberId = mem.MemberId;
                 member.MemberName = mem.MemberName;
                 member.MemberImage = mem.MemberImage;
+                member.Barcode = mem.Barcode;
                 member.Gender = mem.Gender;
                 member.Address = mem.Address;
                 member.Address2 = mem.Address2;
@@ -82,8 +86,8 @@ namespace BusinessLogic.UserMag
                 member.Email = mem.Email;
                 member.Note = mem.Note;
                 member.Membershiptypeid = mem.Membershiptypeid;
-                member.CreatedBy = 1;
                 member.Deleted = false;
+                member.CreatedBy = 1;
                 member.DateCreated = DateTime.Now;
                 using (var m = new iGymConnectEntities())
                 {

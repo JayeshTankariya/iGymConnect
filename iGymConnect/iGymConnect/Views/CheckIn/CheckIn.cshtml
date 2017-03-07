@@ -1,0 +1,160 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CheckIn</title>
+
+</head>
+<body>
+    <div class="nav navbar"></div>
+    <div class="form-group">
+        <label> </label>
+        <div style="text-align:center">
+            <img src="~/Images/u2.png" id="txtimg" height="250" width="350" class="img-circle" />
+            <input type="hidden" id="txtcheckinid" class="form-control" />
+            <label class="glyphicon glyphicon-user">
+                <b> MemberId:</b>
+            </label>
+            <input id="txtid" style="color:black;background-color:gainsboro" />
+            <span style="display:none;color:red" id="lblmid">Member Not Found..!!!</span>
+            <div class="nav navbar"></div>
+            <div class="col-sm-offset-5" style="border:inherit;line-break:auto; overflow-y:scroll;">
+                <table id="txtchecktime" class="table table-bordered table-hover table-striped" style="height:auto;width:auto">
+                    <thead>
+                        <tr>
+                            <th style="color:black;background-color:darkgray;border:groove" align="center">
+                                <u>
+                                    InTime
+                                </u>
+                            </th>
+                            <th style="color:black;background-color:darkgray;border:groove" align="center">
+                                <u>
+                                    OutTime
+                                </u>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="txtintime" style="color:black; background-color:gainsboro" align="center"></td>
+                            <td id="txtouttime" style="color:black; background-color:gainsboro" align="center"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div class="row" align="center">
+                <div class="col-md-2 col-sm-offset-3 control-label" style="color:black;background-color:darkgray;border:groove">
+                    <label> MembershipType :</label>
+                    <input style="color:black;background-color:gainsboro" id="chkmemshiptype" align="center" />
+                </div>
+                <div class="col-md-2 col-md-offset-1 control-label" style="color:black;background-color:darkgray;border:groove">
+                    <label>Barcode#</label>
+                    <input style="color:black;background-color:gainsboro" id="chkmembarcode" align="center" />
+                </div>
+            </div>
+            <div class="nav navbar"></div>
+            <div class="row" align="center">
+                <div class="col-md-2 col-sm-offset-3 control-label" style="color:black;background-color:darkgray;border:groove">
+                    <label>*Member Name*</label>
+                    <input style="color:black;background-color:gainsboro" id="chkmembername" align="center" />
+                </div>
+                <div class="col-md-2  col-md-offset-1 control-label" style="color:black;background-color:darkgray;border:groove">
+                    <label>*ExpireDate#*</label>
+                    <input style="color:black;background-color:gainsboro" id="chkmembarexpire" align="center" />
+                </div>
+            </div>
+            <div class="nav navbar"></div>
+            <div class="row" align="center">
+                <div class="col-md-2 col-sm-offset-3 control-label" style="color:black;background-color:darkgray;border:groove">
+                    <label>*Phone Number*</label>
+                    <input style="color:black;background-color:gainsboro" id="chkmemberPhone" align="center" />
+                </div>
+
+                <div>
+                    <label type="hidden" class="col-sm-4" id="txtstatus">
+                        <span style="display:none; color:black" id="txttrue">In</span>
+                        <span style="display:none; color:black" id="txtfalse">Out</span>
+                    </label>
+                </div>
+            </div>
+            <span style="display:none;color:red" id="lblexpiredate">Membership Hasbeen Expire..!!!</span>
+        </div>
+    </div>
+
+
+    <style>
+        body {
+            border-top: 0;
+            background: #c4e17f;
+            background-image: url("https://static.vecteezy.com/system/resources/previews/000/095/169/original/silver-glitter-background-vector.jpg");
+        }
+    </style>
+
+
+
+
+
+
+    <!--UserDetail-->
+    @{ Html.RenderAction("GetUserDetail", "Dashboard");}
+
+    <!--Change Passowrd-->
+    @{ Html.RenderAction("Changepwd", "Dashboard");}
+
+</body>
+</html>
+<script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
+<script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+<script>
+    function CheckinValidation() {
+        var isSuccess = true;
+        if ($('#txtid').val().length == 0) {
+            $('#lblcheckid').show();
+            isSuccess = false;
+        }
+        else {
+            $('#lblcheckid').hide();
+        }
+        return isSuccess;
+    }
+    $(document).ready(function () {
+        $('#txtid').on('blur', function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SaveCheckIn", "CheckIn")',
+                data: { MemberId: $('#txtid').val() },
+                success: function (data) {
+                    if (data != null) {
+                        if (data.isSuccess) {
+                            $('#txtid').val(data.responseMsg.memberDetails.MemberId);
+                            var src1 = '@Url.Content("~/Content/MemberImg/")' + data.responseMsg.memberDetails.MemberImage;
+                            $('#txtimg').attr('src', src1);
+                            $('#chkmemshiptype').val(data.responseMsg.membershipdetail.Description);
+                            $('#chkmembarcode').val(data.responseMsg.memberDetails.Barcode);
+                            $('#chkmembername').val(data.responseMsg.memberDetails.MemberName);
+                            var myDate2 = new Date(data.responseMsg.membershipdetail.InActiveDate.match(/\d+/)[0] * 1);
+                            $('#chkmembarexpire').val(myDate2.getFullYear() + '-' + ("0" + (myDate2.getMonth() + 1)).slice(-2) + '-' + ("0" + myDate2.getDate()).slice(-2));
+                            $('#chkmemberPhone').val(data.responseMsg.memberDetails.PhoneHome1);
+                            var myDate3 = new Date(data.responseMsg.checkinDetails.InTime.match(/\d+/)[0] * 1);
+                            $('#txtintime').html(myDate3.getHours() + ":" + myDate3.getMinutes() + ":" + myDate3.getSeconds());
+                            var myDate4 = new Date(data.responseMsg.checkinDetails.OutTime.match(/\d+/)[0] * 1);
+                            $('#txtouttime').html(myDate4.getHours() + ":" + myDate4.getMinutes() + ":" + myDate4.getSeconds());
+                            setTimeout(function () { window.location.reload(true); }, 3000);
+                        }
+                        else {
+                            alert(data.responseMsg);
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>

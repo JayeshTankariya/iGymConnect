@@ -12,12 +12,13 @@ namespace BusinessLogic.ObjectModel
         public int MemberId { get; set;}
         public string MemberImage { get; set; }
         public string MemberName { get; set;}
+        public string Barcode { get; set; }
         public bool Gender { get; set;}
         public string Address { get; set;}
         public string Address2 { get; set;}
         public string City { get; set;}
         public string State { get; set;}
-        public int Zip { get; set;}
+        public decimal Zip { get; set;}
         public decimal PhoneHome1 { get; set;}
         public decimal PhoneWork1 { get; set;}
         public string Email { get; set;}

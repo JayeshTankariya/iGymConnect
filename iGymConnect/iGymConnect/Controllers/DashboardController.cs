@@ -28,7 +28,6 @@ namespace iGymConnect.Controllers
             }
         }
         
-
         //****************UserDetails**************//
 
         public ActionResult GetUserDetail(OMUser usr)
@@ -44,8 +43,8 @@ namespace iGymConnect.Controllers
         }
 
         //***********Change Password***********//
-        public ActionResult Changepwd()
-        {
+    public ActionResult Changepwd()
+        {         
             return View("_Changepassword");
         }
     }

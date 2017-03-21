@@ -45,7 +45,24 @@ namespace BusinessLogic.UserMag
             }
             return TranList;
         }
-        
+
+        public static List<OMTransactionChild> GetAllTrasactionChild()
+        {
+            var TranList = new List<OMTransactionChild>();
+            using (var context = new iGymConnectEntities())
+            {
+                TranList = context.TransactionChilds
+                    .Select(x => new OMTransactionChild
+                    {
+                        Id = x.Id,
+                        TransactionMasterId = x.TransactionMasterId.HasValue ? x.TransactionMasterId.Value : 0,
+                        ItemId = x.ItemId.HasValue ? x.ItemId.Value : 0,
+                        ItemTotal = x.ItemTotal.HasValue ? x.ItemTotal.Value : 0,
+                    }).ToList();
+            }
+            return TranList;
+        }
+
         public static List<OMTransaction> GetDateWiseTransaction(Nullable<DateTime> dt)
         {
             var dtList = new List<OMTransaction>();
@@ -55,7 +72,7 @@ namespace BusinessLogic.UserMag
                 .Select(x => new OMTransaction
                 {
                     Id = x.Id,
-                    MemberId = x.MemberId.HasValue ? x.MemberId.Value: 0,
+                    MemberId = x.MemberId.HasValue ? x.MemberId.Value : 0,
                     TransactionDateTime = x.TransactionDateTime ?? DateTime.Now,
                     TransactionMode = x.TransactionMode,
                     Remarks = x.Remarks
@@ -191,5 +208,62 @@ namespace BusinessLogic.UserMag
             }
             return tranlist;
         }
+
+        public static List<OMTransaction> GetTransDetailsMaster(int Id)
+        {
+            var TranList = new List<OMTransaction>();
+            using (var context = new iGymConnectEntities())
+            {
+                TranList = context.TransactionMasters
+                    .Where(x => x.MemberId == Id)
+                    .Select(x => new OMTransaction
+                    {
+                        Id = x.Id,
+                        MemberId = x.MemberId.HasValue ? x.MemberId.Value : 0,
+                        TransactionDateTime = x.TransactionDateTime ?? DateTime.Now,
+                        TransactionMode = x.TransactionMode,
+                        Remarks = x.Remarks,
+
+                    }).ToList();
+            }
+            return TranList;
+        }
+
+        public static List<OMTransactionChild> GetTranChild(int Id1)
+        {
+            var TranList = new List<OMTransactionChild>();
+            using (var context = new iGymConnectEntities())
+            {
+                TranList = context.TransactionChilds.Where(x => x.ItemId == Id1)
+                    .Select(x => new OMTransactionChild
+                    {
+                        Id = x.Id,
+                        TransactionMasterId = x.TransactionMasterId.HasValue ? x.TransactionMasterId.Value : 0,
+                        ItemId = x.ItemId.HasValue ? x.ItemId.Value : 0,
+                        ItemTotal = x.ItemTotal.HasValue ? x.ItemTotal.Value : 0,
+                    }).ToList();
+            }
+            return TranList;
+        }
+
+
+        //public static List<OMTransactionChild> GetTranMasterCatByInv(int Id2)
+        //{
+        //    var TranList = new List<OMTransactionChild>();
+        //    var inv = BInventory.GetAllInventory().FirstOrDefault(x => x.CategoryId == Id2);
+        //    //var abc = BTransaction.GetTrasactionChild(Id2).FirstOrDefault(x => x.ItemId == inv.Id);
+        //    using (var context = new iGymConnectEntities())
+        //    {
+        //        TranList = context.TransactionChilds.Where(x => x.ItemId == inv.CategoryId)
+        //            .Select(x => new OMTransactionChild
+        //            {
+        //                Id = x.Id,
+        //                TransactionMasterId = x.TransactionMasterId.HasValue ? x.TransactionMasterId.Value : 0,
+        //                ItemId = x.ItemId.HasValue ? x.ItemId.Value : 0,
+        //                ItemTotal = x.ItemTotal.HasValue ? x.ItemTotal.Value : 0,
+        //            }).ToList();
+        //    }
+        //    return TranList;
+        //}
     }
 }

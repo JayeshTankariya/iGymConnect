@@ -245,11 +245,14 @@
     <Content Include="Images\f5.jpg" />
     <Content Include="Images\GiftCard.jpg" />
     <Content Include="Images\Giftcard1.jpg" />
+    <Content Include="Images\hd-website-backgrounds-11.jpg" />
     <Content Include="Images\images.jpg" />
     <Content Include="Images\Inventory.jpg" />
+    <Content Include="Images\login_07.gif" />
     <Content Include="Images\m1.jpg" />
     <Content Include="Images\m2.jpg" />
     <Content Include="Images\m3.jpg" />
+    <Content Include="Images\Main_BG.jpg" />
     <Content Include="Images\muserpng.png" />
     <Content Include="Images\t1.jpg" />
     <Content Include="Images\t2.jpg" />
@@ -320,6 +323,7 @@
     <Content Include="Views\Shared\_UpdateProfile.cshtml" />
     <Content Include="Views\Shared\_Changepassword.cshtml" />
     <Content Include="Views\Shared\_GiftCard.cshtml" />
+    <Content Include="Views\Shared\_TransactionDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

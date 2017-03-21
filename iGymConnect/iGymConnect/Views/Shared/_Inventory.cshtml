@@ -174,11 +174,11 @@
                         $.each(data, function (index, element) {
                            // alert(element);
                          //  $('#tblInventory tbody tr').append('<td>' + element + '</td>');
-                            document.getElementById("frmInventory").reset();
-                            location.reload();
+                            //document.getElementById("frmInventory").reset();
+                            
                         });
-
-
+                        location.reload();
+                        
                     }
                 });
             }
@@ -189,6 +189,7 @@
             var b = $('#txtCost').val() * a;
             var c = $('#txtCost').val() - b;
             $('#txtTotal').val(c);
+            $('#txtTotal').attr('readonly', true);
         });
 
 
@@ -233,7 +234,8 @@
                    if (confirm("Are You Sure ?")) {
                         alert("Your Record Deleted Successfully");
                    }
-                   location.reload();
+                    location.reload();
+                   
                 }
             });
         });

@@ -140,9 +140,10 @@
                     success: function (data) {
                         $.each(data, function (index, element) {
                             //alert(element.CategoryName);
-                            location.reload();
+                           
                         });
-
+                        location.reload();
+                        //window.location.href = window.location.href
                     }
                 });
 
@@ -186,12 +187,19 @@
                 url: '@Url.Action("DeleteCategory", "POS")',
                 data: { Id: $('#txtCategoryId').val() },
                 success: function (data) {
-                    var a = confirm("Are You Sure ?");
-                    if (a == true)
+                    if (data.responseMsg)
                     {
-                        alert("Your Record Deleted Successfully");
+                        alert(data.responseMsg);
                     }
+                   // if (data != null) {
+                   //     alert("Category Is In Used,You Can't Delete Category");
+                   // }
+                   // else {
+                   //     //var a = confirm("Are You Sure?");
+                   //     alert("Category Deleted Succesfully");
+                   //}
                     location.reload();
+                    //window.location.href = window.location.href
                 }
             });
         });

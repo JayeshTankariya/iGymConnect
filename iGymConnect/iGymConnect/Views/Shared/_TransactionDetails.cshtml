@@ -1,0 +1,185 @@
+﻿@model List<BusinessLogic.ObjectModel.OMTransaction>
+
+<div class="modal fade" id="myTranHistory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><b><i> TRANSACTION HISTORY </i></b></h4>
+            </div>
+            <div class="modal-body">
+                <form id="frmTransHistory">
+                    <div class="form-group">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="form-inline">
+                                            @if (Model != null)
+                                            {
+                                                foreach (var tranId in Model)
+                                                {                                                   
+                                                        <input type="hidden" class="form-control" id="txtIdTD" data-tid="@tranId.Id">                                                      
+                                                }
+                                            }
+                                            @*<input type="hidden" class="form-control" id="txtIdTD" data-tid="">*@
+                                            <span style="display:none" id="lblEN">Please enter Name</span>
+                                            <label for="exampleInputEmail2" class="col-sm-2">Member </label>
+                                            <div class="col-sm-10">
+                                                @Html.DropDownList("ddlMem1", new SelectList(ViewBag.AllMember, "MemberId", "MemberName"), "-- Select --", new { @class = "form-control col-sm-10" })
+                                                <label for="exampleInputEmail2" class="col-sm-offset-3">Category </label>
+                                                @Html.DropDownList("ddlCategoryShow", new SelectList(ViewBag.ParentCategoryList1, "Id", "CategoryName"), "-- Select --", new { @class = "form-control col-sm-offset-1" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-inline">
+                                            <label for="exampleInputEmail2" class="col-sm-2">From Date </label>
+                                            <div class="col-sm-10">
+                                                <input type="date" id="dtFromdt" class="form-control">
+                                                <label for="exampleInputEmail2" class="col-sm-offset-2">To Date </label>
+                                                @*<div class="col-sm-offset-7">*@
+                                                <input type="date" id="dtTodt" class="form-control col-sm-offset-1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-inline">
+                                            <label for="exampleInputEmail2" class="col-sm-2">Inventory </label>
+                                            <div class="col-sm-10">
+                                                @Html.DropDownList("ddlInven", new SelectList(ViewBag.InventoryList1, "Id", "Item"), "-- Select --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-inline modal-footer">
+                                            <div class="col-sm-offset-10">
+                                                <button type="button" id="btnShowDetailsMasters" class="btn btn-primary">Show </button>
+                                                <button type="button" id="btnShowDetailsItems" class="btn btn-primary">Clear</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <h4><b><i>MASTER DETAILS</i></b></h4>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="form-inline table-striped table-hover">
+                                                <table id="tblMaster" class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><b>Member</b></th>
+                                                            <th><b>Transaction DateTime</b></th>
+                                                            <th><b>Transaction Mode</b></th>
+                                                            <th><b>Remarks</b></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <h4><b><i>ITEM DETAILS</i></b></h4>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="form-inline table-striped table-hover">
+                                                <table id="tblItem" class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><b>Category</b></th>   
+                                                            <th><b>Item</b></th>
+                                                            <th><b>Total</b></th>   
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //function TranDetailsValidation() {
+    //    var isSuccess = true;
+    //    if ($('#dtFromdt').val().length == 0) {
+    //        $('#lblEN').show();
+    //        isSuccess = false;
+    //    }
+    //    else {
+    //        $('#lblEN').hide();
+    //    }
+    //    return isSuccess;
+    //}
+    var TId = 0;
+    //var tid;
+    $(document).ready(function () {
+        $('#btnShowDetailsMasters').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetTransDetailsMaster", "POS")',
+                data: {
+                    Id: $('#ddlMem1').val() == "" ? "0" : $('#ddlMem1').val(),
+                    Id1: $('#ddlInven').val() == "" ? "0" : $('#ddlInven').val(),
+                    dt: $('#dtFromdt').val(),
+                    dt1: $('#dtTodt').val(),
+                    Id2 : $('#ddlCategoryShow').val() == "" ? "0" : $('#ddlCategoryShow').val(),
+                },
+                success: function (data) {
+                    $('#tblMaster tbody').empty();
+                    if(data != null)
+                    {
+                        $.each(data, function (index, element) {
+                            //FOR FULL DATE ***********  var md = parseInt(element.TransactionDateTime.match(/\((\d+)\)/)[1]);
+                            var md = new Date(parseInt(element.TransactionDateTime.substr(6)));
+                            var d = md.getDate() + "/" + (md.getMonth() + 1) + "/" + md.getFullYear();
+
+                            $('#tblMaster tbody').append('<tr data-masterid="'+element.Id+'"><td>' + element.Member.MemberName + '<td>'
+                            + d + '</td><td>'
+                            + element.TransactionMode + '</td><td>'
+                            + element.Remarks + '</td></tr>');
+                        });
+                        $('#tblItem tbody').empty();
+                    }
+                }
+                });
+        });
+    
+        $('body').on('click', '#tblMaster tbody tr', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetChildTransactionDetails", "POS")',
+                data: {Id: $(this).data('masterid') },
+                success: function (data) {
+                    if (data != null) {
+                        $('#tblItem tbody').empty();
+                        $.each(data, function (index, element) {
+                            $('#tblItem tbody').append('<tr><td>'
+                                + element.Category.CategoryName + '</td><td>'
+                                + element.Item.Item + '</td><td>'
+                                + element.ItemTotal + ' </td></tr>');
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>

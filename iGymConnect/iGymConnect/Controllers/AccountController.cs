@@ -22,12 +22,15 @@ namespace iGymConnect.Controllers
             if (user != null)
             {
                 Session["UserLogin"] = user;
-                 return RedirectToAction("Index", "Dashboard");
-               
+                return RedirectToAction("Index", "Dashboard");
+                
             }
             else
             {
+                string confirmation = "Plz check Ur UserName / Password";
+                ViewBag.Message = confirmation;
                 return RedirectToAction("Login", "Account");
+                
             }
 
            

@@ -108,8 +108,11 @@
                     success: function (data) {
                         $.each(data, function (index, element) {
                             //alert(element.Name);
-                            location.reload();
+                            //document.getElementById("frmVendor").reset();
+                            
                         });
+                        location.reload();
+                        
                     }
                 });
             }
@@ -149,6 +152,7 @@
                         alert("Your Record Deleted Successfully");
                     }
                     location.reload();
+                    
                 }
             });
         });

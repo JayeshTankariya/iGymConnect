@@ -73,10 +73,7 @@ namespace BusinessLogic.UserMag
 
             using (var c = new iGymConnectEntities())
             {
-                var dlCategory = c.Categories.FirstOrDefault(x => x.Id == Id);
-                //var inv = c.Inventories.FirstOrDefault(x => x.Id == dlCategory.Id);
-                
-                
+               var dlCategory = c.Categories.FirstOrDefault(x => x.Id == Id);                                           
                 dlCategory.Deleted = true;
                 c.SaveChanges();
                 categorylist = GetAllCategories();
@@ -85,5 +82,7 @@ namespace BusinessLogic.UserMag
 
             return categorylist;
         }
+
+        
     }
 }

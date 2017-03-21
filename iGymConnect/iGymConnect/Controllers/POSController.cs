@@ -18,7 +18,16 @@ namespace iGymConnect.Controllers
             ViewBag.AllMember = p;
             var q = BCardMaster.GetAllCard().ToList();
             ViewBag.AllCard = q;
+
             return View(BCategory.GetAllCategories());
+        }
+
+
+        //Select Member Master Details
+        public ActionResult SelectMember(int Id)
+        {
+            var m = BTransaction.GetAllTransaction().FirstOrDefault(x => x.MemberId == Id);
+            return Json(m);
         }
         public ActionResult GetInvntoryByCategoryId(int Id)
         {
@@ -27,6 +36,7 @@ namespace iGymConnect.Controllers
                 {
                     Id = x.Id,
                     Item = x.Item,
+                    VendorId = x.VendorId,
                     CategoryId = x.CategoryId,
                     Description = x.Description,
                     Discount = x.Discount,
@@ -224,7 +234,6 @@ namespace iGymConnect.Controllers
         [HttpPost]
         public ActionResult SaveCategory(OMCategory cat, HttpPostedFileBase file)
         {
-
             if (file != null && file.ContentLength > 0)
             {
                 var fileName = file.FileName;
@@ -232,15 +241,9 @@ namespace iGymConnect.Controllers
                 file.SaveAs(path);
                 cat.Image = file.FileName;
             }
-
-
             var category = BCategory.Save(cat);
             return Json(category);
         }
-
-
-
-
         public ActionResult GetCategories()
         {
             var categories = BCategory.GetAllCategories();
@@ -249,11 +252,20 @@ namespace iGymConnect.Controllers
             ViewBag.ParentCategoryList = abc;
             return View("_Category", categories);
         }
-
+        [HttpPost]
         public ActionResult DeleteCategory(int Id)
         {
-            var cat = BCategory.Delete(Id);
-            return Json(cat);
+            var inv = BInventory.GetAllInventory().FirstOrDefault(x => x.CategoryId == Id);
+
+            if (inv != null)
+            {
+                return Json(new { responseMsg = "Category Is In Used,You Can't Delete Category" });
+            }
+            else
+            {
+                var i = BCategory.Delete(Id);
+                return Json(new { responseMsg = "Category Deleted Successfully." });
+            }
         }
 
         public ActionResult ShowCategoryDetails(int Id)
@@ -319,11 +331,80 @@ namespace iGymConnect.Controllers
             return Json(inv, JsonRequestBehavior.AllowGet);
         }
 
-        //public ActionResult GetVendor()
-        //{
-        //    return View();
-        //}
+        //BTransaction Details modeule
+        public ActionResult GetTransactionDetails()
+        {
+            var Transaction = BTransaction.GetAllTransaction();
 
+            var p = BMember.GetAllByMember().ToList();
+            ViewBag.AllMember = p;
+            var abc = BCategory.GetAllCategories().ToList();
+            ViewBag.ParentCategoryList1 = abc;
+            var abc2 = BInventory.GetAllInventory().ToList();
+            ViewBag.InventoryList1 = abc2;
+            return View("_TransactionDetails", Transaction);
 
+        }
+        public ActionResult GetTransDetailsMaster(int Id, int Id1, Nullable<DateTime> dt, Nullable<DateTime> dt1, int Id2)
+        {
+            var abc = BTransaction.GetAllTransaction();
+            var tran = BTransaction.GetTranRange(dt, dt1);
+            if (Id > 0)
+            {
+                abc = BTransaction.GetTransDetailsMaster(Id);
+            }
+            if (Id1 > 0)
+            {
+                var inv = BTransaction.GetTranChild(Id1);
+                List<OMTransaction> invTrans = new List<OMTransaction>();
+                if (inv != null && inv.Count > 0)
+                {
+                    foreach (var i in inv)
+                    {
+                        var existingMaster = abc.FirstOrDefault(x => x.Id == i.TransactionMasterId);
+                        if (existingMaster != null && existingMaster.Id == i.TransactionMasterId)
+                        {
+                            invTrans.Add(existingMaster);
+                        }
+                    }
+                }
+                abc = invTrans;
+            }
+            if (dt < dt1)
+            {
+                var a = BTransaction.GetTranRange(dt, dt1);
+                List<OMTransaction> invTrans1 = new List<OMTransaction>();
+                invTrans1.AddRange(a);
+                abc = invTrans1;
+            }
+
+            if (Id2 > 0)
+            {
+                var inv = BInventory.GetInvByCat(Id2);
+                List<OMTransactionChild> invtrans2 = new List<OMTransactionChild>();
+                List<OMTransaction> invmast = new List<OMTransaction>();
+                if (inv != null && inv.Count > 0)
+                {
+                    foreach (var i in inv)
+                    {
+                        invtrans2.AddRange(BTransaction.GetAllTrasactionChild().Where(x => x.ItemId == i.Id).ToList());
+                    }
+
+                    foreach (var t in invtrans2)
+                    {
+                        invmast.Add(abc.FirstOrDefault(x => x.Id == t.TransactionMasterId));
+                    }
+                }
+                abc = invmast;
+            }
+            return Json(abc, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetChildTransactionDetails(int Id)
+        {
+            var Transaction = BTransaction.GetAllTrasactionChild().Where(x => x.TransactionMasterId == Id);
+            return Json(Transaction, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

@@ -44,10 +44,22 @@ namespace iGymConnect.Controllers
         }
 
         //***********Change Password***********//
-        public ActionResult Changepwd()
+        public ActionResult Changepwd(OMUser user)
         {
-            return View("_Changepassword");
+            var u = BUser.GetByUserNameAndPassword(user);
+            return View("_Changepassword", u);
         }
+        [HttpPost]
+        public ActionResult ChangePassword(int Id, string Username, string Password, string NewPassword)
+        {
+            //var u = BUser.GetAllUser().FirstOrDefault(x => x.Username == Username);
+            
+            var pwdchng = BUser.GetPasswordChanged(Id, Username, NewPassword);
+            
+            return Json(pwdchng);
+        }
+
+       
     }
 
 }

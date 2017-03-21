@@ -14,7 +14,7 @@ namespace BusinessLogic.ObjectModel
         public DateTime TransactionDateTime { get; set; }
         public string TransactionMode { get; set; }
         public string Remarks { get; set; }
-        
+
         private List<OMTransactionChild> _items;
         public List<OMTransactionChild> Items
         {
@@ -29,6 +29,21 @@ namespace BusinessLogic.ObjectModel
             set
             {
                 _items = value;
+            }
+        }
+
+        public OMMember Member
+        {
+            get
+            {
+                if (MemberId > 0)
+                {
+                    return BMember.GetAllByMember().FirstOrDefault(x => x.MemberId == MemberId);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 

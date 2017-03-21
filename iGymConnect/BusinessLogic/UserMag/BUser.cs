@@ -15,9 +15,10 @@ namespace BusinessLogic.UserMag
             var userList = new List<OMUser>();
             using (var context = new iGymConnectEntities())
             {
-                userList = context.UserLogins
+                userList = context.UserLogins.Where(x => x.Username == user.Username && x.Password == user.Password)
                  .Select(x => new OMUser
                  {
+                     Id = x.Id,
                      FirstName = x.FirstName,
                      LastName = x.LastName,
                      Username = x.Username,
@@ -84,6 +85,24 @@ namespace BusinessLogic.UserMag
                 }
 
             }
+            return userlist;
+        }
+
+        public static List<OMUser> GetPasswordChanged(int Id, string Username, string NewPassword)
+        {
+            var userlist = new List<OMUser>();
+            UserLogin ul = new UserLogin();
+            if(Id > 0)
+            {
+                using (var context = new iGymConnectEntities())
+                {
+                    ul = context.UserLogins.FirstOrDefault(x => x.Id == Id);
+                    ul.Username = Username;
+                    ul.Password = NewPassword;
+                    //context.UserLogins.Add(ul);
+                    context.SaveChanges();
+                }
+            }            
             return userlist;
         }
     }

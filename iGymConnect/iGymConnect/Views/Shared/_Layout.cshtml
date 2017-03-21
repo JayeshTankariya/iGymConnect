@@ -22,9 +22,8 @@
                 <li><a href="#" class="col-xs-3">@Html.ActionLink("MEMBERSHIP", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
                 <li><a href="#" class="col-xs-3">@Html.ActionLink("CHECK-IN", "CheckIn", "CheckIn", null, new { @class = "btn" })</a></li>
                 <li><a href="#" class="col-xs-3">@Html.ActionLink("REPORTS", "Reports", "Reports", null, new { @class = "btn" })</a></li>
-                <li><a href="#" class="col-xs-3">@Html.ActionLink("CONTACT US", "Contact", "Contact", null, new { @class = "btn" })</a></li>
                 <li class="dropdown">
-                    <a href="#" class="nav-navbar dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @("Welcome " +((BusinessLogic.ObjectModel.OMUser)Session["UserLogin"]).FirstName) </a>
+                    <a href="#" class="nav-navbar dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @("Welcome  " +((BusinessLogic.ObjectModel.OMUser)Session["UserLogin"]).FirstName) </a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#" class="col-xs-2" data-toggle="modal" data-target="#Updateprofile">Update Profile</a>
@@ -41,7 +40,6 @@
             </ul>
         </div>
     </nav>
-
 
 
 

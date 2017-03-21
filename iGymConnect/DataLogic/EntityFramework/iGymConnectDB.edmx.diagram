@@ -10,13 +10,13 @@
         <EntityTypeShape EntityType="iGymConnectModel.SubCategory" Width="1.5" PointX="5.375" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="iGymConnectModel.TransactionChild" Width="1.5" PointX="5.375" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="iGymConnectModel.TransactionMaster" Width="1.5" PointX="5.375" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="iGymConnectModel.UserLogin" Width="1.5" PointX="7.125" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="iGymConnectModel.Vendor" Width="1.5" PointX="7.125" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="iGymConnectModel.Vendor" Width="1.5" PointX="7.125" PointY="4.375" IsExpanded="true" />
         <AssociationConnector Association="iGymConnectModel.FK_Inventory_Inventory" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="iGymConnectModel.MemberMaster" Width="1.5" PointX="2.125" PointY="3.5" />
         <EntityTypeShape EntityType="iGymConnectModel.CheckInMaster" Width="1.5" PointX="0.625" PointY="5.25" />
         <EntityTypeShape EntityType="iGymConnectModel.MembershipTypeMaster" Width="1.5" PointX="3.75" PointY="4.75" />
         <EntityTypeShape EntityType="iGymConnectModel.EmployeeMaster" Width="1.5" PointX="3.75" PointY="0.5" />
+        <EntityTypeShape EntityType="iGymConnectModel.MemberMaster" Width="1.5" PointX="2.125" PointY="3.625" />
+        <EntityTypeShape EntityType="iGymConnectModel.UserLogin" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

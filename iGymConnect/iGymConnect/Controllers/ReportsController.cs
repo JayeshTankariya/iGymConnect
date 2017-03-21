@@ -134,7 +134,7 @@ namespace iGymConnect.Controllers
                 {
                     table.AddCell(mem.MemberId.ToString());
                     table.AddCell(mem.MemberName);
-                    table.AddCell(mem.Barcode);
+                    table.AddCell(mem.Barcode.ToString());
                     table.AddCell(mem.State);
                     table.AddCell(mem.PhoneHome1.ToString());
                 }

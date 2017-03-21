@@ -16,8 +16,10 @@ namespace BusinessLogic.UserMag
             using (var context = new iGymConnectEntities())
             {
                 userList = context.UserLogins
+                 .Where(x => x.Username == user.Username && x.Password == user.Password)
                  .Select(x => new OMUser
                  {
+                     Id = x.Id,
                      FirstName = x.FirstName,
                      LastName = x.LastName,
                      Username = x.Username,
@@ -28,6 +30,7 @@ namespace BusinessLogic.UserMag
             }
             return userList;
         }
+   
         public static List<OMUser> GetAllUser()
         {
             var userlist = new List<OMUser>();
@@ -38,16 +41,38 @@ namespace BusinessLogic.UserMag
                     {
                         Id = x.Id,
                         FirstName = x.FirstName,
-                        Employeeid = x.Employeeid.HasValue ? x.Employeeid.Value : 0,
+                        LastName = x.LastName,
                         Username = x.Username,
                         Password = x.Password,
-                        EmailId = x.EmailId
+                        EmailId = x.EmailId,
+                        Employeeid = x.Employeeid.HasValue ? x.Employeeid.Value : 0,
+
                     }).ToList();
             }
             return userlist;
         }
 
+        public static List<OMUser> UpdateUserDetails(OMUser user)
+        {
 
+            var userlist = new List<OMUser>();
+            UserLogin usr = new UserLogin();
+            if (user.Id > 0)
+            {
+                using (var u = new iGymConnectEntities())
+                {
+
+                    usr = u.UserLogins.FirstOrDefault(x => x.Id == user.Id);
+                    usr.FirstName = user.FirstName;
+                    usr.LastName = user.LastName;
+                    usr.Username = user.Username;
+                    usr.EmailId = user.EmailId;
+                   
+                    u.SaveChanges();
+                }
+            }
+            return userlist;
+        }
         public static List<OMUser> UpdateUser(OMUser user)
         {
 
@@ -64,6 +89,8 @@ namespace BusinessLogic.UserMag
                     usr.EmailId = user.EmailId;
                     usr.Password = user.Password;
                     usr.Employeeid = user.Employeeid;
+                
+                 
                     u.SaveChanges();
                 }
             }
@@ -76,44 +103,18 @@ namespace BusinessLogic.UserMag
                 usr.EmailId = user.EmailId;
                 usr.Password = user.Password;
                 usr.Employeeid = user.Employeeid;
+               
                 using (var u = new iGymConnectEntities())
                 {
                     u.UserLogins.Add(usr);
                     u.SaveChanges();
-                    userlist = GetByUserNameAndPassword(user);
+                    userlist = GetAllUser();
                 }
 
             }
             return userlist;
         }
-        public static List<OMUser> Changepwd(OMUser chng)
-        {
-
-            var chngelist = new List<OMUser>();
-            UserLogin cg = new UserLogin();
-            if (chng.Id > 0)
-            {
-                using (var u = new iGymConnectEntities())
-                {
-                    cg = u.UserLogins.FirstOrDefault(x => x.Id == chng.Id); 
-                    cg.Password = chng.Password; 
-                    u.SaveChanges();
-                }
-            }
-            else
-            {
-                cg.FirstName = chng.FirstName;
-                cg.Password = chng.Password;  
-                using (var u = new iGymConnectEntities())
-                {
-                    u.UserLogins.Add(cg);
-                    u.SaveChanges();
-                    chngelist = GetByUserNameAndPassword(chng);
-                }
-
-            }
-            return chngelist;
-        }
+      
     }
 }
 

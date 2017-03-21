@@ -38,7 +38,7 @@ namespace iGymConnect.Controllers
         [HttpPost]
         public ActionResult UpdateUser(OMUser usr)
         {
-            var user = BUser.UpdateUser(usr);
+            var user = BUser.UpdateUserDetails(usr);
             return Json(user);
         }
 

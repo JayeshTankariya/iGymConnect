@@ -86,6 +86,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -218,16 +219,12 @@
     <Content Include="Content\ReportsImages\reports4.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\url.htm" />
-    <Content Include="DBScripts\iGymConnect.sql" />
+    <Content Include="fonts\DBScripts\iGymConnect.sql" />
+    <Content Include="fonts\Code39.css" />
+    <Content Include="fonts\Code39.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\1.jpg" />
-    <Content Include="Images\2.jpg" />
-    <Content Include="Images\3.jpg" />
-    <Content Include="Images\back.jpg" />
-    <Content Include="Images\Background.jpg" />
-    <Content Include="Images\Backimage.jpg" />
-    <Content Include="Images\c.png" />
+    <Content Include="Images\Barcode.png" />
     <Content Include="Images\cat1.jpg" />
     <Content Include="Images\cat2.jpg" />
     <Content Include="Images\category.jpg" />
@@ -239,8 +236,6 @@
     <Content Include="Images\d2.jpg" />
     <Content Include="Images\d3.jpg" />
     <Content Include="Images\d4.jpg" />
-    <Content Include="Images\default-user.png" />
-    <Content Include="Images\defaultuser.png" />
     <Content Include="Images\dt.jpg" />
     <Content Include="Images\f1.jpg" />
     <Content Include="Images\f2.jpg" />
@@ -248,22 +243,28 @@
     <Content Include="Images\f5.jpg" />
     <Content Include="Images\GiftCard.jpg" />
     <Content Include="Images\Giftcard1.jpg" />
+    <Content Include="Images\hd-website-backgrounds-11.jpg" />
+    <Content Include="Images\imageedit_6_6335444819.jpg" />
+    <Content Include="Images\images %281%29.jpg" />
+    <Content Include="Images\images %282%29.jpg" />
+    <Content Include="Images\images %283%29.jpg" />
+    <Content Include="Images\images.jpg" />
     <Content Include="Images\img.jpg" />
     <Content Include="Images\Inventory.jpg" />
+    <Content Include="Images\jpeg.jpg" />
     <Content Include="Images\l2.png" />
     <Content Include="Images\Logo.png" />
     <Content Include="Images\m1.jpg" />
     <Content Include="Images\m2.jpg" />
     <Content Include="Images\m3.jpg" />
-    <Content Include="Images\membership-working-header3.png" />
-    <Content Include="Images\muserpng.png" />
-    <Content Include="Images\NoImage.jpg" />
     <Content Include="Images\t1.jpg" />
     <Content Include="Images\t2.jpg" />
     <Content Include="Images\t3.jpg" />
     <Content Include="Images\u2.png" />
     <Content Include="Images\user.png" />
     <Content Include="Images\user1.png" />
+    <Content Include="Images\user512.png" />
+    <Content Include="Images\user_accounts.png" />
     <Content Include="Images\vendors1.jpg" />
     <Content Include="Images\vendorss.jpg" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -276,6 +277,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\Code39.eot" />
+    <Content Include="fonts\Code39.ttf" />
+    <Content Include="fonts\Code39.woff" />
+    <Content Include="fonts\Code39.woff2" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
@@ -301,7 +306,6 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CheckInController.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\POSController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
@@ -334,7 +338,6 @@
     <Content Include="Views\Shared\_Changepassword.cshtml" />
     <Content Include="Views\CheckIn\CheckIn.cshtml" />
     <Content Include="Views\About\About.cshtml" />
-    <Content Include="Views\Contact\Contact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -344,6 +347,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\PDF\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

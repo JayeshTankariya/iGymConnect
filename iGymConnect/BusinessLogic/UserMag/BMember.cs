@@ -22,7 +22,7 @@ namespace BusinessLogic.UserMag
                         MemberId = x.MemberId,
                         MemberImage=x.MemberImage,
                         MemberName = x.MemberName,
-                        Barcode = x.Barcode,
+                        Barcode = x.Barcode.HasValue ? x.Barcode.Value:0,
                         Gender = x.Gender,
                         Address = x.Address,
                         Address2 = x.Address2,
@@ -39,6 +39,35 @@ namespace BusinessLogic.UserMag
             return MemberList;
         }
 
+        public static List<OMMember> GetIdMember(int Id)
+        {
+            var MemberList = new List<OMMember>();
+            using (var context = new iGymConnectEntities())
+            {
+                MemberList = context.MemberMasters
+                    .Where(x => x.MemberId == Id)
+                    .Select(x => new OMMember
+                    {
+                        MemberId = x.MemberId,
+                        MemberImage = x.MemberImage,
+                        MemberName = x.MemberName,
+                        Barcode = x.Barcode.HasValue ? x.Barcode.Value:0,
+                        Gender = x.Gender,
+                        Address = x.Address,
+                        Address2 = x.Address2,
+                        City = x.City,
+                        State = x.State,
+                        Zip = x.Zip.HasValue ? x.Zip.Value : 0,
+                        PhoneHome1 = x.PhoneHome1.HasValue ? x.PhoneHome1.Value : 0,
+                        PhoneWork1 = x.PhoneWork1.HasValue ? x.PhoneWork1.Value : 0,
+                        Email = x.Email,
+                        Note = x.Note,
+                        Membershiptypeid = x.Membershiptypeid.HasValue ? x.Membershiptypeid.Value : 0,
+                    }).ToList();
+
+            }
+           return MemberList;
+        }
 
         public static List<OMMember> Save(OMMember mem)
         {
@@ -110,5 +139,6 @@ namespace BusinessLogic.UserMag
             }
             return memberlist;
         }
+
     }
 }

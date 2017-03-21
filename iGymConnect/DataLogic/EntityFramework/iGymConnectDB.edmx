@@ -83,7 +83,7 @@
           <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MemberImage" Type="nvarchar" MaxLength="50" />
           <Property Name="MemberName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Barcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Barcode" Type="numeric" Precision="8" Scale="0" />
           <Property Name="Gender" Type="bit" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
           <Property Name="Address2" Type="nvarchar" MaxLength="50" />
@@ -266,18 +266,6 @@
           <Property Name="TransactionMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="UserLogin">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Employeeid" Type="Int32" />
-        </EntityType>
         <EntityType Name="Vendor">
           <Key>
             <PropertyRef Name="Id" />
@@ -312,42 +300,17 @@
           <EntitySet Name="SubCategories" EntityType="Self.SubCategory" />
           <EntitySet Name="TransactionChilds" EntityType="Self.TransactionChild" />
           <EntitySet Name="TransactionMasters" EntityType="Self.TransactionMaster" />
-          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
           <EntitySet Name="Vendors" EntityType="Self.Vendor" />
           <AssociationSet Name="FK_Inventory_Inventory" Association="Self.FK_Inventory_Inventory">
             <End Role="Inventory" EntitySet="Inventories" />
             <End Role="Inventory1" EntitySet="Inventories" />
           </AssociationSet>
-          <EntitySet Name="MemberMasters" EntityType="iGymConnectModel.MemberMaster" />
           <EntitySet Name="CheckInMasters" EntityType="iGymConnectModel.CheckInMaster" />
           <EntitySet Name="MembershipTypeMasters" EntityType="iGymConnectModel.MembershipTypeMaster" />
           <EntitySet Name="EmployeeMasters" EntityType="iGymConnectModel.EmployeeMaster" />
+          <EntitySet Name="MemberMasters" EntityType="iGymConnectModel.MemberMaster" />
+          <EntitySet Name="UserLogins" EntityType="iGymConnectModel.UserLogin" />
         </EntityContainer>
-        <EntityType Name="MemberMaster">
-          <Key>
-            <PropertyRef Name="MemberId" />
-          </Key>
-          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="Boolean" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Zip" Type="Decimal" Precision="6" Scale="0" />
-          <Property Name="PhoneHome1" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="PhoneWork1" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Membershiptypeid" Type="Int32" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Deleted" Type="Boolean" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
-          <Property Name="Updated" Type="Int32" />
-        </EntityType>
         <EntityType Name="CheckInMaster">
           <Key>
             <PropertyRef Name="CheckIn" />
@@ -396,6 +359,43 @@
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="DateUpdated" Type="DateTime" Precision="3" />
           <Property Name="Updated" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MemberMaster">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Barcode" Type="Decimal" Precision="8" Scale="0" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="Decimal" Precision="6" Scale="0" />
+          <Property Name="PhoneHome1" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="PhoneWork1" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Membershiptypeid" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="Updated" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Employeeid" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -470,19 +470,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserLogins">
-            <EntityTypeMapping TypeName="iGymConnectModel.UserLogin">
-              <MappingFragment StoreEntitySet="UserLogin">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="Employeeid" ColumnName="Employeeid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Vendors">
             <EntityTypeMapping TypeName="iGymConnectModel.Vendor">
               <MappingFragment StoreEntitySet="Vendor">
@@ -497,32 +484,6 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="City" ColumnName="City" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MemberMasters">
-            <EntityTypeMapping TypeName="iGymConnectModel.MemberMaster">
-              <MappingFragment StoreEntitySet="MemberMaster">
-                <ScalarProperty Name="Updated" ColumnName="Updated" />
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Membershiptypeid" ColumnName="Membershiptypeid" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PhoneWork1" ColumnName="PhoneWork1" />
-                <ScalarProperty Name="PhoneHome1" ColumnName="PhoneHome1" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
-                <ScalarProperty Name="MemberImage" ColumnName="MemberImage" />
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -575,6 +536,45 @@
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="AdharcardId" ColumnName="AdharcardId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberMasters">
+            <EntityTypeMapping TypeName="iGymConnectModel.MemberMaster">
+              <MappingFragment StoreEntitySet="MemberMaster">
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Membershiptypeid" ColumnName="Membershiptypeid" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneWork1" ColumnName="PhoneWork1" />
+                <ScalarProperty Name="PhoneHome1" ColumnName="PhoneHome1" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="MemberImage" ColumnName="MemberImage" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="iGymConnectModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="Employeeid" ColumnName="Employeeid" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

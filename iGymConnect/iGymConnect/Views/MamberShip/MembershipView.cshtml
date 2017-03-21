@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    // Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
@@ -18,21 +19,21 @@
     <div class="nav navbar"></div>
     <div class="row">
         <div class="col-sm-4">
-            <div class="tile purple" data-toggle="modal" data-target="#member">
+            <div class="tile gray" data-toggle="modal" data-target="#member">
                 <center>
                     <h3 class="title glyphicon glyphicon-user" style="font-size:45px"> Member</h3>
                 </center>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="tile red" data-toggle="modal" data-target="#membership">
+            <div class="tile gray" data-toggle="modal" data-target="#membership">
                 <center>
                     <h3 class="title glyphicon glyphicon-user" style="font-size:45px"> Membership</h3>
                 </center>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="tile orange" data-toggle="modal" data-target="#employee">
+            <div class="tile gray" data-toggle="modal" data-target="#employee">
                 <center>
                     <h3 class="title glyphicon glyphicon-user" style="font-size:45px"> Employee</h3>
                 </center>
@@ -54,10 +55,10 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="~/Images/membership-working-header3.png" alt="...">
+                    <img src="~/Images/imageedit_6_6335444819.jpg" alt="...">
                 </div>
                 <div class="item">
-                    <img src="~/Images/membership-working-header3.png" alt="...">
+                    <img src="~/Images/imageedit_6_6335444819.jpg" alt="...">
                 </div>
 
                 <!-- Controls -->
@@ -77,7 +78,7 @@
         <style>
             
             body {
-                font-family: "Open Sans", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+                font-family:Calibri;
                 font-size: 10px;
                 height: 2.5em;
                 font-weight: 600;
@@ -169,31 +170,15 @@
 
     
 
-        <nav class="navbar navbar-default navbar-fixed-bottom">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"></a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <form class="navbar-form navbar-left"></form>
-            </div><!-- /.navbar-collapse -->
-        </nav>
+        
 
-
-        <style>
-            body {
-                border-top: 0;
-                background: #c4e17f;
-                background-image: url("https://static.vecteezy.com/system/resources/previews/000/095/169/original/silver-glitter-background-vector.jpg");
-            }
-        </style>
+    <style>
+        body {
+            border-top: 0;
+            background: #c4e17f;
+            background-image: url('@Url.Content("~/images/hd-website-backgrounds-11.jpg")');
+        }
+    </style>
 
         <!--CSS Code-->
         <style>

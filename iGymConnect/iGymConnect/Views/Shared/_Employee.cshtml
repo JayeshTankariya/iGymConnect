@@ -186,15 +186,12 @@
 
                     },
                     success: function (data) {
-                        
+                        alert("Save Sucessfully)");
+                        location.reload();
                            
                     },
                 });
-                        alert("Save Sucessfully)")
-
-                        document.getElementById("frmemp").reset();
-                    
-             
+               
             }
         });
 
@@ -248,7 +245,7 @@
 
         //*****UserName Compulsory*******//
         $('#txtEmpUserName').keypress(function (e) {
-            var regex = RegExp("^[a-zA-Z]");
+            var regex = RegExp("^[a-zA-Z ]");
             var str=String.fromCharCode(!e.charcode ? e.which: e.charcode);
             if(regex.test(str)){
                 $('#lblValName').hide();
@@ -273,7 +270,7 @@
 
         //*************Employee Name Compulsory*********//
         $('#txtFullname').keypress(function (e) {
-            var regex = RegExp("^[a-zA-Z]");
+            var regex = RegExp("^[a-zA-Z ]");
             var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
             if (regex.test(str)) {
                 $('#lblValFullName').hide();

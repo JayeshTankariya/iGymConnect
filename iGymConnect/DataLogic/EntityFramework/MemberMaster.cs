@@ -17,7 +17,7 @@ namespace DataLogic.EntityFramework
         public int MemberId { get; set; }
         public string MemberImage { get; set; }
         public string MemberName { get; set; }
-        public string Barcode { get; set; }
+        public Nullable<decimal> Barcode { get; set; }
         public bool Gender { get; set; }
         public string Address { get; set; }
         public string Address2 { get; set; }

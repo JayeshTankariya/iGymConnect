@@ -51,6 +51,17 @@
  
     </body>
 </html>
+@*<script>
+    var sessiontimeoutwarning = session.timeout -1;
+    var stimeout = parseint(sessiontimeoutwarning) * 60 * 1000;
+    settimeout('sessionend()', stimeout);
+
+    function sessionend() {
+        window.location.hostname = "";
+        window.location = "/login/login/";
+    }
+</script>*@
+
 
 
 <script src="@Url.Content("~/scripts/jquery-1.8.2.min.js")"></script>

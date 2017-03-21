@@ -161,11 +161,12 @@
                               </form>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btngetmemicard">GetCard</button>
                         <button type="submit" class="btn btn-primary" id="btnmemsave">Save</button>
                         <button type="button" class="btn btn-primary" id="btnmemdelete">Delete</button>
                         <button type="reset" class="btn btn-primary" id="btnmemreset">Clear</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-
+                  
                     </div>
                 </div>
             </div>
@@ -218,7 +219,7 @@
         $('#btnmemsave').on('click', function () {
             var $file = document.getElementById('txtbrwz'),
             $formData = new FormData();
-        // $formData.append('MemberId', '#memid').val();
+             $formData.append('MemberId', $('#memid').val());
             $formData.append('MemberName', $('#txtMembername').val());
             $formData.append('Barcode', $('#txtmembarcode').val());
             $formData.append('Gender', $('#Gender').is(':checked'));
@@ -246,10 +247,10 @@
                     processData: false,
                     success: function (data) {
                             $.each(data, function (index, element) {
-                                
+                                alert("Save Sucessfully)")
+                                location.reload();
                             });
-                            alert("Save Sucessfully)")
-                            document.getElementById("frmmember").reset();
+                          
                     }
                 });
             }
@@ -293,19 +294,38 @@
             url: '@Url.Action("DeleteMember", "MamberShip")',
             data: {MemberId: $('#memid').val()},
             success: function (data) {
-                var a = confirm("Are You Sure ?");
-                if (a == true)
+                if (data!=null)
+                {
+                    alert(data.responseMsg);
+                }
+                else
                 {
                     alert("Your Record Deleted Successfully");
                 }
-                else {
-                    alert("Record Not Deleted");
-                }
                 document.getElementById("frmmember").reset();
-
+                location.reload();
             }
         });
     });
+
+        $('#btngetmemicard').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("IdCard", "MamberShip")',
+                data: { Id: $('#memid').val() },
+                success: function (data) {
+                    if (data != null) {
+                        window.location = "/iGymConnect/Content/PDF/" + data;
+
+                    }
+                }
+                });
+
+        });
+
+
+
+
         //**** Member Name Compulsory***//
         $('#txtMembername').keypress(function (e) {
             var regex = new RegExp("^[a-zA-Z ]");
@@ -319,18 +339,6 @@
             return false;
         });
 
-        ////********Gender Compulsory*****//
-        //$('#Gender').keypress(function (e) {
-        //    var regex = new RegExp("^[a-zA-Z ]");
-        //    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-        //    if (regex.test(str)) {
-        //        $('#lblValGen').hide();
-        //        return true;
-        //    }
-        //    $('#lblValGen').show();
-        //    e.preventDefault();
-        //    return false;
-        //});
 
         //*********Zip Compulsory********//
         $('#Zip').keypress(function (e) {
@@ -381,7 +389,7 @@
                 success: function (data) {
                     if(data == 'True')
                     {
-                        alert("Member Exist");  
+                        alert("Member Exist");
                         $('#lblValMemName').show();
                     }
                     else
@@ -391,7 +399,7 @@
 
                 }
             });
-            
+
 
         });
  });

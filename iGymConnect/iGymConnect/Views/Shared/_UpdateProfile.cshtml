@@ -1,7 +1,7 @@
 ﻿@model List<BusinessLogic.ObjectModel.OMUser>
 
 @{
-   // Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var user = (BusinessLogic.ObjectModel.OMUser)Session["UserLogin"];
 }
 
@@ -71,18 +71,17 @@
                     type: "POST",
                     url: '@Url.Action("UpdateUser", "Dashboard")',
                     data: {
-                        Id: $('#lbluserid').val(),
+                        Id: $('#userid').val(),
                         FirstName: $('#txtFName').val(),
                         LastName: $('#txtLName').val(),
                         UserName: $('#txtUName').val(),
                         Email: $('#txtUEmailId').val()
                     },
-                    success: function (data) {                       
+                    success: function (data) {
+                        alert("Update Sucessfully)");
+                        location.reload();
                     },
-
                 });
-
-                alert("Update Sucessfully)");
             }
         });
 

@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -11,97 +12,199 @@
     <title>CheckIn</title>
 
 </head>
+
 <body>
-    <div class="nav navbar"></div>
-    <div class="form-group">
-        <label> </label>
-        <div style="text-align:center">
-            <img src="~/Images/u2.png" id="txtimg" height="250" width="350" class="img-circle" />
-            <input type="hidden" id="txtcheckinid" class="form-control" />
-            <label class="glyphicon glyphicon-user">
-                <b> MemberId:</b>
-            </label>
-            <input id="txtid" style="color:black;background-color:gainsboro" />
-            <span style="display:none;color:red" id="lblmid">Member Not Found..!!!</span>
-            <div class="nav navbar"></div>
-            <div class="col-sm-offset-5" style="border:inherit;line-break:auto; overflow-y:scroll;">
-                <table id="txtchecktime" class="table table-bordered table-hover table-striped" style="height:auto;width:auto">
-                    <thead>
-                        <tr>
-                            <th style="color:black;background-color:darkgray;border:groove" align="center">
-                                <u>
-                                    InTime
-                                </u>
-                            </th>
-                            <th style="color:black;background-color:darkgray;border:groove" align="center">
-                                <u>
-                                    OutTime
-                                </u>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td id="txtintime" style="color:black; background-color:gainsboro" align="center"></td>
-                            <td id="txtouttime" style="color:black; background-color:gainsboro" align="center"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div>
-            <div class="row" align="center">
-                <div class="col-md-2 col-sm-offset-3 control-label" style="color:black;background-color:darkgray;border:groove">
-                    <label> MembershipType :</label>
-                    <input style="color:black;background-color:gainsboro" id="chkmemshiptype" align="center" />
+    
+    @*<div style="background-image:url('images/hd-website-backgrounds-11.jpg')">*@
+        <img id="chkbarcode" src="~/Images/Barcode.png" style="display:none" align="right" height="80" width="300" />
+
+        <div class="col-lg-12 col-sm-12">
+            <div class="card hovercard">
+                <div class="card-background">
+                    <img class="card-bkimg" alt="" src="~/Images/hd-website-backgrounds-11.jpg">
                 </div>
-                <div class="col-md-2 col-md-offset-1 control-label" style="color:black;background-color:darkgray;border:groove">
-                    <label>Barcode#</label>
-                    <input style="color:black;background-color:gainsboro" id="chkmembarcode" align="center" />
-                </div>
-            </div>
-            <div class="nav navbar"></div>
-            <div class="row" align="center">
-                <div class="col-md-2 col-sm-offset-3 control-label" style="color:black;background-color:darkgray;border:groove">
-                    <label>*Member Name*</label>
-                    <input style="color:black;background-color:gainsboro" id="chkmembername" align="center" />
-                </div>
-                <div class="col-md-2  col-md-offset-1 control-label" style="color:black;background-color:darkgray;border:groove">
-                    <label>*ExpireDate#*</label>
-                    <input style="color:black;background-color:gainsboro" id="chkmembarexpire" align="center" />
-                </div>
-            </div>
-            <div class="nav navbar"></div>
-            <div class="row" align="center">
-                <div class="col-md-2 col-sm-offset-3 control-label" style="color:black;background-color:darkgray;border:groove">
-                    <label>*Phone Number*</label>
-                    <input style="color:black;background-color:gainsboro" id="chkmemberPhone" align="center" />
+                <div class="useravatar">
+                    <img id="txtimg" class="img-circle" alt="" src="~/Images/user.png">
                 </div>
 
-                <div>
-                    <label type="hidden" class="col-sm-4" id="txtstatus">
-                        <span style="display:none; color:black" id="txttrue">In</span>
-                        <span style="display:none; color:black" id="txtfalse">Out</span>
-                    </label>
+                <div class="card-info">
+                    <span class="card-title" style="color:white">Member ID</span>
+                    <input id="txtid" style="background-color:transparent; color:white" align="center" />
                 </div>
             </div>
-            <span style="display:none;color:red" id="lblexpiredate">Membership Hasbeen Expire..!!!</span>
+            <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" id="stars" class="btn btn-default" style="background-color:transparent; color:white">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true" style="font-size:20px"></span>
+                        <div class="hidden-xs" style="font-size:20px"><b>Intime</b></div>
+                        <input id="txtintime" style="background-color:transparent; color:white;border-left:unset;border-right:unset;border-top:unset;border-bottom:dotted" align="center" />
+                    </button>
+                </div>
+
+                <div class="btn-group" role="group">
+                    <button type="button" id="following" class="btn btn-default" style="background-color:transparent; color:white">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true" style="font-size:20px"></span>
+                        <div class="hidden-xs" style="font-size:20px"> <b>OutTime</b></div>
+                        <input id="txtouttime" style="background-color:transparent; color:white;border-left:unset;border-right:unset;border-top:unset;border-bottom:dotted" align="center" />
+                    </button>
+                </div>
+            </div>
+
+            <div class="nav navbar"></div>
+
+            <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" id="stars" class="btn btn-default" style="background-color:transparent; color:white">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:20px"></span>
+                        <div class="hidden-xs" style="font-size:20px"><b>Member Name</b></div>
+                        <input id="chkmembername" style="background-color:transparent; color:white;border-left:unset;border-right:unset;border-top:unset;border-bottom:dotted" align="center" />
+                    </button>
+                </div>
+
+                <div class="btn-group" role="group">
+                    <button type="button" id="following" class="btn btn-default" style="background-color:transparent; color:white">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="font-size:20px"></span>
+                        <div class="hidden-xs" style="font-size:20px"><b>Membership Type</b></div>
+                        <input id="chkmemshiptype" style="background-color:transparent; color:white;border-left:unset;border-right:unset;border-top:unset;border-bottom:dotted" align="center" />
+                    </button>
+                </div>
+            </div>
+            <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" id="stars" class="btn btn-default" style="background-color:transparent; color:white">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:20px"></span>
+                        <div class="hidden-xs" style="font-size:20px"><b>Zip</b></div>
+                        <input id="chkzip" style="background-color:transparent; color:white;border-left:unset;border-right:unset;border-top:unset;border-bottom:dotted" align="center" />
+                    </button>
+                </div>
+
+                <div class="btn-group" role="group">
+                    <button type="button" id="following" class="btn btn-default" style="background-color:transparent; color:white">
+                        <span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="font-size:20px"></span>
+                        <div class="hidden-xs" style="font-size:20px"><b>Phone Number</b></div>
+                        <input id="chkmemberPhone" style="background-color:transparent; color:white;border-left:unset;border-right:unset;border-top:unset;border-bottom:dotted" align="center" />
+                    </button>
+                </div>
+            </div>
+            <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" id="stars" class="btn btn-default" style="background-color:transparent; color:white">
+                        <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="font-size:20px"></span>
+                        <div class="hidden-xs" style="font-size:20px"><b>Email</b></div>
+                        <input id="chkemail" style="background-color:transparent; color:white;border-left:unset;border-right:unset;border-top:unset;border-bottom:dotted" align="center" />
+                    </button>
+                </div>
+
+                <div class="btn-group" role="group">
+                    <button type="button" id="following" class="btn btn-default" style="background-color:transparent; color:white">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="font-size:20px"></span>
+                        <div class="hidden-xs" style="font-size:20px"><b>Expire Date</b></div>
+                        <input id="chkmembarexpire" style="background-color:transparent; color:white;border-left:unset;border-right:unset;border-top:unset;border-bottom:dotted" align="center" />
+                    </button>
+                </div>
+
+            </div>
         </div>
     </div>
+    <style>
+        /* USER PROFILE PAGE */
+ .card {
+    margin-top: 70px;
+    padding: 40px;
+    background-color: rgba(214, 224, 226, 0.2);
+    -webkit-border-top-left-radius:5px;
+    -moz-border-top-left-radius:5px;
+    border-top-left-radius:5px;
+    -webkit-border-top-right-radius:5px;
+    -moz-border-top-right-radius:5px;
+    border-top-right-radius:5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.card.hovercard {
+    position: relative;
+    padding-top: 0;
+    overflow: hidden;
+    text-align: center;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 1);
+}
+.card.hovercard .card-background {
+    height: 250px;
+}
+.card-background img {
+    -webkit-filter: blur(25px);
+    -moz-filter: blur(25px);
+    -o-filter: blur(25px);
+    -ms-filter: blur(25px);
+    filter: blur(25px);
+    margin-left: -100px;
+    margin-top: -200px;
+    min-width: 130%;
+}
+.card.hovercard .useravatar {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+}
+.card.hovercard .useravatar img {
+    width: 200px;
+    height: 200px;
+    max-width: 500px;
+    max-height: 500px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+}
+.card.hovercard .card-info {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+}
+.card.hovercard .card-info .card-title {
+    padding:0 5px;
+    font-size: 20px;
+    line-height: 1;
+    color: #262626;
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.card.hovercard .card-info {
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 20px;
+    color: #737373;
+    text-overflow: ellipsis;
+}
+.card.hovercard .bottom {
+    padding: 0 20px;
+    margin-bottom: 17px;
+}
+        .btn-pref .btn {
+            border: 0;
+        }
+.title {
+                width: 100%;
+                padding: 10px;
+                line-break: auto;
+            }
 
 
+    </style>
     <style>
         body {
             border-top: 0;
             background: #c4e17f;
-            background-image: url("https://static.vecteezy.com/system/resources/previews/000/095/169/original/silver-glitter-background-vector.jpg");
+            background-image: url('@Url.Content("~/images/hd-website-backgrounds-11.jpg")'); 
+        
         }
     </style>
-
-
-
-
-
 
     <!--UserDetail-->
     @{ Html.RenderAction("GetUserDetail", "Dashboard");}
@@ -127,6 +230,11 @@
     }
     $(document).ready(function () {
         $('#txtid').on('blur', function () {
+            $('#chkmemshiptype').attr('readonly', true);
+            $('#chkmembarcode').attr('readonly', true);
+            $('#chkmembername').attr('readonly', true);
+            $('#chkmemberPhone').attr('readonly', true);           
+
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("SaveCheckIn", "CheckIn")',
@@ -138,16 +246,29 @@
                             var src1 = '@Url.Content("~/Content/MemberImg/")' + data.responseMsg.memberDetails.MemberImage;
                             $('#txtimg').attr('src', src1);
                             $('#chkmemshiptype').val(data.responseMsg.membershipdetail.Description);
+                            
                             $('#chkmembarcode').val(data.responseMsg.memberDetails.Barcode);
                             $('#chkmembername').val(data.responseMsg.memberDetails.MemberName);
                             var myDate2 = new Date(data.responseMsg.membershipdetail.InActiveDate.match(/\d+/)[0] * 1);
                             $('#chkmembarexpire').val(myDate2.getFullYear() + '-' + ("0" + (myDate2.getMonth() + 1)).slice(-2) + '-' + ("0" + myDate2.getDate()).slice(-2));
                             $('#chkmemberPhone').val(data.responseMsg.memberDetails.PhoneHome1);
+                            $('#chkemail').val(data.responseMsg.memberDetails.Email);
+                            $('#chkzip').val(data.responseMsg.memberDetails.Zip);
+                            if ($('#txtid').val() != null) {
+                                $('#chkbarcode').show();
+                            }
+                            else {
+                                $('#chkbarcode').hide();
+                            }
                             var myDate3 = new Date(data.responseMsg.checkinDetails.InTime.match(/\d+/)[0] * 1);
-                            $('#txtintime').html(myDate3.getHours() + ":" + myDate3.getMinutes() + ":" + myDate3.getSeconds());
-                            var myDate4 = new Date(data.responseMsg.checkinDetails.OutTime.match(/\d+/)[0] * 1);
-                            $('#txtouttime').html(myDate4.getHours() + ":" + myDate4.getMinutes() + ":" + myDate4.getSeconds());
+                            $('#txtintime').val(myDate3.getHours() + ":" + myDate3.getMinutes() + ":" + myDate3.getSeconds());
+
                             setTimeout(function () { window.location.reload(true); }, 3000);
+                            var myDate4 = new Date(data.responseMsg.checkinDetails.OutTime.match(/\d+/)[0] * 1);
+                            $('#txtouttime').val(myDate4.getHours() + ":" + myDate4.getMinutes() + ":" + myDate4.getSeconds());
+                            
+                            setTimeout(function () { window.location.reload(true); }, 3000);
+                        
                         }
                         else {
                             alert(data.responseMsg);

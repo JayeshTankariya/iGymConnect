@@ -90,7 +90,6 @@ namespace BusinessLogic.UserMag
                         user.Password = emp.EmpPassword;
                         BUser.UpdateUser(user);
                     }
-                    //e.SaveChanges();
                     employeelist = GetAllByEmployee();
                    
                 }

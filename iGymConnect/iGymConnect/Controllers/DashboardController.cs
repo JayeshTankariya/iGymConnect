@@ -27,7 +27,7 @@ namespace iGymConnect.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        
+
         //****************UserDetails**************//
 
         public ActionResult GetUserDetail(OMUser usr)
@@ -52,16 +52,17 @@ namespace iGymConnect.Controllers
         public ActionResult ChangePassword(int Id, string Username, string Password, string NewPassword)
         {
             //var u = BUser.GetAllUser().FirstOrDefault(x => x.Username == Username);
-            
+
             var pwdchng = BUser.GetPasswordChanged(Id, Username, NewPassword);
-            
+
             return Json(pwdchng);
-    public ActionResult Changepwd()
-        {         
+        }
+        public ActionResult Changepwd()
+        {
             return View("_Changepassword");
         }
 
-       
+
     }
 
 }

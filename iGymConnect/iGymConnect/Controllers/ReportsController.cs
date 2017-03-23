@@ -446,9 +446,6 @@ namespace iGymConnect.Controllers
             document.Close();
             return Json(strPDFfilename2);
         }
-    }
-  }
-
         public ActionResult EmployeeReport(string b1)
         {
             //var emp = BEmployee.GetAllByEmployee();
@@ -495,9 +492,9 @@ namespace iGymConnect.Controllers
                     table.AddCell(emp.Zip.ToString());
                     table.AddCell(emp.HireDate.ToString());
                     table.AddCell(emp.Position.ToString());
-   
+
                 }
-               
+
                 document.Add(tableHeader);
                 document.Add(table);
 
@@ -530,7 +527,7 @@ namespace iGymConnect.Controllers
             MemoryStream stream = new MemoryStream();
             try
             {
-                
+
                 PdfWriter pdfWriter = PdfWriter.GetInstance(document, stream);
                 pdfWriter.CloseStream = false;
 
@@ -571,7 +568,7 @@ namespace iGymConnect.Controllers
 
                 document.Open();
                 document.Add(tableHeader);
-                document.Add(table); 
+                document.Add(table);
 
 
             }
@@ -595,7 +592,7 @@ namespace iGymConnect.Controllers
         }
         public ActionResult MembershipTypeDetail()
         {
-            
+
             Document document = new Document();
             MemoryStream stream = new MemoryStream();
             try
@@ -626,7 +623,7 @@ namespace iGymConnect.Controllers
                 table.AddCell(cell1);
                 cell1 = new PdfPCell(new Phrase("InActive Date", arial1));
                 table.AddCell(cell1);
-                
+
                 foreach (var memship in BMembership.GetAllByMembership())
                 {
                     table.AddCell(memship.MembershipTypeId.ToString());
@@ -685,8 +682,8 @@ namespace iGymConnect.Controllers
                 table.TotalWidth = 500f;
                 Font arial1 = FontFactory.GetFont("Comic Sans MS", 12, BaseColor.BLUE);
                 PdfPCell cell1 = new PdfPCell();
-                
-               
+
+
                 cell1 = new PdfPCell(new Phrase("Member Name", arial1));
                 table.AddCell(cell1);
                 cell1 = new PdfPCell(new Phrase("In Time", arial1));
@@ -727,6 +724,7 @@ namespace iGymConnect.Controllers
             return File(stream, "application/pdf", "ListCheckInDetail.pdf");
 
         }
-
     }
-}
+  }
+
+       

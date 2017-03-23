@@ -55,9 +55,9 @@ namespace BusinessLogic.UserMag
                     employee.Position = emp.Position;
                     employee.HireDate = emp.HireDate;
                     employee.Note = emp.Note;
-                    employee.CreatedBy = 1;
+                    employee.Updated = 1;
                     employee.Deleted = false;
-                    employee.DateCreated = DateTime.Now;
+                    employee.DateUpdated = DateTime.Now;
                     e.SaveChanges();
                 }
             }
@@ -90,7 +90,6 @@ namespace BusinessLogic.UserMag
                         user.Password = emp.EmpPassword;
                         BUser.UpdateUser(user);
                     }
-                    //e.SaveChanges();
                     employeelist = GetAllByEmployee();
 
                 }

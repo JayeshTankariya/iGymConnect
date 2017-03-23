@@ -51,13 +51,13 @@
                             <div class="form-group">
                                 <label  class="col-sm-4 control-label">Active Date:</label>
                                 <div class="col-sm-6">
-                                    <input type="datetime-local" class="form-control" id="ActiveDate">
+                                    <input type="date" class="form-control" id="ActiveDate"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label  class="col-sm-4 control-label">InActive Date:</label>
                                 <div class="col-sm-6">
-                                    <input type="datetime-local" class="form-control" id="InActiveDate">
+                                    <input type="date" class="form-control" id="InActiveDate"/>
                                 </div>
                             </div>
                         </form>
@@ -105,18 +105,11 @@
                         InActiveDate: $('#InActiveDate').val()
                     },
                     success: function (data) {
-                        //var row = "";
-                        //$.each(data, function (index, element) {
-                        //    row += "<tr><td>"+item.Description+"</td></tr>";
-                        //});
-                        //$("#Des").html(row);
+                        alert("Save Sucessfully)");
+                        location.reload();
                     },
 
-                });
-
-                       //alert("Save Sucessfully)")
-                document.getElementById("frmmemship").reset();
-                
+                });             
                }
         });
 
@@ -131,17 +124,13 @@
                         $('#lblMembershipId').val(data.MembershipTypeId);
                         $('#txtDescription').val(data.Description);
                         var myDate = new Date(data.ActiveDate.match(/\d+/)[0] * 1);
-                        $('#ActiveDate').val(myDate.toISOString().replace('Z',''));
+                        $('#ActiveDate').val(myDate.getFullYear() + '-' + ("0" + (myDate.getMonth() + 1)).slice(-2) + '-' + ("0" + myDate.getDate()).slice(-2));
                         var myDate1 = new Date(data.InActiveDate.match(/\d+/)[0] * 1);
-                        $('#InActiveDate').val(myDate1.toISOString().replace('Z',''));
-                        $("#tblMembership").load(window.location + " #tblMembership");
+                        $('#InActiveDate').val(myDate1.getFullYear() + '-' + ("0" + (myDate1.getMonth() + 1)).slice(-2) + '-' + ("0" + myDate1.getDate()).slice(-2));
                     }
-                    $("#tblMembership").load(window.location + " #tblMembership");
                     }
                 });
         });
-
-
 
             $('#btnmemshipreset').on('click', function () {
                 document.getElementById("frmmemship").reset();
@@ -195,6 +184,7 @@
                     else {
                         $('#lblvalMemDes').hide();
                     }
+
 
                 }
             });

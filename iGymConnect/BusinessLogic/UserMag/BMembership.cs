@@ -43,9 +43,9 @@ namespace BusinessLogic.UserMag
                     membership.MembershipTypeId = memship.MembershipTypeId;
                     membership.ActiveDate = memship.ActiveDate;
                     membership.InActiveDate = memship.InActiveDate;
-                    membership.CreatedBy = 1;
+                    membership.Updated = 1;
                     membership.Deleted = false;
-                    membership.DateCreated = DateTime.Now;
+                    membership.DateUpdated = DateTime.Now;
                     ms.SaveChanges();
                 }
             }

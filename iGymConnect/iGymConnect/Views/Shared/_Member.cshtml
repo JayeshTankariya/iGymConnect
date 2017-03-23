@@ -47,7 +47,7 @@
                                         <input type="file" class="form-control" id="txtbrwz">
                                     </div>
                                 <div class="col-xs-3">
-                                    <img id="img" style="width:150px; height:150px;" /><br />
+                                    <img src="~/Images/defaultuser.png" id="img" style="width:150px; height:150px;" /><br />
                                     <br />
                                 </div>
                                 </div>
@@ -61,6 +61,17 @@
                                     <span style="display:none; color:red" id="lblValMemName">Member Name Is Already Exist.</span>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    Barcode:
+                                    <span style="display:inline; color:red">  *</span>
+                                </label>
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control" id="txtmembarcode">
+                                    <span style="display:none; color:red" id="lblmembarcode">Barcode Is Mandatory</span>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Gender:
                                     
@@ -150,11 +161,12 @@
                               </form>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btngetmemicard">GetCard</button>
                         <button type="submit" class="btn btn-primary" id="btnmemsave">Save</button>
                         <button type="button" class="btn btn-primary" id="btnmemdelete">Delete</button>
                         <button type="reset" class="btn btn-primary" id="btnmemreset">Clear</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-
+                  
                     </div>
                 </div>
             </div>
@@ -165,6 +177,9 @@
 <script src="@Url.Content("~/scripts/jquery-1.10.2.min.js")"></script>
 
 <script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+
+
+
 
 
 <!--Validation Of Member-->
@@ -204,9 +219,9 @@
         $('#btnmemsave').on('click', function () {
             var $file = document.getElementById('txtbrwz'),
             $formData = new FormData();
-        //    $formData.append('MemberId', '#memid').val();
+             $formData.append('MemberId', $('#memid').val());
             $formData.append('MemberName', $('#txtMembername').val());
-           //    $formData.append('MemberImage', $('#img'))
+            $formData.append('Barcode', $('#txtmembarcode').val());
             $formData.append('Gender', $('#Gender').is(':checked'));
             $formData.append('Address', $('#txtAddress').val());
             $formData.append('Address2', $('#txtAddress2').val());
@@ -232,11 +247,10 @@
                     processData: false,
                     success: function (data) {
                             $.each(data, function (index, element) {
-                                
+                                alert("Save Sucessfully)")
+                                location.reload();
                             });
-                            alert("Save Sucessfully)")
-                            document.getElementById("frmmember").reset();
-                            
+                          
                     }
                 });
             }
@@ -253,6 +267,7 @@
                         var src1 = '@Url.Content("~/Content/MemberImg/")' + data.MemberImage;
                         $('#img').attr('src', src1);
                         $('#txtMembername').val(data.MemberName);
+                        $('#txtmembarcode').val(data.Barcode);
                         $('#Gender').val(data.Gender);
                         $('#txtAddress').val(data.Address);
                         $('#txtAddress2').val(data.Address2);
@@ -279,19 +294,38 @@
             url: '@Url.Action("DeleteMember", "MamberShip")',
             data: {MemberId: $('#memid').val()},
             success: function (data) {
-                var a = confirm("Are You Sure ?");
-                if (a == true)
+                if (data!=null)
+                {
+                    alert(data.responseMsg);
+                }
+                else
                 {
                     alert("Your Record Deleted Successfully");
                 }
-                else {
-                    alert("Record Not Deleted");
-                }
                 document.getElementById("frmmember").reset();
-                
+                location.reload();
             }
         });
     });
+
+        $('#btngetmemicard').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("IdCard", "MamberShip")',
+                data: { Id: $('#memid').val() },
+                success: function (data) {
+                    if (data != null) {
+                        window.location = "/iGymConnect/Content/PDF/" + data;
+
+                    }
+                }
+                });
+
+        });
+
+
+
+
         //**** Member Name Compulsory***//
         $('#txtMembername').keypress(function (e) {
             var regex = new RegExp("^[a-zA-Z ]");
@@ -305,18 +339,6 @@
             return false;
         });
 
-        ////********Gender Compulsory*****//
-        //$('#Gender').keypress(function (e) {
-        //    var regex = new RegExp("^[a-zA-Z ]");
-        //    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-        //    if (regex.test(str)) {
-        //        $('#lblValGen').hide();
-        //        return true;
-        //    }
-        //    $('#lblValGen').show();
-        //    e.preventDefault();
-        //    return false;
-        //});
 
         //*********Zip Compulsory********//
         $('#Zip').keypress(function (e) {
@@ -367,7 +389,7 @@
                 success: function (data) {
                     if(data == 'True')
                     {
-                        alert("Member Exist");  
+                        alert("Member Exist");
                         $('#lblValMemName').show();
                     }
                     else
@@ -377,7 +399,7 @@
 
                 }
             });
-            
+
 
         });
  });

@@ -11,425 +11,60 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>GetUser</title>
-    <link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet" />
-
-
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body >
-    
-    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form Horizontal" }))
-    {
-        @*<div class="container" >
-            <div class="page-lock lock-head">
-                <div class="page-logo">
-                    <a class="brand">                      
-                    </a><h2>iGym Connect</h2>
-                    <h2> LOG - IN </h2> 
-                </div>
-                <div class="page-body">
-    
-                    <div class="lock-body">
-                        <div class="pull-left lock-avatar-block" align="center">
-                            <img src="https://www.tjsb.net/internetbanking/view/images/login_07.gif" style="border:solid" class="lock-avatar">
-                        </div>
-                        <form class="lock-form pull-left">
-                            <div class="col-sm-10" align="center">
-                                <div class="form-group" style="font-family:'Times New Roman'">
-                                    <label for="inputEmail3" class="control-label brand">Email</label>
-                                    <div class="col-sm-10">
-                                        @Html.TextBoxFor(x => x.Username, new { @class = "form-control", @placeholder = "Email" })
-                                    </div>
-                                </div>
-                                <div class="form-group" style="font-family:'Times New Roman'">
-                                    <label for="inputPassword3" class="control-label">Password</label>
-                                    <div class="col-sm-10">
-                                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })
-                                    </div>
-                                </div>
+<body style="background-color:lightgray">
 
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <div class="checkbox" style="font-family:'Times New Roman'">
-                                            <label>
-                                                <input type="checkbox"> Remember me
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group" style="font-family:'Times New Roman'">
-                                    <button type="submit" class="form-control">Sign In</button>
-                                   
-                                    <button type="reset" class="control-label"> Clear </button>
-
-                                </div>
-                            </div>
-                            
-                        </form>
-                    </div>
-                    <div class="lock-bottom">
-                        <a href="">Forgot Password ? </a>
-                    </div>
-                </div>
+    <nav class="navbar navbar-default" style="background-color:darkslateblue">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">IGym Connect
+                </a>
             </div>
-        </div>*@
-        
-        //jbsuhvguywbvjh
-        <div class="container">
-                <div class="page-lock lock-head">
-                    
-                    <div class="page-body">
-
-                        <div class="lock-body">
-                           
-                            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                                <form role="form">
-                                    
-                                    <fieldset class="lock-bottom">
-                                        <div class="page-logo">
-                                            <a class="brand">
-                                            </a><h2>iGym Connect</h2>
-                                            <h2> LOG - IN </h2>
-                                        </div>             
-                                        <div class="pull-left lock-avatar-block" align="center">
-                                            <img src="@Url.Content("~/Images/login_07.gif")" style="border:solid" class="lock-avatar">
-                                        </div>                       
-                                        <hr class="colorgraph">
-                                        <div class="form-group" style="font-family:'Times New Roman'">
-                                            <label for="inputEmail3" class="control-label brand">Email</label>
-                                            <div class="col-sm-10">
-                                                @Html.TextBoxFor(x => x.Username, new { @class = "form-control", @placeholder = "Email" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group" style="font-family:'Times New Roman'">
-                                            <label for="inputPassword3" class="control-label">Password</label>
-                                            <div class="col-sm-10">
-                                                @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group" style="font-family:'Times New Roman'">
-                                            <span style="display:none">@ViewBag.Message</span>
-                                        </div>
-                                        <hr class="colorgraph">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <input type="submit" class="btn btn-default" value="Sign In" style="height:40px;width:300px;font-size:x-large;font-family:Times New Roman;font-style:bold,italic;background-color:transparent;color:lightseagreen">
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="lock-bottom">
-                            <a href=""></a>
-                            <div class="form-group" style="font-family:'Times New Roman'">
-                                <label for="inputPassword3" class="control-label">By: TRIVEDI BANSARI T</label>
-                             </div>
-                       </div>
-                    </div>
+        </div>
+    </nav>
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form Horizontal" }))
+        {
+            //*********Login*********//
+            <div class="form-group">
+                <div class="col-sm-10" align="center">
+                    <img src="~/Images/l2.png" height="200" width="370" />
                 </div>
+                    <div class="col-sm-5 col-lg-offset-4">
+                            <label class="glyphicon glyphicon-user">
+                                UserName 
+                                @Html.TextBoxFor(x => x.Username, new { @class = "form-control", @placeholder = "Email" })
+                            </label>
+                    </div>
+                    <div class="col-sm-5 col-lg-offset-4">
+                            <label class="glyphicon glyphicon-user">
+                                Password
+                                @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })
+                            </label>
+                    </div>
+                    <div class="col-sm-5 col-lg-offset-4">
+                            <button type="submit" class="btn btn-primary">Log in</button>
+                            <button type="reset" class="btn btn-primary">Clear</button>
+                    </div>
             </div>
-
-           <script>
-            $(function () {
-                $('.button-checkbox').each(function () {
-                    var $widget = $(this),
-                        $button = $widget.find('button'),
-                        $checkbox = $widget.find('input:checkbox'),
-                        color = $button.data('color'),
-                        settings = {
-                            on: {
-                                icon: 'glyphicon glyphicon-check'
-                            },
-                            off: {
-                                icon: 'glyphicon glyphicon-unchecked'
-                            }
-                        };
-
-                    $button.on('click', function () {
-                        $checkbox.prop('checked', !$checkbox.is(':checked'));
-                        $checkbox.triggerHandler('change');
-                        updateDisplay();
-                    });
-
-                    $checkbox.on('change', function () {
-                        updateDisplay();
-                    });
-
-                    function updateDisplay() {
-                        var isChecked = $checkbox.is(':checked');
-                        // Set the button's state
-                        $button.data('state', (isChecked) ? "on" : "off");
-
-                        // Set the button's icon
-                        $button.find('.state-icon')
-                            .removeClass()
-                            .addClass('state-icon ' + settings[$button.data('state')].icon);
-
-                        // Update the button's color
-                        if (isChecked) {
-                            $button
-                                .removeClass('btn-default')
-                                .addClass('btn-' + color + ' active');
-                        }
-                        else {
-                            $button
-                                .removeClass('btn-' + color + ' active')
-                                .addClass('btn-default');
-                        }
-                    }
-                    function init() {
-                        updateDisplay();
-                        // Inject the icon if applicable
-                        if ($button.find('.state-icon').length == 0) {
-                            $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
-                        }
-                    }
-                    init();
-                });
-            });
-        </script>
-        <style>
- body {
-        /*background: url('http://rynopowergym.com/wp-content/uploads/2015/04/RynoPowerGym_Slide_2.jpg') fixed;*/
-       background: url('@Url.Content("~/images/Main_BG.jpg")') fixed;
-        background-size: cover;
-        padding: 0;
-        margin: 0;
-        }
-
-.page-lock {
-        margin: 90px auto 30px auto;
-        width: 450px;
-        }
-
-.page-lock .page-logo {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-.page-lock .page-body {
-            width: 100%;
-            margin-top: 50px;
-            /*background-color: rgba(0, 0, 0, 0.66);*/
-            background-color: initial;
-            -webkit-border-radius: 7px;
-            -moz-border-radius: 7px;
-            -ms-border-radius: 7px;
-            -o-border-radius: 7px;
-            border-radius: 7px;
-        }
-
-.lock-head {
-        display: block;
-        background-color: rgba(0, 0, 0, 0.66);
-        /*background-color: initial;*/
-        text-align: center;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            font-size: 22px;
-            font-weight: 400;
-        color: #4db3a5;
-}
-
-.lock-body {
-        display: block;
-        margin: 35px;
-        overflow: hidden;
-        }
-
-.lock-avatar {
-            margin-top: 15px;
-        height: 110px;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            border-radius: 50%;
-        }
-
-.lock-form {
-            padding-left: 40px;
-        }
-
-.lock-form h4 {
-            margin-top: 0px;
-        color: #dbe2ea;
-  font-size: 18px;
-            font-weight: 400;
-        }
-
-.lock-form .form-group {
-            margin-top: 20px;
-        }
-
-.lock-form .form-group .form-control {
-            background-color: #303a48;
-  border: none;
-        width: 220px;
-        height: 40px;
-        color: #697687;
-  border-radius: 0;
-        }
-
-.lock-form .form-group .form-control::-moz-placeholder {
-        color: #556376;
-  opacity: 1;
-        }
-
-.lock-form .form-group .form-control:-ms-input-placeholder {
-        color: #556376;
-}
-
-.lock-form .form-group .form-control::-webkit-input-placeholder {
-        color: #556376;
-}
-
-.lock-form .form-group .form-control:focus {
-            background-color: #2b3542;
-}
-
-.lock-form .form-actions {
-            margin-top: 20px;
-        }
-
-.lock-form .form-actions .btn-success {
-            background-color: #e76070 !important;
-  width: 220px;
-            font-weight: 600;
-        padding: 10px;
-        border: none;
-            border-radius: 0;
-        }
-
-.lock-form .form-actions .btn-success:hover {
-            background-color: #d75464 !important;
-}
-
-.lock-bottom {
-        display: block;
-            background-color: rgba(0, 0, 0, 0.66);
-  text-align: center;
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-
-.lock-bottom a {
-            font-size: 14px;
-            font-weight: 400;
-        color: #638cac;
-}
-
-.lock-bottom a:hover {
-        color: #7ba2c0;
-}
-
-.media (max-width: 768px) {
-  .page-lock {
-            margin: 100px auto;
-            }
-        }
-.media (max-width: 560px) {
-  .page-lock {
-            margin: 50px auto;
-            width: 400px;
-            }
-
-  .lock-body {
-            margin: 30px;
-            }
-
-  .lock-avatar {
-            width: 120px;
-            height: 120px;
-                margin-top: 20px;
-            }
-
-  .lock-form h4 {
-                font-size: 16px;
-            }
-
-  .lock-form .form-group .form-control {
-            padding: 20px 20px;
-            width: 170px;
-            }
-
-  .lock-form .form-actions .btn-success {
-            width: 170px;
-                margin-bottom: 10px;
-            }
-        }
-.media (max-width: 420px) {
-  .page-lock {
-            margin: 30px auto;
-            width: 280px;
-            }
-
-  .lock-body {
-            margin: 0px;
-            }
-
-  .page-lock .page-body {
-                margin-top: 30px;
-            }
-
-  .lock-avatar {
-                margin-top: 20px;
-            }
-
-  .lock-avatar-block {
-            display: block;
-            width: 100%;
-                text-align: center;
-                margin-bottom: 10px;
-            }
-
-  .lock-form {
-                padding-left: 20px;
-            }
-
-  .lock-form h4 {
-                font-size: 16px;
-                text-align: center;
-            }
-
-  .lock-form .form-group .form-control {
-            padding: 20px 20px;
-            width: 240px;
-            }
-
-  .lock-form .form-actions .btn-success {
-            width: 240px;
-                margin-bottom: 20px;
-            }
-  .colorgraph {
-            height: 5px;
-            border-top: 0;
-            background: #c4e17f;
-            border-radius: 5px;
-            background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-            background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-            background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-            background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-}
-
-        </style>
-
-    }
-    
-     
+        } 
+ 
     </body>
 </html>
 @*<script>
-    $(document).ready(function () {
-        $('.forgot-pass').click(function (event) {
-            $(".pr-wrap").toggleClass("show-pass-reset");
-        });
+    var sessiontimeoutwarning = session.timeout -1;
+    var stimeout = parseint(sessiontimeoutwarning) * 60 * 1000;
+    settimeout('sessionend()', stimeout);
 
-        $('.pass-reset-submit').click(function (event) {
-            $(".pr-wrap").removeClass("show-pass-reset");
-        });
-    });
+    function sessionend() {
+        window.location.hostname = "";
+        window.location = "/login/login/";
+    }
 </script>*@
+
+
+
 <script src="@Url.Content("~/scripts/jquery-1.8.2.min.js")"></script>
 
 <script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
-
 

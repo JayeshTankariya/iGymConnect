@@ -28,7 +28,6 @@ namespace iGymConnect.Controllers
             }
         }
         
-
         //****************UserDetails**************//
 
         public ActionResult GetUserDetail(OMUser usr)
@@ -39,7 +38,7 @@ namespace iGymConnect.Controllers
         [HttpPost]
         public ActionResult UpdateUser(OMUser usr)
         {
-            var user = BUser.UpdateUser(usr);
+            var user = BUser.UpdateUserDetails(usr);
             return Json(user);
         }
 
@@ -57,6 +56,9 @@ namespace iGymConnect.Controllers
             var pwdchng = BUser.GetPasswordChanged(Id, Username, NewPassword);
             
             return Json(pwdchng);
+    public ActionResult Changepwd()
+        {         
+            return View("_Changepassword");
         }
 
        

@@ -115,9 +115,9 @@
                                 <div class="col-sm-5">
                                     <select id="txtPosition" class="form-control">
                                         <option value="0">-- Select --</option>
-                                        <option value="1">Personal Trainer</option>
-                                        <option value="2">Daily Care</option>
-                                        <option value="3">Sales Person</option>
+                                        <option value="PersonalTrainer">Personal Trainer</option>
+                                        <option value="DailyCare">Daily Care</option>
+                                        <option value="SalesPerson">Sales Person</option>
                                     </select>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Hire Date:</label>
                                 <div class="col-sm-6">
-                                    <input type="datetime-local" class="form-control" id="txtEmpHireDate">
+                                    <input type="date" class="form-control" id="txtEmpHireDate">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -191,15 +191,12 @@
 
                     },
                     success: function (data) {
-
-
+                        alert("Save Sucessfully)");
+                        location.reload();
+                           
                     },
                 });
-                        alert("Save Sucessfully)")
-
-                        document.getElementById("frmemp").reset();
-                        //window.location.href = window.location.href
-
+               
             }
         });
 
@@ -221,7 +218,7 @@
                         $('#txtempZip').val(data.Zip);
                         $('#txtPosition').val(data.Position);
                         var myDate2 = new Date(data.HireDate.match(/\d+/)[0] * 1);
-                        $('#txtEmpHireDate').val(myDate2.toISOString().replace('Z', ''));
+                        $('#txtEmpHireDate').val(myDate2.getFullYear() + '-' + ("0" + (myDate2.getMonth() + 1)).slice(-2) + '-' + ("0" + myDate2.getDate()).slice(-2));
                         $('#txtempNote').val(data.Note);
                     }
                 }
@@ -253,7 +250,7 @@
 
         //*****UserName Compulsory*******//
         $('#txtEmpUserName').keypress(function (e) {
-            var regex = RegExp("^[a-zA-Z]");
+            var regex = RegExp("^[a-zA-Z ]");
             var str=String.fromCharCode(!e.charcode ? e.which: e.charcode);
             if(regex.test(str)){
                 $('#lblValName').hide();
@@ -264,20 +261,6 @@
             return false;
         });
 
-        ////*********Password Compulsory*******//
-        //$('#txtEmpPassword').keypress(function (e) {
-        //    var regex = RegExp("^[a-zA-Z]");
-        //    var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
-        //    if (regex.test(str)) {
-        //        $('#lblValPwd').hide();
-        //        return true;
-        //    }
-        //    $('#lblValPwd').show();
-        //    e.preventDefault();
-        //    return false;
-        //});
-
-        //********** Adharcard Number Compulsory*******//
         $('#txtempAdharcardId').keypress(function (e) {
             var regex = RegExp("^[0-9 ]");
             var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
@@ -292,7 +275,7 @@
 
         //*************Employee Name Compulsory*********//
         $('#txtFullname').keypress(function (e) {
-            var regex = RegExp("^[a-zA-Z]");
+            var regex = RegExp("^[a-zA-Z ]");
             var str = String.fromCharCode(!e.charcode ? e.which : e.charcode);
             if (regex.test(str)) {
                 $('#lblValFullName').hide();

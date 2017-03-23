@@ -29,6 +29,7 @@ namespace BusinessLogic.UserMag
             }
             return userList;
         }
+   
         public static List<OMUser> GetAllUser()
         {
             var userlist = new List<OMUser>();
@@ -39,16 +40,38 @@ namespace BusinessLogic.UserMag
                     {
                         Id = x.Id,
                         FirstName = x.FirstName,
-                        Employeeid = x.Employeeid.HasValue ? x.Employeeid.Value : 0,
+                        LastName = x.LastName,
                         Username = x.Username,
                         Password = x.Password,
-                        EmailId = x.EmailId
+                        EmailId = x.EmailId,
+                        Employeeid = x.Employeeid.HasValue ? x.Employeeid.Value : 0,
+
                     }).ToList();
             }
             return userlist;
         }
 
+        public static List<OMUser> UpdateUserDetails(OMUser user)
+        {
 
+            var userlist = new List<OMUser>();
+            UserLogin usr = new UserLogin();
+            if (user.Id > 0)
+            {
+                using (var u = new iGymConnectEntities())
+                {
+
+                    usr = u.UserLogins.FirstOrDefault(x => x.Id == user.Id);
+                    usr.FirstName = user.FirstName;
+                    usr.LastName = user.LastName;
+                    usr.Username = user.Username;
+                    usr.EmailId = user.EmailId;
+                   
+                    u.SaveChanges();
+                }
+            }
+            return userlist;
+        }
         public static List<OMUser> UpdateUser(OMUser user)
         {
 
@@ -58,13 +81,15 @@ namespace BusinessLogic.UserMag
             {
                 using (var u = new iGymConnectEntities())
                 {
-                    usr.Id = user.Id;
+                    usr = u.UserLogins.FirstOrDefault(x => x.Id == user.Id);
                     usr.FirstName = user.FirstName;
                     usr.LastName = user.LastName;
                     usr.Username = user.Username;
                     usr.EmailId = user.EmailId;
                     usr.Password = user.Password;
                     usr.Employeeid = user.Employeeid;
+                
+                 
                     u.SaveChanges();
                 }
             }
@@ -77,11 +102,12 @@ namespace BusinessLogic.UserMag
                 usr.EmailId = user.EmailId;
                 usr.Password = user.Password;
                 usr.Employeeid = user.Employeeid;
+               
                 using (var u = new iGymConnectEntities())
                 {
                     u.UserLogins.Add(usr);
                     u.SaveChanges();
-                    userlist = GetByUserNameAndPassword(user);
+                    userlist = GetAllUser();
                 }
 
             }

@@ -17,12 +17,13 @@ namespace DataLogic.EntityFramework
         public int MemberId { get; set; }
         public string MemberImage { get; set; }
         public string MemberName { get; set; }
+        public Nullable<decimal> Barcode { get; set; }
         public bool Gender { get; set; }
         public string Address { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public Nullable<int> Zip { get; set; }
+        public Nullable<decimal> Zip { get; set; }
         public Nullable<decimal> PhoneHome1 { get; set; }
         public Nullable<decimal> PhoneWork1 { get; set; }
         public string Email { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model List<BusinessLogic.ObjectModel.OMUser>
 
 @{
-   // Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var user = (BusinessLogic.ObjectModel.OMUser)Session["UserLogin"];
 }
 
@@ -13,7 +13,8 @@
                 <h1 class="modal-title" id="myModalLabel">Update Profile</h1>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" id="frmUser">
+                <form id="txtUpdate"class="form-horizontal">
+                    <input type="hidden" id="lbluserid" />
                         <input type="hidden" class="form-control" id="userid" placeholder="Plz Enter The Name" value="@(""+ user.Id) ">
                         <span style="display:none" id="lblFName">Please enter Name</span>
                     <div class="form-group">
@@ -43,8 +44,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnEdit">Edit</button>
-                <button type="button" class="btn btn-primary " data-dismiss="modal" id="btnClr">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnuserEdit">Update</button>
+                <button type="button" class="btn btn-primary " data-dismiss="modal" id="btnuserClr">Cancel</button>
             </div>
         </div>
     </div>
@@ -63,7 +64,28 @@
         }
         return isSuccess;
     }
-    
+    $(document).ready(function () {
+        $('#btnuserEdit').on('click', function () {
+            if (UserValidation()) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UpdateUser", "Dashboard")',
+                    data: {
+                        Id: $('#userid').val(),
+                        FirstName: $('#txtFName').val(),
+                        LastName: $('#txtLName').val(),
+                        UserName: $('#txtUName').val(),
+                        Email: $('#txtUEmailId').val()
+                    },
+                    success: function (data) {
+                        alert("Update Sucessfully)");
+                        location.reload();
+                    },
+                });
+            }
+        });
+
+    });
 </script>
 
 

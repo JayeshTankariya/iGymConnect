@@ -20,9 +20,9 @@ namespace BusinessLogic.UserMag
                     .Select(x => new OMMember
                     {
                         MemberId = x.MemberId,
-                        MemberImage=x.MemberImage,
+                        MemberImage = x.MemberImage,
                         MemberName = x.MemberName,
-                        Barcode = x.Barcode.HasValue ? x.Barcode.Value:0,
+                        Barcode = x.Barcode.HasValue ? x.Barcode.Value : 0,
                         Gender = x.Gender,
                         Address = x.Address,
                         Address2 = x.Address2,
@@ -33,7 +33,7 @@ namespace BusinessLogic.UserMag
                         PhoneWork1 = x.PhoneWork1.HasValue ? x.PhoneWork1.Value : 0,
                         Email = x.Email,
                         Note = x.Note,
-                        Membershiptypeid = x.Membershiptypeid.HasValue ? x.Membershiptypeid.Value:0,
+                        Membershiptypeid = x.Membershiptypeid.HasValue ? x.Membershiptypeid.Value : 0,
                     }).ToList();
             }
             return MemberList;
@@ -51,7 +51,7 @@ namespace BusinessLogic.UserMag
                         MemberId = x.MemberId,
                         MemberImage = x.MemberImage,
                         MemberName = x.MemberName,
-                        Barcode = x.Barcode.HasValue ? x.Barcode.Value:0,
+                        Barcode = x.Barcode.HasValue ? x.Barcode.Value : 0,
                         Gender = x.Gender,
                         Address = x.Address,
                         Address2 = x.Address2,
@@ -66,12 +66,12 @@ namespace BusinessLogic.UserMag
                     }).ToList();
 
             }
-           return MemberList;
+            return MemberList;
         }
 
         public static List<OMMember> Save(OMMember mem)
         {
-            var memberlist = new List <OMMember>();
+            var memberlist = new List<OMMember>();
             MemberMaster member = new MemberMaster();
             if (mem.MemberId > 0)
             {
@@ -95,7 +95,7 @@ namespace BusinessLogic.UserMag
                     member.DateUpdated = DateTime.Now;
                     member.Membershiptypeid = mem.Membershiptypeid;
                     member.Deleted = false;
-                    
+
                     m.SaveChanges();
                 }
             }

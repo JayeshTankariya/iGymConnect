@@ -8,8 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BusinessLogic.ObjectModel;
-using BusinessLogic.UserMag;
+
 
 
 namespace iGymConnect.Controllers
@@ -446,113 +445,95 @@ namespace iGymConnect.Controllers
             document.Close();
             return Json(strPDFfilename2);
         }
-        public ActionResult EmployeeReport(string b1)
+        public ActionResult EmployeeReport()
         {
-            //var emp = BEmployee.GetAllByEmployee();
-            Document document = new Document();
-            MemoryStream stream = new MemoryStream();
-            try
+            var document = new Document();
+            var strPDFfilename = string.Format("GetListOfEmployee" + DateTime.Now.ToString("yyyyMMddhhmmss")) + ".pdf";
+            var output = new FileStream(Server.MapPath("~/Content/PDF/" + strPDFfilename), FileMode.Create);
+
+            var writer = PdfWriter.GetInstance(document, output);
+
+            document.Open();
+            PdfPTable tableHeader = new PdfPTable(6);
+            Font arial = FontFactory.GetFont("Arial", 16, Font.BOLDITALIC, BaseColor.BLUE);
+            PdfPCell cell = new PdfPCell();
+            cell = new PdfPCell(new Phrase("LIST OF EMPLOYEE", arial));
+            cell.Colspan = 6;
+            cell.Border = 0;
+            cell.PaddingBottom = 20f;
+            cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+            tableHeader.AddCell(cell);
+
+            PdfPTable table = new PdfPTable(6);
+            table.SpacingBefore = 5f;
+            table.SpacingBefore = 10f;
+
+            Font arial1 = FontFactory.GetFont("Arial", 10, Font.BOLD, BaseColor.BLUE);
+            PdfPCell cell1 = new PdfPCell();
+            cell1 = new PdfPCell(new Phrase("ADHARCARD", arial1));
+            table.AddCell(cell1);
+            cell1 = new PdfPCell(new Phrase("FULLNAME", arial1));
+            table.AddCell(cell1);
+            cell1 = new PdfPCell(new Phrase("CITY", arial1));
+            table.AddCell(cell1);
+            cell1 = new PdfPCell(new Phrase("ZIP", arial1));
+            table.AddCell(cell1);
+            cell1 = new PdfPCell(new Phrase("HIREDATE", arial1));
+            table.AddCell(cell1);
+            cell1 = new PdfPCell(new Phrase("POSITION", arial1));
+            table.AddCell(cell1);
+
+            foreach (var emp in BEmployee.GetAllByEmployee())
             {
-                PdfWriter pdfWriter = PdfWriter.GetInstance(document, stream);
-                pdfWriter.CloseStream = false;
-
-                document.Open();
-                PdfPTable tableHeader = new PdfPTable(6);
-                Font arial = FontFactory.GetFont("Comic Sans MS", 16, BaseColor.BLUE);
-                PdfPCell cell = new PdfPCell();
-                cell = new PdfPCell(new Phrase("List of Employee", arial));
-                cell.Colspan = 6;
-                cell.Border = 0;
-                cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
-                tableHeader.SpacingAfter = 5f;
-                tableHeader.AddCell(cell);
-
-                PdfPTable table = new PdfPTable(6);
-                table.TotalWidth = 500f;
-                Font arial1 = FontFactory.GetFont("Comic Sans MS", 12, BaseColor.BLUE);
-                PdfPCell cell1 = new PdfPCell();
-                cell1 = new PdfPCell(new Phrase("AdharCard", arial1));
-                table.AddCell(cell1);
-                cell1 = new PdfPCell(new Phrase("FullName", arial1));
-                table.AddCell(cell1);
-                cell1 = new PdfPCell(new Phrase("City", arial1));
-                table.AddCell(cell1);
-                cell1 = new PdfPCell(new Phrase("Zip", arial1));
-                table.AddCell(cell1);
-                cell1 = new PdfPCell(new Phrase("HireDate", arial1));
-                table.AddCell(cell1);
-                cell1 = new PdfPCell(new Phrase("Position", arial1));
-                table.AddCell(cell1);
-
-                foreach (var emp in BEmployee.GetAllByEmployee())
-                {
-                    table.AddCell(emp.AdharcardId.ToString());
-                    table.AddCell(emp.FullName);
-                    table.AddCell(emp.City);
-                    table.AddCell(emp.Zip.ToString());
-                    table.AddCell(emp.HireDate.ToString());
-                    table.AddCell(emp.Position.ToString());
-
-                }
-
-                document.Add(tableHeader);
-                document.Add(table);
-
-                document.Close();
-                stream.Flush();
-                stream.Position = 0;
-
+                table.AddCell(emp.AdharcardId.ToString());
+                table.AddCell(emp.FullName);
+                table.AddCell(emp.City);
+                table.AddCell(emp.Zip.ToString());
+                table.AddCell(emp.HireDate.ToString());
+                table.AddCell(emp.Position.ToString());
 
             }
-            catch (DocumentException de)
-            {
-                Console.Error.WriteLine(de.Message);
-            }
-            catch (IOException ioe)
-            {
-                Console.Error.WriteLine(ioe.Message);
-            }
-
+            document.Add(tableHeader);
+            document.Add(table);
             document.Close();
 
-            stream.Flush();
-            stream.Position = 0;
-
-            return File(stream, "application/pdf", "EmployeeDetails.pdf");
+            return Json(strPDFfilename);
 
         }
         public ActionResult MemberReport()
         {
-            Document document = new Document();
-            MemoryStream stream = new MemoryStream();
-            try
-            {
+            var document = new Document();
+            var strPDFfilename = string.Format("GetListOfMember" + DateTime.Now.ToString("yyyyMMddhhmmss")) + ".pdf";
+            var output = new FileStream(Server.MapPath("~/Content/PDF/" + strPDFfilename), FileMode.Create);
 
-                PdfWriter pdfWriter = PdfWriter.GetInstance(document, stream);
-                pdfWriter.CloseStream = false;
+            var writer = PdfWriter.GetInstance(document, output);
 
-                PdfPTable tableHeader = new PdfPTable(5);
-                Font arial = FontFactory.GetFont("Comic Sans MS", 16, BaseColor.BLUE);
-                PdfPCell cell = new PdfPCell();
-                cell = new PdfPCell(new Phrase("List oF Member", arial));
-                cell.Colspan = 5;
-                cell.Border = 0;
-                cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
-                tableHeader.SpacingAfter = 12f;
-                tableHeader.AddCell(cell);
+            document.Open();
+            PdfPTable tableHeader = new PdfPTable(5);
+            Font arial = FontFactory.GetFont("Arial", 16, Font.BOLDITALIC, BaseColor.BLUE);
+            PdfPCell cell = new PdfPCell();
+            cell = new PdfPCell(new Phrase("LIST OF MEMBER", arial));
+            cell.Colspan = 5;
+            cell.Border = 0;
+            cell.PaddingBottom = 20f;
+            cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+            tableHeader.AddCell(cell);
 
-                PdfPTable table = new PdfPTable(5);
-                Font arial1 = FontFactory.GetFont("Comic Sans MS", 12, BaseColor.BLUE);
-                PdfPCell cell1 = new PdfPCell();
-                cell1 = new PdfPCell(new Phrase("Member Id", arial1));
+            PdfPTable table = new PdfPTable(5);
+            table.SpacingBefore = 5f;
+            table.SpacingBefore = 10f;
+
+            Font arial1 = FontFactory.GetFont("Arial", 10, Font.BOLD, BaseColor.BLUE);
+            PdfPCell cell1 = new PdfPCell();
+            cell1 = new PdfPCell(new Phrase("MEMBER ID", arial1));
                 table.AddCell(cell1);
-                cell1 = new PdfPCell(new Phrase("Member Name", arial1));
+                cell1 = new PdfPCell(new Phrase("MEMBER NAME", arial1));
                 table.AddCell(cell1);
-                cell1 = new PdfPCell(new Phrase("Barcode", arial1));
+                cell1 = new PdfPCell(new Phrase("BARCODE", arial1));
                 table.AddCell(cell1);
-                cell1 = new PdfPCell(new Phrase("State", arial1));
+                cell1 = new PdfPCell(new Phrase("STATE", arial1));
                 table.AddCell(cell1);
-                cell1 = new PdfPCell(new Phrase("Phone", arial1));
+                cell1 = new PdfPCell(new Phrase("PHONE", arial1));
                 table.AddCell(cell1);
 
                 table.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -566,56 +547,40 @@ namespace iGymConnect.Controllers
                     table.AddCell(mem.PhoneHome1.ToString());
                 }
 
-                document.Open();
-                document.Add(tableHeader);
-                document.Add(table);
-
-
-            }
-            catch (DocumentException de)
-            {
-                Console.Error.WriteLine(de.Message);
-            }
-            catch (IOException ioe)
-            {
-                Console.Error.WriteLine(ioe.Message);
-            }
-
+            document.Add(tableHeader);
+            document.Add(table);
             document.Close();
 
-            stream.Flush();
-            stream.Position = 0;
+            return Json(strPDFfilename);
 
-
-            return File(stream, "application/pdf", "ListMemberDetails.pdf");
 
         }
         public ActionResult MembershipTypeDetail()
         {
+            var document = new Document();
+            var strPDFfilename = string.Format("GetListOfMemberShipType" + DateTime.Now.ToString("yyyyMMddhhmmss")) + ".pdf";
+            var output = new FileStream(Server.MapPath("~/Content/PDF/" + strPDFfilename), FileMode.Create);
 
-            Document document = new Document();
-            MemoryStream stream = new MemoryStream();
-            try
-            {
-                PdfWriter pdfWriter = PdfWriter.GetInstance(document, stream);
-                pdfWriter.CloseStream = false;
+            var writer = PdfWriter.GetInstance(document, output);
 
-                document.Open();
-                PdfPTable tableHeader = new PdfPTable(4);
-                Font arial = FontFactory.GetFont("Comic Sans MS", 16, BaseColor.BLUE);
-                PdfPCell cell = new PdfPCell();
-                cell = new PdfPCell(new Phrase("List Of MembershipType", arial));
-                cell.Colspan = 5;
-                cell.Border = 0;
-                cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
-                tableHeader.SpacingAfter = 12f;
-                tableHeader.AddCell(cell);
+            document.Open();
+            PdfPTable tableHeader = new PdfPTable(4);
+            Font arial = FontFactory.GetFont("Arial", 16, Font.BOLDITALIC, BaseColor.BLUE);
+            PdfPCell cell = new PdfPCell();
+            cell = new PdfPCell(new Phrase("LIST OF MEMBERSHIP TYPE", arial));
+            cell.Colspan = 4;
+            cell.Border = 0;
+            cell.PaddingBottom = 20f;
+            cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+            tableHeader.AddCell(cell);
 
-                PdfPTable table = new PdfPTable(4);
-                table.TotalWidth = 500f;
-                Font arial1 = FontFactory.GetFont("Comic Sans MS", 12, BaseColor.BLUE);
-                PdfPCell cell1 = new PdfPCell();
-                cell1 = new PdfPCell(new Phrase("MemberhipTypeId", arial1));
+            PdfPTable table = new PdfPTable(4);
+            table.SpacingBefore = 5f;
+            table.SpacingBefore = 10f;
+
+            Font arial1 = FontFactory.GetFont("Arial", 10, Font.BOLD, BaseColor.BLUE);
+            PdfPCell cell1 = new PdfPCell();
+            cell1 = new PdfPCell(new Phrase("MemberhipTypeId", arial1));
                 table.AddCell(cell1);
                 cell1 = new PdfPCell(new Phrase("Description", arial1));
                 table.AddCell(cell1);
@@ -631,60 +596,39 @@ namespace iGymConnect.Controllers
                     table.AddCell(memship.ActiveDate.ToString());
                     table.AddCell(memship.InActiveDate.ToString());
                 }
-                document.Add(tableHeader);
-                document.Add(table);
-
-                document.Close();
-                stream.Flush();
-                stream.Position = 0;
-
-
-            }
-            catch (DocumentException de)
-            {
-                Console.Error.WriteLine(de.Message);
-            }
-            catch (IOException ioe)
-            {
-                Console.Error.WriteLine(ioe.Message);
-            }
-
+            document.Add(tableHeader);
+            document.Add(table);
             document.Close();
 
-            stream.Flush();
-            stream.Position = 0;
-
-            return File(stream, "application/pdf", "ListMembershiptypeDetail.pdf");
+            return Json(strPDFfilename);
 
         }
         public ActionResult CheckInDetail()
         {
+            var document = new Document();
+            var strPDFfilename = string.Format("GetListOfCheckIn" + DateTime.Now.ToString("yyyyMMddhhmmss")) + ".pdf";
+            var output = new FileStream(Server.MapPath("~/Content/PDF/" + strPDFfilename), FileMode.Create);
 
-            Document document = new Document();
-            MemoryStream stream = new MemoryStream();
-            try
-            {
-                PdfWriter pdfWriter = PdfWriter.GetInstance(document, stream);
-                pdfWriter.CloseStream = false;
+            var writer = PdfWriter.GetInstance(document, output);
 
-                document.Open();
-                PdfPTable tableHeader = new PdfPTable(3);
-                Font arial = FontFactory.GetFont("Comic Sans MS", 16, BaseColor.BLUE);
-                PdfPCell cell = new PdfPCell();
-                cell = new PdfPCell(new Phrase("List Of Check-In", arial));
-                cell.Colspan = 3;
-                cell.Border = 0;
-                cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
-                tableHeader.SpacingAfter = 12f;
-                tableHeader.AddCell(cell);
+            document.Open();
+            PdfPTable tableHeader = new PdfPTable(3);
+            Font arial = FontFactory.GetFont("Arial", 16, Font.BOLDITALIC, BaseColor.BLUE);
+            PdfPCell cell = new PdfPCell();
+            cell = new PdfPCell(new Phrase("LIST OF CHECK-IN DETAILS", arial));
+            cell.Colspan = 3;
+            cell.Border = 0;
+            cell.PaddingBottom = 20f;
+            cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+            tableHeader.AddCell(cell);
 
-                PdfPTable table = new PdfPTable(3);
-                table.TotalWidth = 500f;
-                Font arial1 = FontFactory.GetFont("Comic Sans MS", 12, BaseColor.BLUE);
-                PdfPCell cell1 = new PdfPCell();
+            PdfPTable table = new PdfPTable(3);
+            table.SpacingBefore = 5f;
+            table.SpacingBefore = 10f;
 
-
-                cell1 = new PdfPCell(new Phrase("Member Name", arial1));
+            Font arial1 = FontFactory.GetFont("Arial", 10, Font.BOLD, BaseColor.BLUE);
+            PdfPCell cell1 = new PdfPCell();
+            cell1 = new PdfPCell(new Phrase("Member Name", arial1));
                 table.AddCell(cell1);
                 cell1 = new PdfPCell(new Phrase("In Time", arial1));
                 table.AddCell(cell1);
@@ -697,31 +641,13 @@ namespace iGymConnect.Controllers
                     table.AddCell(mem.MemberName);
                     table.AddCell(memship.InTime.ToString());
                     table.AddCell(memship.OutTime.ToString());
-                }
-                document.Add(tableHeader);
-                document.Add(table);
-
-                document.Close();
-                stream.Flush();
-                stream.Position = 0;
-
 
             }
-            catch (DocumentException de)
-            {
-                Console.Error.WriteLine(de.Message);
-            }
-            catch (IOException ioe)
-            {
-                Console.Error.WriteLine(ioe.Message);
-            }
-
+            document.Add(tableHeader);
+            document.Add(table);
             document.Close();
 
-            stream.Flush();
-            stream.Position = 0;
-
-            return File(stream, "application/pdf", "ListCheckInDetail.pdf");
+            return Json(strPDFfilename);
 
         }
     }

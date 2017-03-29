@@ -136,6 +136,7 @@
     <Content Include="Content\Banners\b4.png" />
     <Content Include="Content\Banners\b5.jpg" />
     <Content Include="Content\Banners\banner5.png" />
+    <Content Include="Content\Banners\checkin.jpg" />
     <Content Include="Content\Banners\checkin.png" />
     <Content Include="Content\Banners\inout.png" />
     <Content Include="Content\Banners\mem1.jpg" />
@@ -224,6 +225,7 @@
     <Content Include="fonts\Code39.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\2762964.jpg" />
     <Content Include="Images\Barcode.png" />
     <Content Include="Images\cat1.jpg" />
     <Content Include="Images\cat2.jpg" />
@@ -243,6 +245,8 @@
     <Content Include="Images\f2.jpg" />
     <Content Include="Images\f3.jpg" />
     <Content Include="Images\f5.jpg" />
+    <Content Include="Images\fitness.jpg" />
+    <Content Include="Images\fitness1.jpg" />
     <Content Include="Images\GiftCard.jpg" />
     <Content Include="Images\Giftcard1.jpg" />
     <Content Include="Images\hd-website-backgrounds-11.jpg" />
@@ -255,12 +259,12 @@
     <Content Include="Images\Inventory.jpg" />
     <Content Include="Images\jpeg.jpg" />
     <Content Include="Images\l2.png" />
+    <Content Include="Images\login_07.gif" />
     <Content Include="Images\Logo.png" />
     <Content Include="Images\m1.jpg" />
     <Content Include="Images\m2.jpg" />
     <Content Include="Images\m3.jpg" />
     <Content Include="Images\Main_BG.jpg" />
-    <Content Include="Images\muserpng.png" />
     <Content Include="Images\t1.jpg" />
     <Content Include="Images\t2.jpg" />
     <Content Include="Images\t3.jpg" />
@@ -307,7 +311,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CheckInController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -341,7 +344,6 @@
     <Content Include="Views\Shared\_UpdateProfile.cshtml" />
     <Content Include="Views\Shared\_Changepassword.cshtml" />
     <Content Include="Views\CheckIn\CheckIn.cshtml" />
-    <Content Include="Views\About\About.cshtml" />
     <Content Include="Views\Shared\_GiftCard.cshtml" />
     <Content Include="Views\Shared\_TransactionDetails.cshtml" />
     <None Include="Web.Debug.config">

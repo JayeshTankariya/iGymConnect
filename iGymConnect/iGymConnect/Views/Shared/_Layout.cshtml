@@ -11,13 +11,42 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="navbar-wrapper">
+        <div class="container">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"> </span> iGym Connect</a>
+                    </div>
+                    <div id="navbar" class="navbar navbar-nav navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("POS", "GetInventory", "POS", null, new { @class = "btn" })</li>
+                            <li>@Html.ActionLink("MEMBERSHIP", "MembershipView", "MamberShip", null, new { @class = "btn" })</li>
+                            <li>@Html.ActionLink("CHECK-IN", "CheckIn", "CheckIn", null, new { @class = "btn" })</li>
+                            <li>@Html.ActionLink("REPORTS", "Reports", "Reports", null, new { @class = "btn" })</li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@("Welcome  " + ((BusinessLogic.ObjectModel.OMUser)Session["UserLogin"]).FirstName) <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li data-toggle="modal" data-target="#Updateprofile"><a href="#">UPDATE PROFILE</a></li>
+                                    <li data-toggle="modal" data-target="#Changepwd"><a href="#">CHANGE PASSWORD</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>@Html.ActionLink("LOGOUT", "Login", "Account", null, new { @class = "btn-default" })</li>
+                                    @*<li><a href="#">One more separated link</a></li>*@
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    @*<nav class="navbar navbar-inverse navbar-fixed-top" >
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"> </span> iGym Connect</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" class="col-xs-3">@Html.ActionLink("ABOUT US", "About", "About", null, new { @class = "btn" })</a></li>
+                
                 <li><a href="#" class="col-xs-3">@Html.ActionLink("POS", "GetInventory", "POS", null, new { @class = "btn" })</a></li>
                 <li><a href="#" class="col-xs-3">@Html.ActionLink("MEMBERSHIP", "MembershipView", "MamberShip", null, new { @class = "btn" })</a></li>
                 <li><a href="#" class="col-xs-3">@Html.ActionLink("CHECK-IN", "CheckIn", "CheckIn", null, new { @class = "btn" })</a></li>
@@ -43,7 +72,7 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav>*@
 
 
 

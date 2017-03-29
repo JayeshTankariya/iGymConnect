@@ -23,18 +23,17 @@ namespace iGymConnect.Controllers
             {
                 Session["UserLogin"] = user;
                 return RedirectToAction("Index", "Dashboard");
-                
+
             }
             else
             {
                 string confirmation = "Plz check Ur UserName / Password";
                 ViewBag.Message = confirmation;
                 return RedirectToAction("Login", "Account");
-                
+
             }
 
-           
+
         }
-       
     }
 }

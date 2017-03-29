@@ -18,9 +18,9 @@ namespace BusinessLogic.ObjectModel
         public string Address2 { get; set;}
         public string City { get; set;}
         public string State { get; set;}
-        public decimal Zip { get; set;}
-        public decimal PhoneHome1 { get; set;}
-        public decimal PhoneWork1 { get; set;}
+        public Decimal Zip { get; set;}
+        public Decimal PhoneHome1 { get; set;}
+        public Decimal PhoneWork1 { get; set;}
         public string Email { get; set;}
         public string Note { get; set; }
         public int Membershiptypeid { get; set; }

@@ -42,17 +42,18 @@
                             <input type="hidden" class="form-control" id="txtpath">
                             <span style="display:none" id="lblmemName">Please enter Name</span>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label"for="exampleInputFile">Member Image:</label>
-                                    <div class="col-sm-3">
-                                        <input type="file" class="form-control" id="txtbrwz">
-                                    </div>
+                                <label class="col-sm-3 control-label" for="exampleInputFile">Member Image:</label>
+                                <div class="col-sm-3">
+                                    <input type="file" class="form-control" id="txtbrwz">
+                                </div>
                                 <div class="col-xs-3">
-                                    <img src="~/Images/defaultuser.png" id="img" style="width:150px; height:150px;" /><br />
+                                    <img class="img-circle" src="~/Images/user512.png" id="img" style="width:150px; height:150px;" /><br />
                                     <br />
                                 </div>
-                                </div>
+                            </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Member Name:
+                                <label class="col-sm-3 control-label">
+                                    Member Name:
                                     <span style="display:inline; color:red">  *</span>
                                 </label>
                                 <div class="col-xs-6">
@@ -73,18 +74,19 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Gender:
-                                    
+                                <label class="col-sm-3 control-label">
+                                    Gender:
+
                                 </label>
                                 <div class="col-sm-2">
                                     <label class="radio-inline">
-                                        <input name="Gender" id="Gender"  type="radio" />Male
-                                        
+                                        <input name="Gender" id="Gender" type="radio" />Male
+
                                     </label>
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="radio-inline">
-                                        <input name="gender"   type="radio" />Female
+                                        <input name="gender" type="radio" />Female
                                     </label>
                                 </div>
                             </div>
@@ -95,25 +97,26 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">Line 2:</label>
+                                <label class="col-sm-3 control-label">Line 2:</label>
                                 <div class="col-sm-8">
                                     <input class="form-control" id="txtAddress2">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">City:</label>
+                                <label class="col-sm-3 control-label">City:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control" id="txtCity">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">State:</label>
+                                <label class="col-sm-3 control-label">State:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control" id="txtState">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">Zip:
+                                <label class="col-sm-3 control-label">
+                                    Zip:
                                     <span style="display:inline; color:red">  *</span>
                                 </label>
                                 <div class="col-sm-4">
@@ -122,7 +125,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">Phone #1:
+                                <label class="col-sm-3 control-label">
+                                    Phone #1:
                                     <span style="display:inline; color:red">  *</span>
                                 </label>
                                 <div class="col-xs-4">
@@ -132,22 +136,23 @@
 
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">Phone #2:</label>
+                                <label class="col-sm-3 control-label">Phone #2:</label>
                                 <div class="col-xs-4">
                                     <input class="form-control" placeholder="WORK" id="PhoneWork1">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">Email:
+                                <label class="col-sm-3 control-label">
+                                    Email:
                                     <span style="display:inline; color:red">  *</span>
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="txtEmail" >
+                                    <input type="text" class="form-control" id="txtEmail">
                                     <span style="display:none; color:red" id="lblValEmail">Email Is Mandatory</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-3 control-label">Note:</label>
+                                <label class="col-sm-3 control-label">Note:</label>
                                 <div class="col-xs-3">
                                     <textarea class="form-control" rows="3" id="txtNote"></textarea>
                                 </div>
@@ -157,8 +162,8 @@
                                 <div class="col-xs-3">
                                     @Html.DropDownList("ddlmemship", new SelectList(ViewBag.membershiplist, "MembershipTypeId", "Description"), "-- Select --", new { @class = "form-control" })
                                 </div>
-                                </div>
-                              </form>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btngetmemicard">GetCard</button>
@@ -166,7 +171,7 @@
                         <button type="button" class="btn btn-primary" id="btnmemdelete">Delete</button>
                         <button type="reset" class="btn btn-primary" id="btnmemreset">Clear</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                  
+
                     </div>
                 </div>
             </div>
@@ -247,10 +252,11 @@
                     processData: false,
                     success: function (data) {
                             $.each(data, function (index, element) {
-                                alert("Save Sucessfully)")
-                                location.reload();
+
                             });
-                          
+                            alert("Save Sucessfully)")
+                            location.reload();
+
                     }
                 });
             }
@@ -302,7 +308,7 @@
                 {
                     alert("Your Record Deleted Successfully");
                 }
-                document.getElementById("frmmember").reset();
+
                 location.reload();
             }
         });

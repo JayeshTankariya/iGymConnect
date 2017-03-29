@@ -96,24 +96,24 @@
           <Key>
             <PropertyRef Name="MemberId" />
           </Key>
-          <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MemberImage" Type="nvarchar" MaxLength="50" />
-          <Property Name="MemberName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Barcode" Type="numeric" Precision="8" Scale="0" />
-          <Property Name="Gender" Type="bit" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
-          <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="State" Type="nvarchar" MaxLength="50" />
-          <Property Name="Zip" Type="numeric" Precision="6" Scale="0" />
-          <Property Name="PhoneHome1" Type="numeric" Precision="10" Scale="0" />
-          <Property Name="PhoneWork1" Type="numeric" Precision="10" Scale="0" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="MemberId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="MemberImage" MaxLength="50" Type="nvarchar" />
+          <Property Name="MemberName" MaxLength="50" Type="nvarchar" />
+          <Property Name="Barcode" Precision="8" Scale="0" Type="numeric" />
+          <Property Name="Gender" Nullable="false" Type="bit" />
+          <Property Name="Address" MaxLength="50" Type="nvarchar" />
+          <Property Name="Address2" MaxLength="50" Type="nvarchar" />
+          <Property Name="City" MaxLength="50" Type="nvarchar" />
+          <Property Name="State" MaxLength="50" Type="nvarchar" />
+          <Property Name="Zip" Precision="6" Scale="0" Type="numeric" />
+          <Property Name="PhoneHome1" Precision="10" Scale="0" Type="numeric" />
+          <Property Name="PhoneWork1" Precision="10" Scale="0" Type="numeric" />
+          <Property Name="Email" MaxLength="50" Type="nvarchar" />
           <Property Name="Membershiptypeid" Type="int" />
-          <Property Name="Note" Type="nvarchar" MaxLength="50" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="Note" MaxLength="50" Type="nvarchar" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
+          <Property Name="DateCreated" Nullable="false" Type="datetime" />
+          <Property Name="CreatedBy" Nullable="false" Type="int" />
           <Property Name="DateUpdated" Type="datetime" />
           <Property Name="Updated" Type="int" />
         </EntityType>
@@ -398,25 +398,25 @@
           <Key>
             <PropertyRef Name="MemberId" />
           </Key>
-          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Barcode" Type="Decimal" Precision="8" Scale="0" />
-          <Property Name="Gender" Type="Boolean" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Zip" Type="Decimal" Precision="6" Scale="0" />
-          <Property Name="PhoneHome1" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="PhoneWork1" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MemberId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="MemberImage" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="MemberName" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Barcode" Precision="8" Scale="0" Type="Decimal" />
+          <Property Name="Gender" Nullable="false" Type="Boolean" />
+          <Property Name="Address" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Address2" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="City" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="State" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Zip" Precision="6" Scale="0" Type="Decimal" />
+          <Property Name="PhoneHome1" Precision="10" Scale="0" Type="Decimal" />
+          <Property Name="PhoneWork1" Precision="10" Scale="0" Type="Decimal" />
+          <Property Name="Email" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="Membershiptypeid" Type="Int32" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Deleted" Type="Boolean" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="Note" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Deleted" Nullable="false" Type="Boolean" />
+          <Property Name="DateCreated" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="CreatedBy" Nullable="false" Type="Int32" />
+          <Property Name="DateUpdated" Precision="3" Type="DateTime" />
           <Property Name="Updated" Type="Int32" />
         </EntityType>
         <EntityType Name="CardMaster">

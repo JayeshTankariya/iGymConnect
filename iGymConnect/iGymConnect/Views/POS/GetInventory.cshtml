@@ -1,7 +1,7 @@
 ﻿@model List<BusinessLogic.ObjectModel.OMCategory>
 @{
-    //Layout = null;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+    //Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "GetInventory";
 }
 
@@ -466,6 +466,8 @@
                     @******total
                         *****sub- total*@
         </body>
+
+
     }
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -719,10 +721,11 @@
                 $('#myCash').modal('show');
             }
             else {
-                alert("Plz Select Some Items To Continue The Transaction");
+                alert("Plz Add Some Items To Cart To Continue The Transaction");
                 $('#myCash').modal('hide');
             }
-            
+            $('#txtItemTotal').val($('#txtGrandTotal').val());
+            $('#txtItemTotal').attr('readonly', true);
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("CashPayment", "POS")',
@@ -730,10 +733,10 @@
                 success: function (data) {
                     if (data != null) {
                         $('#myCash').each(function (index) {
-                              if ($('#tblCart tbody tr td:last') != null) {
-                                  $('#txtItemTotal').val($('#txtGrandTotal').val());
-                                  $('#txtItemTotal').attr('readonly', true);
-                            }
+                            //  if ($('#tblCart tbody tr td:last') != null) {
+                            //      //$('#txtItemTotal').val($('#txtGrandTotal').val());
+                            //      $('#txtItemTotal').attr('readonly', true);
+                            //}
                         });
                     }
                 }
@@ -942,15 +945,23 @@
         $('body').on('click', '#tblCart tbody tr', function () {
             a = $(this).index();
         });
-
+                    
         $('#btnDelete').on('click', function () {
-            if ('click', '#tblCart tbody tr') {
-                if (confirm("Are You Sure You Want To Remove This Item From Cart ?")) {
-                    $('#tblCart tbody tr:eq(' + a + ')').remove();
-                    a = null;
-                    Final();
+            if ($('#tblCart tbody tr').length > 0) {
+                if ('click', '#tblCart tbody tr') {
+                    if (confirm("Are You Sure You Want To Remove This Item From Cart ?")) {
+                        $('#tblCart tbody tr:eq(' + a + ')').remove();
+                        a = null;
+                        Final();
+                    }
                 }
             }
+            else {
+                alert("Plz Select Items First");
+                //$('#myCash').modal('hide');
+            }
+
+             
         });
         $('body').on('click', '#tblCard tbody tr', function () {
             a = $(this).index();

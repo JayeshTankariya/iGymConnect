@@ -57,11 +57,7 @@ namespace iGymConnect.Controllers
 
             return Json(pwdchng);
         }
-        public ActionResult Changepwd()
-        {
-            return View("_Changepassword");
-        }
-
+       
 
     }
 
